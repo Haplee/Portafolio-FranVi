@@ -1,0 +1,107 @@
+body {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.neon-text {
+    font-size: 4em;
+    color: #fff;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #ff0,
+        0 0 30px #ff0,
+        0 0 40px #ff0,
+        0 0 55px #ff0,
+        0 0 75px #ff0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 3px solid #ff0;
+    margin-right: 30px;
+}
+
+.profile-info h2 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.repositories h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+}
+
+.repo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.repo-card {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.repo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 255, 0, 0.2);
+}
+
+.repo-card h3 {
+    margin-top: 0;
+    color: #ff0;
+}
+
+.repo-card p {
+    color: #ccc;
+}
+
+.repo-card a {
+    color: #ff0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .repo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-pic {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
