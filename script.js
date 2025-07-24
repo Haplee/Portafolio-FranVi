@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const username = 'octocat'; // Cambia esto por tu nombre de usuario de GitHub
+    const username = 'Haplee'; // Cambia esto por tu nombre de usuario de GitHub
     const repoGrid = document.querySelector('.repo-grid');
     const profilePic = document.querySelector('.profile-pic');
     const profileName = document.querySelector('.profile-info h2');
