@@ -1,3 +1,8 @@
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 body {
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     color: #fff;
@@ -9,6 +14,20 @@ body {
 header {
     text-align: center;
     padding: 50px 0;
+    position: relative;
+}
+
+#theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #ff0;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .neon-text {
@@ -34,6 +53,7 @@ main {
     display: flex;
     align-items: center;
     margin-bottom: 50px;
+    animation: fadeIn 1s ease-out;
 }
 
 .profile-pic {
@@ -48,6 +68,22 @@ main {
 .profile-info h2 {
     margin: 0;
     font-size: 2.5em;
+}
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: #ff0;
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #fff;
 }
 
 .repositories h2 {
@@ -68,6 +104,8 @@ main {
     border-radius: 10px;
     padding: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
 }
 
 .repo-card:hover {
@@ -88,6 +126,43 @@ main {
     color: #ff0;
     text-decoration: none;
     font-weight: bold;
+}
+
+.repo-stats {
+    margin-top: 15px;
+    color: #aaa;
+}
+
+.repo-stats span {
+    margin-right: 15px;
+}
+
+body.light-mode {
+    background: #f0f2f5;
+    color: #333;
+}
+
+body.light-mode .neon-text {
+    color: #333;
+    text-shadow: none;
+}
+
+body.light-mode .repo-card {
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+body.light-mode .repo-card h3, body.light-mode .repo-card a {
+    color: #007bff;
+}
+
+body.light-mode .repo-card p {
+    color: #555;
+}
+
+body.light-mode #theme-toggle {
+    background-color: #000;
+    color: #fff;
 }
 
 @media (max-width: 768px) {
