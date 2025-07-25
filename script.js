@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             socialLinks.innerHTML += `<a href="${user.blog}" target="_blank" title="Website/Blog">🌐</a>`;
         }
         if (user.twitter_username) {
-            socialLinks.innerHTML += `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="Twitter">🐦</a>`;
+            // --- Links de Redes Sociales ---
+            socialLinks.innerHTML += `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="X">𝕏</a>`;
+            socialLinks.innerHTML += `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram">𝕀</a>`;
         }
     };
 
