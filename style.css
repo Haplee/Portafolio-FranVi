@@ -6,7 +6,7 @@
 body {
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Arial', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -38,9 +38,7 @@ header {
         0 0 10px #fff,
         0 0 20px #ff0,
         0 0 30px #ff0,
-        0 0 40px #ff0,
-        0 0 55px #ff0,
-        0 0 75px #ff0;
+        0 0 50px #ff0;
 }
 
 main {
