@@ -1,0 +1,212 @@
+/* General Styles */
+:root {
+    --bg-color-light: #f4f4f4;
+    --text-color-light: #333;
+    --header-bg-light: #fff;
+    --card-bg-light: #fff;
+    --box-shadow-light: 0 2px 4px rgba(0,0,0,0.1);
+
+    --bg-color-dark: #121212;
+    --text-color-dark: #f4f4f4;
+    --header-bg-dark: #1e1e1e;
+    --card-bg-dark: #1e1e1e;
+    --box-shadow-dark: 0 2px 4px rgba(0,0,0,0.5);
+
+    --primary-color: #007bff;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.light-mode header {
+    background-color: var(--header-bg-light);
+    border-bottom-color: #e0e0e0;
+}
+
+body.dark-mode header {
+    background-color: var(--header-bg-dark);
+    border-bottom-color: #333;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+#theme-toggle {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* Profile Section */
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
+}
+
+body.light-mode .profile {
+    border-bottom-color: #e0e0e0;
+}
+
+body.dark-mode .profile {
+    border-bottom-color: #333;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 30px;
+    border: 3px solid var(--primary-color);
+}
+
+.profile-info h2 {
+    margin: 0 0 10px;
+    font-size: 2em;
+}
+
+.profile-info p {
+    margin: 0 0 15px;
+    font-size: 1.1em;
+    opacity: 0.8;
+}
+
+.social-links a {
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 1.5em;
+    transition: opacity 0.3s;
+}
+
+body.light-mode .social-links a {
+    color: var(--text-color-light);
+}
+
+body.dark-mode .social-links a {
+    color: var(--text-color-dark);
+}
+
+.social-links a:hover {
+    opacity: 0.7;
+}
+
+/* Repositories Section */
+.repositories h2 {
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.repo-card {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode .repo-card {
+    background-color: var(--card-bg-light);
+    box-shadow: var(--box-shadow-light);
+}
+
+body.dark-mode .repo-card {
+    background-color: var(--card-bg-dark);
+    box-shadow: var(--box-shadow-dark);
+}
+
+.repo-card:hover {
+    transform: translateY(-5px);
+}
+
+body.light-mode .repo-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .repo-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+}
+
+
+.repo-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.3em;
+    color: var(--primary-color);
+}
+
+.repo-card p {
+    margin: 0 0 15px;
+    font-size: 0.95em;
+    opacity: 0.8;
+}
+
+.repo-stats {
+    font-size: 0.9em;
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.repo-stats span {
+    margin-right: 15px;
+}
+
+.repo-card a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-pic {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}

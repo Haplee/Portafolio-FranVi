@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DOM ELEMENTS ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
-    const headerName = document.querySelector('.neon-text');
+    const headerName = document.getElementById('header-name');
     const profilePic = document.querySelector('.profile-pic');
-    const profileName = document.querySelector('.profile-info h2');
-    const profileDesc = document.querySelector('.profile-info p');
+    const profileName = document.getElementById('profile-name');
+    const profileBio = document.getElementById('profile-bio');
     const socialLinks = document.querySelector('.social-links');
     const repoGrid = document.querySelector('.repo-grid');
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         headerName.textContent = user.name || user.login;
         profilePic.src = user.avatar_url;
         profileName.textContent = user.name || user.login;
-        profileDesc.textContent = user.bio || 'Desarrollador de software apasionado por la tecnología.';
+        profileBio.textContent = user.bio || 'Desarrollador de software apasionado por la tecnología.';
 
         socialLinks.innerHTML = '';
         if (user.blog) {
@@ -40,10 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const displayRepos = (repos) => {
         repoGrid.innerHTML = '';
-        repos.forEach((repo, index) => {
+        repos.forEach((repo) => {
             const repoCard = document.createElement('div');
             repoCard.classList.add('repo-card');
-            repoCard.style.animationDelay = `${index * 0.1}s`;
             repoCard.innerHTML = `
                 <h3>${repo.name}</h3>
                 <p>${repo.description || 'No hay descripción disponible.'}</p>
@@ -59,15 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const toggleTheme = () => {
         body.classList.toggle('light-mode');
+        body.classList.toggle('dark-mode');
         const isLightMode = body.classList.contains('light-mode');
-        localStorage.setItem('lightMode', isLightMode);
-        themeToggle.textContent = isLightMode ? 'Modo Noche' : 'Modo Día';
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+        themeToggle.textContent = isLightMode ? 'Modo Oscuro' : 'Modo Claro';
     };
 
     const loadTheme = () => {
-        if (JSON.parse(localStorage.getItem('lightMode'))) {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.remove('dark-mode');
             body.classList.add('light-mode');
-            themeToggle.textContent = 'Modo Noche';
+            themeToggle.textContent = 'Modo Oscuro';
         }
     };
 

@@ -4,31 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portafolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="new-style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body>
-    <header>
-        <h1 class="neon-text">Fran Vidal</h1>
-        <button id="theme-toggle">Modo Día</button>
-    </header>
-    <main>
-        <section class="profile">
-            <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
-            <div class="profile-info">
-                <h2>Tu Nombre</h2>
-                <p>Descripción de GitHub...</p>
-                <div class="social-links">
-                    <!-- Los enlaces se añadirán dinámicamente desde JS -->
+<body class="dark-mode">
+    <div class="container">
+        <header>
+            <h1 id="header-name">Fran Vidal</h1>
+            <button id="theme-toggle">Modo Claro</button>
+        </header>
+        <main>
+            <section class="profile">
+                <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
+                <div class="profile-info">
+                    <h2 id="profile-name">Tu Nombre</h2>
+                    <p id="profile-bio">Descripción de GitHub...</p>
+                    <div class="social-links">
+                        <!-- Los enlaces se añadirán dinámicamente desde JS -->
+                    </div>
                 </div>
-            </div>
-        </section>
-        <section class="repositories">
-            <h2>Mis Repositorios</h2>
-            <div class="repo-grid">
-                </div>
-        </section>
-    </main>
+            </section>
+            <section class="repositories">
+                <h2>Mis Repositorios</h2>
+                <div class="repo-grid">
+                    </div>
+            </section>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
