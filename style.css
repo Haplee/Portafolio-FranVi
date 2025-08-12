@@ -21,13 +21,33 @@ header {
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: #ff0;
-    color: #000;
+    background-color: transparent;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 1.5rem;
+    padding: 5px;
+}
+
+#sun-icon, #moon-icon {
+    display: none;
+}
+
+/* Show sun in dark mode */
+body:not(.light-mode) #sun-icon {
+    display: inline;
+}
+
+body:not(.light-mode) #sun-icon svg {
+    stroke: #ff0;
+}
+
+/* Show moon in light mode */
+body.light-mode #moon-icon {
+    display: inline;
+}
+
+body.light-mode #moon-icon svg {
+    stroke: #3498db;
 }
 
 .neon-text {

@@ -61,13 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         body.classList.toggle('light-mode');
         const isLightMode = body.classList.contains('light-mode');
         localStorage.setItem('lightMode', isLightMode);
-        themeToggle.textContent = isLightMode ? 'Modo Noche' : 'Modo Día';
     };
 
     const loadTheme = () => {
         if (JSON.parse(localStorage.getItem('lightMode'))) {
             body.classList.add('light-mode');
-            themeToggle.textContent = 'Modo Noche';
         }
     };
 
