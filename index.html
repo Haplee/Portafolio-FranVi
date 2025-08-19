@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1 class="neon-text">Fran Vidal</h1>
+        <h1 class="header-title"></h1>
         <button id="theme-toggle">
             <span id="sun-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -19,23 +19,131 @@
             </span>
         </button>
     </header>
-    <main>
-        <section class="profile">
-            <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
-            <div class="profile-info">
-                <h2>Tu Nombre</h2>
-                <p>Descripción de GitHub...</p>
-                <div class="social-links">
-                    <!-- Los enlaces se añadirán dinámicamente desde JS -->
+
+    <div class="container">
+        <section class="panel home">
+            <div class="bg-animation">
+                <div class="shape shape1"></div>
+                <div class="shape shape2"></div>
+                <div class="shape shape3"></div>
+                <div class="shape shape4"></div>
+            </div>
+            <div class="content">
+                <h2>Hola, soy <span class="profile-name-home"></span></h2>
+                <p>Desliza para ver mis proyectos</p>
+            </div>
+        </section>
+
+        <section class="panel profile">
+            <div class="profile-content">
+                <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
+                <div class="profile-info">
+                    <h2></h2>
+                    <p class="profile-bio"></p>
+                    <div class="social-links">
+                        <!-- Los enlaces se añadirán dinámicamente -->
+                    </div>
+                </div>
+                <div class="personal-info">
+                    <h2>📌 Datos Personales</h2>
+                    <ul>
+                        <li><strong>Nombre:</strong> Francisco Vidal Mateo</li>
+                        <li><strong>Teléfono:</strong> 685735410</li>
+                        <li><strong>Correo:</strong> <a href="mailto:fvidalmateo@gmail.com">fvidalmateo@gmail.com</a></li>
+                    </ul>
+
+                    <h2>🎓 Educación</h2>
+                    <ul>
+                        <li><strong>IES Trafalgar:</strong> Estudiante de Administración de Sistemas Informáticos en Red (ASIR)</li>
+                    </ul>
+
+                    <h2>🌍 Idiomas</h2>
+                    <ul>
+                        <li><strong>Español:</strong> Nativo</li>
+                        <li><strong>Inglés:</strong> Medio-Avanzado</li>
+                        <li><strong>Francés:</strong> Básico</li>
+                    </ul>
+
+                    <h2>👤 Sobre mí</h2>
+                    <ul>
+                        <li>Capacidad de aprendizaje</li>
+                        <li>Trabajo en equipo</li>
+                        <li>Iniciativa</li>
+                        <li>Honradez</li>
+                    </ul>
+
+                    <h2>🛠️ Conocimientos</h2>
+                    <ul>
+                        <li>Administración de sistemas Windows y Linux</li>
+                        <li>Configuración, instalación y mantenimiento de redes</li>
+                        <li>Montaje, mantenimiento y optimización de equipos Windows</li>
+                        <li>Diseño y maquetación web</li>
+                        <li>Diseño e impresión 3D</li>
+                    </ul>
+
+                    <h2>🎯 Aficiones e intereses</h2>
+                    <ul>
+                        <li>Diseño y maquetación web</li>
+                        <li>Diseño e impresión 3D</li>
+                        <li>Jugador de <strong>balonmano en Barbate</strong> (pista y playa)</li>
+                    </ul>
                 </div>
             </div>
         </section>
-        <section class="repositories">
+
+        <section class="panel repositories">
             <h2>Mis Repositorios</h2>
             <div class="repo-grid">
-                </div>
+                <!-- Los repositorios se añadirán dinámicamente -->
+            </div>
         </section>
-    </main>
+
+        <section class="panel gaming">
+            <div class="gaming-content">
+                <h2>🎮 Gaming Setup & Socials</h2>
+                <div class="gaming-columns">
+                    <div class="column">
+                        <h3>CS:GO</h3>
+                        <ul>
+                            <li><strong>Nickname:</strong> Haplee</li>
+                            <li><strong>Rol:</strong> Awper | Entry Fragger | Lurker</li>
+                            <li><strong>Team:</strong> No One</li>
+                            <li><strong>WebPage:</strong> <a href="https://haplee.github.io/PaginaWebHaplee/" target="_blank">haplee.github.io</a></li>
+                            <li><strong>Twitch:</strong> <a href="https://www.twitch.tv/haplee" target="_blank">twitch.tv/haplee</a></li>
+                            <li><strong>Instagram:</strong> <a href="https://www.instagram.com/franvidalmateo" target="_blank">@franvidalmateo</a></li>
+                            <li><strong>Twitter:</strong> <a href="https://twitter.com/FranVidalMateo" target="_blank">@FranVidalMateo</a></li>
+                            <li><strong>Faceit:</strong> <a href="https://www.faceit.com/es/players/Hap1ee" target="_blank">faceit.com/es/players/Hap1ee</a></li>
+                            <li><strong>Faceit Stats:</strong> <a href="https://www.faceit-stats.me/?user=Hap1ee" target="_blank">faceit-stats.me</a></li>
+                            <li><strong>Teams Anteriores:</strong> eXcept'oN eSports</li>
+                            <li><strong>Settings:</strong> <a href="https://settings.gg/Haplee" target="_blank">settings.gg/Haplee</a></li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>PORTATIL: HP VICTUS 16</h3>
+                        <ul>
+                            <li><strong>CPU:</strong> Ryzen 7 5800H</li>
+                            <li><strong>GPU:</strong> RTX 3050ti 4GB</li>
+                            <li><strong>RAM:</strong> 8Gb x2</li>
+                            <li><strong>SSD1:</strong> 1TB</li>
+                            <li><strong>HDD2:</strong> 512GB</li>
+                            <li><strong>Screen:</strong> 16.1" 144Hz</li>
+                        </ul>
+                        <h3>PERIFERICOS</h3>
+                        <ul>
+                            <li><strong>Keyboard:</strong> Ajazz AK820Pro</li>
+                            <li><strong>Mouse:</strong> VXE/VGN Dragonfly R1 SE+</li>
+                            <li><strong>HeadSet:</strong> HyperX Cloud Stinger Core</li>
+                            <li><strong>Mousepad:</strong> TitanWolf 900×400</li>
+                            <li><strong>1ª Monitor:</strong> Acer R240Ysi 75Hz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
