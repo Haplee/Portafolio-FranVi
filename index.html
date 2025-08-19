@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1 class="neon-text">Fran Vidal</h1>
+        <h1 class="header-title"></h1>
         <button id="theme-toggle">
             <span id="sun-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -19,23 +19,38 @@
             </span>
         </button>
     </header>
-    <main>
-        <section class="profile">
-            <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
-            <div class="profile-info">
-                <h2>Tu Nombre</h2>
-                <p>Descripción de GitHub...</p>
-                <div class="social-links">
-                    <!-- Los enlaces se añadirán dinámicamente desde JS -->
+
+    <div class="container">
+        <section class="panel home">
+            <div class="content">
+                <h2>Hola, soy <span class="profile-name-home"></span></h2>
+                <p>Desliza para ver mis proyectos</p>
+            </div>
+        </section>
+
+        <section class="panel profile">
+            <div class="profile-content">
+                <img src="https://via.placeholder.com/150" alt="Foto del perfil de GitHub" class="profile-pic">
+                <div class="profile-info">
+                    <h2></h2>
+                    <p class="profile-bio"></p>
+                    <div class="social-links">
+                        <!-- Los enlaces se añadirán dinámicamente -->
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="repositories">
+
+        <section class="panel repositories">
             <h2>Mis Repositorios</h2>
             <div class="repo-grid">
-                </div>
+                <!-- Los repositorios se añadirán dinámicamente -->
+            </div>
         </section>
-    </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
