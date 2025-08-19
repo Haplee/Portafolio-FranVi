@@ -109,6 +109,7 @@ body.light-mode #moon-icon {
 
 .profile-content {
     display: flex;
+
     align-items: flex-start;
     gap: 50px;
     width: 90%;
@@ -141,6 +142,7 @@ body.light-mode #moon-icon {
 .personal-info li {
     margin-bottom: 10px;
     line-height: 1.6;
+
 }
 
 .profile-pic {
