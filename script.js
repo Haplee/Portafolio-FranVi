@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user.twitter_username) {
             socialLinks.innerHTML += `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="X" class="animate">𝕏</a>`;
             socialLinks.innerHTML += `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram" class="animate">𝕀</a>`;
+
         }
         socialLinks.innerHTML += `<a href="https://github.com/${GITHUB_USERNAME}" target="_blank" title="GitHub" class="animate"></a>`;
     };
