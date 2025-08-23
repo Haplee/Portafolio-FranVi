@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
 
 :root {
-    --bg-dark: #1A202C;
-    --text-dark: #E2E8F0;
-    --primary-dark: #00C4FF;
-    --secondary-dark: #81E6D9;
+    --bg-dark: #000000;
+    --text-dark: #FFFFFF;
+    --primary-dark: #FFD700; /* Yellow */
+    --secondary-dark: #FFA500; /* Orange */
 
     --bg-light: #F7FAFC;
     --text-light: #2D3748;
@@ -18,6 +18,7 @@ body {
     color: var(--text-dark);
     margin: 0;
     overscroll-behavior: none;
+    text-shadow: 0 0 5px var(--secondary-dark);
 }
 
 body.light-mode {
@@ -85,9 +86,13 @@ body.light-mode #moon-icon {
     margin-bottom: 40px;
 }
 
+h2 .fa-solid {
+    margin-right: 15px;
+}
+
 .gaming-columns {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     text-align: left;
     gap: 40px;
 }
@@ -103,6 +108,7 @@ body.light-mode #moon-icon {
     font-size: 2rem;
     color: var(--primary-dark);
     margin-bottom: 20px;
+    text-shadow: 0 0 7px var(--primary-dark), 0 0 10px var(--primary-dark);
 }
 
 .column ul {
@@ -118,11 +124,12 @@ body.light-mode #moon-icon {
 .column a {
     color: var(--secondary-dark);
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
 .column a:hover {
     color: var(--primary-dark);
+    text-shadow: 0 0 5px var(--primary-dark);
 }
 
 .panel {
@@ -158,6 +165,7 @@ body.light-mode #moon-icon {
     font-family: 'Montserrat', sans-serif;
     font-size: 5rem;
     font-weight: 700;
+    text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-dark), 0 0 35px var(--primary-dark);
 }
 
 .profile-content {
@@ -184,6 +192,7 @@ body.light-mode #moon-icon {
     color: var(--primary-dark);
     margin-top: 20px;
     margin-bottom: 10px;
+    text-shadow: 0 0 7px var(--primary-dark);
 }
 
 .personal-info ul {
@@ -202,7 +211,7 @@ body.light-mode #moon-icon {
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid var(--primary-dark);
-    box-shadow: 0 0 20px var(--primary-dark);
+    box-shadow: 0 0 25px var(--primary-dark), 0 0 40px var(--secondary-dark);
 }
 
 body.light-mode .profile-pic {
@@ -242,6 +251,7 @@ body.light-mode .profile-pic {
 .social-links a:hover {
     color: var(--primary-dark);
     transform: scale(1.2);
+    text-shadow: 0 0 10px var(--primary-dark);
 }
 
 body.light-mode .social-links a {
@@ -282,6 +292,7 @@ body.light-mode .social-links a:hover {
     transform: translateY(-10px);
     background-color: rgba(0,0,0,0.4);
     border-color: var(--primary-dark);
+    box-shadow: 0 0 15px var(--primary-dark);
 }
 
 .repo-card h3 {
@@ -289,6 +300,7 @@ body.light-mode .social-links a:hover {
     font-size: 1.8rem;
     margin: 0 0 10px;
     color: var(--primary-dark);
+    text-shadow: 0 0 5px var(--primary-dark);
 }
 
 .repo-card p {
