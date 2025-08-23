@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach((section) => {
         const animatedEls = section.querySelectorAll(".animate");
         gsap.fromTo(animatedEls,
-            { autoAlpha: 0, y: 50 },
+            { autoAlpha: 0, y: -50 },
             {
                 autoAlpha: 1,
                 y: 0,
