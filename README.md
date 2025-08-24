@@ -13,14 +13,32 @@ Este es un portafolio personal de una sola página que muestra tu información d
 ## Cómo usarlo
 
 1.  **Clona o descarga este repositorio.**
-2.  **Personaliza tu nombre de usuario:**
-    -   Abre el archivo `script.js`.
-    -   En la línea 2, cambia `'octocat'` por tu nombre de usuario de GitHub:
-        ```javascript
-        const username = 'tu-nombre-de-usuario';
-        ```
-3.  **Abre `index.html` en tu navegador.**
+2.  **Abre `index.html` en tu navegador.**
     -   ¡Y eso es todo! Tu portafolio ahora mostrará tu información.
+
+## Actualizar los datos de GitHub
+
+Este portafolio carga los datos de perfil y repositorios desde el archivo local `github-data.json`. Para actualizar esta información con los datos más recientes de tu perfil de GitHub, sigue estos pasos:
+
+1.  **Abre una terminal o línea de comandos.**
+2.  **Ejecuta los siguientes comandos para obtener los datos más recientes de la API de GitHub:**
+    ```bash
+    # Reemplaza 'tu-nombre-de-usuario' con tu nombre de usuario de GitHub
+    USERNAME="tu-nombre-de-usuario"
+
+    # Obtener datos del perfil
+    curl "https://api.github.com/users/$USERNAME" > user.json
+
+    # Obtener datos de los repositorios
+    curl "https://api.github.com/users/$USERNAME/repos" > repos.json
+    ```
+3.  **Combina los archivos en `github-data.json`:**
+    -   Abre el archivo `github-data.json` en un editor de texto.
+    -   Reemplaza el contenido del objeto `user` con el contenido de `user.json`.
+    -   Reemplaza el contenido del array `repos` con el contenido de `repos.json`.
+    -   Guarda el archivo `github-data.json`.
+
+Después de seguir estos pasos, tu portafolio mostrará la información más reciente.
 
 ## Tecnologías utilizadas
 

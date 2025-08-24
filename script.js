@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CONFIGURATION ---
-    const GITHUB_USERNAME = 'haplee';
 
     // --- DOM ELEMENTS ---
     const themeToggle = document.getElementById('theme-toggle');
@@ -12,45 +10,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileBio = document.querySelector('.profile-bio');
     const socialLinks = document.querySelector('.social-links');
     const repoGrid = document.querySelector('.repo-grid');
-    const container = document.querySelector('.container');
 
     // --- GSAP ANIMATIONS ---
     gsap.registerPlugin(ScrollTrigger);
 
-    let sections = gsap.utils.toArray(".panel");
-
-    sections.forEach((section) => {
-        const animatedEls = section.querySelectorAll(".animate");
-        gsap.fromTo(animatedEls,
-            { autoAlpha: 0, y: -50 },
-            {
-                autoAlpha: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none none",
+    const animateElements = (selector) => {
+        const elements = gsap.utils.toArray(selector);
+        elements.forEach((el) => {
+            gsap.fromTo(el,
+                { autoAlpha: 0, y: 50, rotation: -5 },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    rotation: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    }
                 }
-            }
-        );
-    });
-
-    // --- FUNCTIONS ---
-    const fetchGitHubData = async (endpoint) => {
-        const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}${endpoint}`);
-        if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
-        }
-        return response.json();
+            );
+        });
     };
 
+    // --- FUNCTIONS ---
     const updateProfile = (user) => {
         const name = user.name || user.login;
         headerTitle.textContent = name;
-        profileNameHome.textContent = name;
+        if(profileNameHome) profileNameHome.textContent = name;
         profilePic.src = user.avatar_url;
         profileName.textContent = name;
         profileBio.textContent = user.bio || 'Desarrollador de software apasionado por la tecnología.';
@@ -63,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         socialLinks.innerHTML = '';
         if (user.blog) {
-            socialLinks.innerHTML += `<a href="${user.blog}" target="_blank" title="Website/Blog" class="animate">${iconWebsite}</a>`;
+            socialLinks.innerHTML += `<a href="${user.blog}" target="_blank" title="Website/Blog">${iconWebsite}</a>`;
         }
         if (user.twitter_username) {
-            socialLinks.innerHTML += `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="X" class="animate">${iconX}</a>`;
-            socialLinks.innerHTML += `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram" class="animate">${iconInstagram}</a>`;
+            socialLinks.innerHTML += `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="X">${iconX}</a>`;
+            socialLinks.innerHTML += `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram">${iconInstagram}</a>`;
         }
-        socialLinks.innerHTML += `<a href="https://github.com/${GITHUB_USERNAME}" target="_blank" title="GitHub" class="animate">${iconGitHub}</a>`;
+        socialLinks.innerHTML += `<a href="${user.html_url}" target="_blank" title="GitHub">${iconGitHub}</a>`;
     };
 
     const displayRepos = (repos) => {
@@ -78,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
              .slice(0, 6)
              .forEach(repo => {
                 const repoCard = document.createElement('div');
-                repoCard.classList.add('repo-card', 'animate');
+                repoCard.classList.add('repo-card');
                 repoCard.innerHTML = `
                     <h3>${repo.name}</h3>
                     <p>${repo.description || 'No hay descripción disponible.'}</p>
@@ -105,17 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTheme();
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Add animate class to elements that should be animated
-        document.querySelectorAll('.home h2, .home p, .profile-pic, .profile-info h2, .profile-bio, .repositories h2').forEach(el => {
-            el.classList.add('animate');
-        });
+        // Animate all sections
+        animateElements('.panel, .profile-pic, .profile-info > *, .data-card, .column');
 
         try {
-            const user = await fetchGitHubData('');
-            updateProfile(user);
+            const response = await fetch('github-data.json');
+            if (!response.ok) {
+                throw new Error(`Failed to load local data: ${response.status}`);
+            }
+            const data = await response.json();
+            updateProfile(data.user);
+            displayRepos(data.repos);
 
-            const repos = await fetchGitHubData('/repos');
-            displayRepos(repos);
+            // Animate cards after they are added
+            animateElements('.repo-card');
 
         } catch (error) {
             console.error('Failed to fetch GitHub data:', error);
