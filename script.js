@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // --- DOM ELEMENTS ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
@@ -102,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             updateProfile(data.user);
             displayRepos(data.repos);
-
             animateElements('.repo-card');
 
         } catch (error) {
