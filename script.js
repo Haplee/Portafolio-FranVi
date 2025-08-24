@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
-    const GITHUB_USERNAME = 'Haplee';
+    const GITHUB_USERNAME = 'haplee';
 
     // --- DOM ELEMENTS ---
     const themeToggle = document.getElementById('theme-toggle');
