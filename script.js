@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             updateProfile(data.user);
             displayRepos(data.repos);
-
             animateElements('.repo-card');
 
         } catch (error) {
