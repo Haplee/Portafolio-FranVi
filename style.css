@@ -206,7 +206,6 @@ h2 .fa-solid {
     padding: 25px;
     border-radius: 15px;
     text-align: left;
-    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .data-card:hover {
