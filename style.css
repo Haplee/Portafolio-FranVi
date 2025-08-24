@@ -71,17 +71,18 @@ body.light-mode #moon-icon {
     display: block;
 }
 
-.gaming {
+.setup {
     background-color: #212121;
+    flex-direction: column;
 }
 
-.gaming-content {
+.setup-content {
     width: 90%;
     max-width: 1400px;
     text-align: center;
 }
 
-.gaming-content h2 {
+.setup-content h2 {
     font-size: 3.5rem;
     margin-bottom: 40px;
 }
@@ -90,7 +91,7 @@ h2 .fa-solid {
     margin-right: 15px;
 }
 
-.gaming-columns {
+.setup-columns {
     display: flex;
     justify-content: center;
     text-align: left;
@@ -99,6 +100,7 @@ h2 .fa-solid {
 
 .column {
     flex: 1;
+    max-width: 400px;
     background-color: rgba(0,0,0,0.2);
     padding: 20px;
     border-radius: 15px;
@@ -161,48 +163,72 @@ h2 .fa-solid {
     max-width: 800px;
 }
 
-.content h2 {
+.content h1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 5rem;
+    font-size: 4rem;
     font-weight: 700;
     text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-dark), 0 0 35px var(--primary-dark);
 }
 
+.content p {
+    font-size: 1.5rem;
+}
+
 .profile-content {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 50px;
     width: 90%;
     max-width: 1400px;
 }
 
-.personal-info {
-    text-align: left;
-    font-size: 1rem;
-    max-width: 60%;
-    overflow-y: auto;
-    max-height: 80vh;
-    padding: 20px;
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 15px;
+.personal-data {
+    flex-direction: column;
+    background-color: #1a1a1a;
 }
 
-.personal-info h2 {
-    font-size: 2rem;
+.personal-data h2 {
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.data-card {
+    background-color: rgba(0,0,0,0.2);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.data-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.data-card h3 {
+    font-size: 1.8rem;
     color: var(--primary-dark);
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-shadow: 0 0 7px var(--primary-dark);
 }
 
-.personal-info ul {
+.data-card ul {
     list-style: none;
     padding: 0;
+    font-size: 1rem;
 }
 
-.personal-info li {
+.data-card li {
     margin-bottom: 10px;
-    line-height: 1.6;
 }
 
 .profile-pic {
