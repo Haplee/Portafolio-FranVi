@@ -144,6 +144,9 @@ h2 .fa-solid {
     text-align: center;
     position: relative;
     overflow: hidden;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .home {
@@ -206,6 +209,7 @@ h2 .fa-solid {
     padding: 25px;
     border-radius: 15px;
     text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .data-card:hover {
@@ -306,18 +310,15 @@ body.light-mode .social-links a:hover {
 
 .repo-card {
     background-color: rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.1);
     padding: 25px;
     border-radius: 15px;
     text-align: left;
-    transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .repo-card:hover {
     transform: translateY(-10px);
-    background-color: rgba(0,0,0,0.4);
-    border-color: var(--primary-dark);
-    box-shadow: 0 0 15px var(--primary-dark);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
 .repo-card h3 {

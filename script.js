@@ -18,17 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const elements = gsap.utils.toArray(selector);
         elements.forEach((el) => {
             gsap.fromTo(el,
-                { autoAlpha: 0, y: 50, rotation: -5 },
+                { autoAlpha: 0, y: 30 },
                 {
                     autoAlpha: 1,
                     y: 0,
-                    rotation: 0,
                     duration: 0.8,
-                    stagger: 0.2,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: el,
-                        start: "top 85%",
+                        start: "top 90%",
                         toggleActions: "play none none none",
                     }
                 }
@@ -95,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadTheme();
         themeToggle.addEventListener('click', toggleTheme);
 
-        // Animate all sections
         animateElements('.panel, .profile-pic, .profile-info > *, .data-card, .column');
 
         try {
@@ -106,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             updateProfile(data.user);
             displayRepos(data.repos);
-
-            // Animate cards after they are added
             animateElements('.repo-card');
 
         } catch (error) {
