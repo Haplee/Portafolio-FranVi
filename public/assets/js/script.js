@@ -73,6 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const downloadCvButton = document.querySelector('.btn-pdf');
+
+    const loadCv = () => {
+        const cvData = localStorage.getItem('cvData');
+        if (cvData) {
+            downloadCvButton.href = cvData;
+            downloadCvButton.setAttribute('download', 'cv.pdf');
+        } else {
+            downloadCvButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Todavía no se ha subido un CV.');
+            });
+        }
+    };
+
     // --- INITIALIZATION ---
     init();
+    loadCv();
 });
