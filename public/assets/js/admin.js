@@ -1,10 +1,16 @@
+/**
+ * Admin functionalities for the portfolio.
+ * This script handles the visibility of the admin panel and the logic for uploading/saving the CV.
+ */
 document.addEventListener('DOMContentLoaded', () => {
+    // --- DOM ELEMENTS ---
     const adminPanel = document.getElementById('admin');
     const cvUploadInput = document.getElementById('cv-upload');
     const saveCvButton = document.getElementById('save-cv');
     const uploadStatus = document.getElementById('upload-status');
 
     // --- ADMIN PANEL VISIBILITY ---
+    // Show/hide the admin panel with the key combination Ctrl + Alt + A.
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.altKey && e.key === 'a') {
             const isHidden = adminPanel.style.display === 'none' || adminPanel.style.display === '';
