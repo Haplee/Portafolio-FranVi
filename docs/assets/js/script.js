@@ -13,11 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
         profileName.textContent = name;
         if (footerName) footerName.textContent = name;
 
-        // Icons from Font Awesome
-        const iconWebsite = `<a href="${user.blog}" target="_blank" title="Website/Blog"><i class="fas fa-globe"></i></a>`;
-        const iconTwitter = `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>`;
-        const iconInstagram = `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>`;
-        const iconGitHub = `<a href="${user.html_url}" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>`;
+        // --- SOCIAL LINKS (with accessibility improvements) ---
+        // Icons from Font Awesome, with aria-labels for screen readers.
+        const iconWebsite = `<a href="${user.blog}" target="_blank" title="Website/Blog" aria-label="Visita mi sitio web"><i class="fas fa-globe"></i></a>`;
+        const iconTwitter = `<a href="https://twitter.com/${user.twitter_username}" target="_blank" title="Twitter" aria-label="Visita mi perfil de Twitter"><i class="fab fa-twitter"></i></a>`;
+        const iconInstagram = `<a href="https://instagram.com/franvidalmateo" target="_blank" title="Instagram" aria-label="Visita mi perfil de Instagram"><i class="fab fa-instagram"></i></a>`;
+        const iconGitHub = `<a href="${user.html_url}" target="_blank" title="GitHub" aria-label="Visita mi perfil de GitHub"><i class="fab fa-github"></i></a>`;
 
         socialLinks.innerHTML = '';
         if (user.blog) {
@@ -73,6 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const downloadCvButton = document.querySelector('.btn-pdf');
+
+    const loadCv = () => {
+        const cvData = localStorage.getItem('cvData');
+        if (cvData) {
+            downloadCvButton.href = cvData;
+            downloadCvButton.setAttribute('download', 'cv.pdf');
+        } else {
+            downloadCvButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('Todavía no se ha subido un CV.');
+            });
+        }
+    };
+
     // --- INITIALIZATION ---
     init();
+    loadCv();
 });

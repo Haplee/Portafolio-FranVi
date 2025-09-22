@@ -48,11 +48,13 @@ header nav a {
     color: var(--text-color);
     font-weight: 700;
     font-size: 1.1em;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block; /* Added for transform to work */
 }
 
 header nav a:hover {
     color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 main > section {
@@ -110,11 +112,12 @@ main > section {
     border-radius: 5px;
     text-decoration: none;
     font-weight: 700;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 .btn-pdf:hover {
     background-color: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 .skills h3, .projects h3, .setup h3, .contact h3 {
@@ -233,7 +236,7 @@ main > section {
 
 .social-links a:hover {
     color: var(--primary-color);
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-2px);
 }
 
 footer {
