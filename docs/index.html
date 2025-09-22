@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Fran Vidal</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#about" aria-label="Ir a la sección Sobre Mí">Sobre Mí</a>
+            <a href="#projects" aria-label="Ir a la sección Proyectos">Proyectos</a>
+            <a href="#contact" aria-label="Ir a la sección Contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <img src="" alt="Foto de perfil de GitHub" class="profile-pic">
+            <h1 class="profile-name"></h1>
+            <h2 class="profile-title">Finalizando estudios ASIR</h2>
+        </section>
+
+        <section id="about" class="about-me">
+            <div class="container">
+                <h3>Sobre Mí</h3>
+                <p>Estudiante de Administración de Sistemas Informáticos en Red (ASIR) con pasión por el diseño web y la impresión 3D. Me considero una persona con gran capacidad de aprendizaje, me gusta trabajar en equipo, tengo iniciativa y soy honrado. Busco oportunidades para aplicar mis habilidades y seguir creciendo profesionalmente.</p>
+                <a href="#" class="btn-pdf">Descargar CV (PDF)</a>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h3>Habilidades</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="fas fa-desktop"></i>
+                        <h4>Administración de Sistemas</h4>
+                        <p>Sistemas Operativos Windows y Linux, configuración de redes y gestión de hardware.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-code"></i>
+                        <h4>Diseño Web</h4>
+                        <p>Conocimientos en HTML, CSS y JavaScript para la creación de sitios web atractivos y funcionales.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-cube"></i>
+                        <h4>Diseño e Impresión 3D</h4>
+                        <p>Experiencia en modelado y diseño de objetos para impresión 3D.</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="fas fa-language"></i>
+                        <h4>Idiomas</h4>
+                        <p>Español (Nativo), Inglés (Medio-Avanzado), Francés (Básico).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h3>Proyectos</h3>
+                <div class="repo-grid">
+                    <!-- Los repositorios de GitHub se insertarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <section id="setup" class="setup">
+            <div class="container">
+                <h3>Mi Setup</h3>
+                <div class="setup-columns">
+                    <div class="column">
+                        <h4>PORTATIL: HP VICTUS 16</h4>
+                        <ul>
+                            <li><strong>CPU:</strong> Ryzen 7 5800H</li>
+                            <li><strong>GPU:</strong> RTX 3050ti 4GB</li>
+                            <li><strong>RAM:</strong> 8Gb x2</li>
+                            <li><strong>SSD1:</strong> 1TB</li>
+                            <li><strong>HDD2:</strong> 512GB</li>
+                            <li><strong>Screen:</strong> 16.1" 144Hz</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h4>PERIFERICOS</h4>
+                        <ul>
+                            <li><strong>Keyboard:</strong> Ajazz AK820Pro</li>
+                            <li><strong>Mouse:</strong> VXE/VGN Dragonfly R1 SE+</li>
+                            <li><strong>HeadSet:</strong> HyperX Cloud Stinger Core</li>
+                            <li><strong>Mousepad:</strong> TitanWolf 900×400</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h3>¿Quieres hablar?</h3>
+                <div class="social-links">
+                    <!-- Los enlaces a redes sociales se insertarán aquí dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 <span class="footer-name"></span>. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <section id="admin" class="admin-section" style="display:none;">
+        <div class="container">
+            <h3>Panel de Administración</h3>
+            <p>Presiona Ctrl + Alt + A para mostrar/ocultar este panel.</p>
+            <div>
+                <label for="cv-upload">Seleccionar CV (PDF):</label>
+                <input type="file" id="cv-upload" accept=".pdf">
+                <button id="save-cv">Guardar CV</button>
+                <p id="upload-status"></p>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
