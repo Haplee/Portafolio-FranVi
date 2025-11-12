@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove('active');
     }));
 
+    // Reset menu on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    });
+
     // Header con efecto blur al hacer scroll
     const header = document.querySelector('.header');
     ScrollTrigger.create({
