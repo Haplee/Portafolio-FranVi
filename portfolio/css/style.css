@@ -419,6 +419,13 @@ html[data-theme='dark'] .project-tags span {
     transition: all 0.3s ease;
 }
 
+.form-group input:required + label::after,
+.form-group textarea:required + label::after {
+    content: ' *';
+    color: #ef4444; /* Red to indicate required field */
+    padding-left: 2px;
+}
+
 .form-group input:focus + label,
 .form-group input:valid + label,
 .form-group textarea:focus + label,
