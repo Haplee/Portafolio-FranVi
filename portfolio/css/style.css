@@ -318,14 +318,17 @@ html[data-theme='dark'] .theme-toggle-btn .fa-moon {
     background-color: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    /* Eliminada la sombra para un diseño más plano y moderno */
     border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Añadida 'border-color' a la transición para un efecto suave */
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    /* Efecto de elevación más sutil */
+    transform: translateY(-4px);
+    /* El borde se ilumina con el color primario al pasar el ratón */
+    border-color: var(--primary-color);
 }
 
 .project-image {
@@ -341,7 +344,8 @@ html[data-theme='dark'] .theme-toggle-btn .fa-moon {
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.05);
+    /* Efecto de zoom más pronunciado para mayor impacto visual */
+    transform: scale(1.1);
 }
 
 .project-info {
