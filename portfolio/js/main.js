@@ -125,7 +125,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrollTrigger: { trigger: section, start: 'top 80%', toggleActions: 'play none none none' }
             });
             if (sectionTitle) sectionTl.from(sectionTitle, { y: 50, opacity: 0, duration: 1, ease: 'power3.out' });
-            if (projectCards.length > 0) sectionTl.from(projectCards, { y: 50, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.2 }, "-=0.5");
+            if (projectCards.length > 0) {
+                sectionTl.from(projectCards, { y: 50, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.2 }, "-=0.5");
+
+                // Animar las etiquetas de cada tarjeta con un efecto de 'stagger' anidado
+                const tags = gsap.utils.toArray(projectCards).map(card => card.querySelectorAll('.project-tags span'));
+                sectionTl.from(tags, { y: 20, opacity: 0, duration: 0.4, ease: 'power2.out', stagger: 0.05 }, "-=0.8");
+            }
             if (contactForm) sectionTl.from(contactForm, { y: 50, opacity: 0, duration: 1, ease: 'power3.out' }, "-=0.5");
         });
 
