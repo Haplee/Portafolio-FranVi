@@ -162,14 +162,41 @@ main > section {
     gap: 30px;
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .repo-card {
     background-color: #FFF;
     border-radius: 10px;
-    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    /* Start hidden for the animation */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.repo-card.visible {
+    /* Apply the animation when the card is visible */
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.repo-card:hover {
+    /* The border lights up with the primary color on hover */
+    border-color: var(--primary-color);
+    /* A subtle lift effect on hover */
+    transform: translateY(-4px);
 }
 
 .repo-card h4 {
