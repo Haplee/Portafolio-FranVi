@@ -273,7 +273,68 @@ footer {
     padding: 20px 0;
 }
 
+/* Hamburger Menu and Mobile Nav */
+.hamburger {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    z-index: 1001;
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #FFF;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+.mobile-nav a {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1em;
+}
+
+.mobile-nav a:hover {
+    background-color: var(--secondary-color);
+}
+
+
+@media (max-width: 992px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
+    header nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
     .profile-name {
         font-size: 2em;
     }
@@ -285,5 +346,36 @@ footer {
     }
     .column {
         width: 100%;
+    }
+
+    .repo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-name {
+        font-size: 1.8em;
+    }
+
+    .profile-title {
+        font-size: 1em;
+    }
+
+    .about-me h3, .skills h3, .projects h3, .setup h3, .contact h3 {
+        font-size: 1.8em;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .social-links a {
+        font-size: 2em;
     }
 }

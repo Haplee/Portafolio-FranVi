@@ -118,4 +118,18 @@ document.addEventListener('DOMContentLoaded', () => {
         setupObserver();
     });
     loadCv();
+
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+
+    hamburger.addEventListener('click', () => {
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+        });
+    });
 });
