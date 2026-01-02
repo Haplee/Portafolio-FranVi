@@ -89,7 +89,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const setupObserver = () => {
+        const projectSection = document.querySelector('#projects');
+        if (!projectSection) return;
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = document.querySelectorAll('.repo-card');
+                    cards.forEach((card, index) => {
+                        // The delay is calculated based on the card's index
+                        card.style.animationDelay = `${index * 100}ms`;
+                        card.classList.add('visible');
+                    });
+                    // Disconnect the observer after the animation has been triggered
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
+
+        observer.observe(projectSection);
+    };
+
+
     // --- INITIALIZATION ---
-    init();
+    init().then(() => {
+        // We set up the observer after the repositories have been loaded and displayed
+        setupObserver();
+    });
     loadCv();
 });
