@@ -510,43 +510,73 @@ footer {
 }
 
 @media (max-width: 768px) {
-    header nav {
-        display: none;
+
+    /* Transform floating top pill to Fixed Bottom App Dock */
+    header.glass-nav {
+        top: auto;
+        bottom: 20px;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px;
+        border-radius: 24px;
     }
 
-    .hamburger {
+    header.glass-nav nav {
+        width: 100%;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    header.glass-nav nav a {
+        flex-direction: column;
+        padding: 8px 4px;
+        font-size: 0.65rem;
+        gap: 4px;
+        background: transparent !important;
+        box-shadow: none !important;
+        min-width: 60px;
+    }
+
+    header.glass-nav nav a i {
+        font-size: 1.3rem;
+    }
+
+    header.glass-nav nav a span {
         display: block;
+        font-size: 0.6rem;
     }
 
     .hero {
-        padding-top: 60px;
-        min-height: 60vh;
+        padding-top: 40px;
+        min-height: 50vh;
     }
 
     .profile-name {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 
     .profile-pic {
-        width: 130px;
-        height: 130px;
+        width: 120px;
+        height: 120px;
     }
 
     .setup-columns {
         flex-direction: column;
+        gap: 20px;
     }
 
     .column {
         width: 100%;
-        margin-bottom: 20px;
     }
 
     .repo-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .about-me p {
-        font-size: 1rem;
+        font-size: 0.95rem;
         padding: 0;
     }
 
@@ -555,54 +585,39 @@ footer {
     .projects h3,
     .setup h3,
     .contact h3 {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
+        font-size: 1.6rem;
+        margin-bottom: 24px;
     }
 }
 
-@media (max-width: 576px) {
-    .container {
-        padding: 0 20px;
+@media (max-width: 480px) {
+    header.glass-nav {
+        width: 95%;
+        bottom: 15px;
+        padding: 6px;
     }
 
-    .profile-pic {
-        width: 120px;
-        height: 120px;
+    header.glass-nav nav a span {
+        display: none;
+        /* Icon only on very small screens */
+    }
+
+    header.glass-nav nav a {
+        min-width: 50px;
+        padding: 10px 0;
     }
 
     .profile-name {
         font-size: 1.8rem;
     }
 
-    .profile-title {
-        font-size: 1rem;
-        margin-bottom: 30px;
+    .hero {
+        min-height: 45vh;
     }
 
-    .mobile-nav {
-        width: 100%;
-        border-right: none;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skill-card {
-        padding: 20px;
-    }
-
-    .repo-card {
-        padding: 20px;
-    }
-
-    .social-links {
-        gap: 20px;
-    }
-
-    .social-links a {
-        width: 50px;
-        height: 50px;
-        font-size: 1.8rem;
+    .container {
+        padding: 0 16px;
+        /* Ensure content isn't covered by bottom dock */
+        padding-bottom: 80px;
     }
 }
