@@ -497,7 +497,7 @@ footer {
 
 @media (max-width: 992px) {
     .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
     .profile-name {
@@ -544,7 +544,8 @@ footer {
 
     header.glass-nav nav a span {
         display: block;
-        font-size: 0.6rem;
+        font-size: 0.65rem;
+        font-weight: 600;
     }
 
     .hero {
@@ -553,7 +554,8 @@ footer {
     }
 
     .profile-name {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        padding: 0 10px;
     }
 
     .profile-pic {
@@ -592,23 +594,21 @@ footer {
 
 @media (max-width: 480px) {
     header.glass-nav {
-        width: 95%;
-        bottom: 15px;
-        padding: 6px;
-    }
-
-    header.glass-nav nav a span {
-        display: none;
-        /* Icon only on very small screens */
-    }
-
-    header.glass-nav nav a {
-        min-width: 50px;
-        padding: 10px 0;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        transform: none;
+        border-radius: 20px 20px 0 0;
+        padding: 12px 10px;
+        background: rgba(15, 23, 42, 0.9);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
     }
 
     .profile-name {
-        font-size: 1.8rem;
+        font-size: 1.9rem;
     }
 
     .hero {
@@ -616,8 +616,19 @@ footer {
     }
 
     .container {
-        padding: 0 16px;
-        /* Ensure content isn't covered by bottom dock */
-        padding-bottom: 80px;
+        padding: 0 20px;
+    }
+
+    /* Add extra padding to the last section to prevent content being hidden behind the nav */
+    section:last-of-type {
+        padding-bottom: 120px;
+    }
+
+    .column {
+        padding: 25px;
+    }
+
+    .column ul li {
+        font-size: 0.9rem;
     }
 }
