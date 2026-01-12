@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayRepos = (repos) => {
         repoGrid.innerHTML = '';
         repos.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
-             .slice(0, 6)
-             .forEach(repo => {
+            .slice(0, 6)
+            .forEach(repo => {
                 const repoCard = document.createElement('div');
                 repoCard.classList.add('repo-card');
                 repoCard.innerHTML = `
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="${repo.html_url}" target="_blank">Ver en GitHub <i class="fas fa-arrow-right"></i></a>
                 `;
                 repoGrid.appendChild(repoCard);
-             });
+            });
     };
 
     const init = async () => {
@@ -70,24 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Fallo al obtener datos de GitHub:', error);
-            if(repoGrid) repoGrid.innerHTML = '<p>No se pudieron cargar los datos de GitHub.</p>';
+            if (repoGrid) repoGrid.innerHTML = '<p>No se pudieron cargar los datos de GitHub.</p>';
         }
     };
 
     const downloadCvButton = document.querySelector('.btn-pdf');
+    // Set static link for CV in Github Pages
+    downloadCvButton.href = 'assets/cv.pdf';
+    downloadCvButton.setAttribute('download', 'FranVidal_CV.pdf');
 
-    const loadCv = () => {
-        const cvData = localStorage.getItem('cvData');
-        if (cvData) {
-            downloadCvButton.href = cvData;
-            downloadCvButton.setAttribute('download', 'cv.pdf');
-        } else {
-            downloadCvButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('Todavía no se ha subido un CV.');
-            });
-        }
-    };
+    // Check if the file exists (optional visual feedback, usually we just assume it's there)
+    // For now, we assume the user will place a cv.pdf in assets/
 
     const setupObserver = () => {
         const projectSection = document.querySelector('#projects');
@@ -117,19 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // We set up the observer after the repositories have been loaded and displayed
         setupObserver();
     });
-    loadCv();
 
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
 
-    hamburger.addEventListener('click', () => {
-        mobileNav.classList.toggle('active');
-    });
-
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileNav.classList.remove('active');
-        });
-    });
+    // Hamburger code removed as UI was refactored.
 });
