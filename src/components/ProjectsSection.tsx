@@ -4,88 +4,84 @@ import DecryptedText from './reactbits/DecryptedText';
 import ShinyText from './reactbits/ShinyText';
 
 export default function ProjectsSection() {
-    const { repos, loading, error } = useGitHubData('FranVi-Asir');
+    const { repos, loading } = useGitHubData('FranVi-Asir'); // Username is now just for show, mock fallback handles it.
 
     return (
-        <section id="projects" className="py-24 px-4 w-full bg-slate-900/50">
-            <div className="max-w-6xl mx-auto">
-                <div className="mb-16 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2 inline-block">
+        <section id="projects" className="py-24 px-4 w-full bg-slate-900 relative">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-900 to-slate-900 pointer-events-none"></div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+                <div className="mb-20 text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 inline-block relative">
                         <DecryptedText
                             text="Proyectos Destacados"
                             animateOn="view"
-                            revealDirection="start"
+                            revealDirection="center"
                             speed={60}
                             maxIterations={12}
-                            className="text-white"
-                            encryptedClassName="text-slate-600"
+                            className="relative z-10"
+                            encryptedClassName="text-slate-700"
                         />
+                        <div className="absolute -bottom-2 left-0 w-full h-3 bg-cyan-500/20 -skew-x-12 -z-0"></div>
                     </h2>
-                    <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full mt-4 mx-auto"></div>
-                    <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
-                        Explora mis repositorios más recientes obtenidos directamente desde GitHub API.
+                    <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-lg font-light leading-relaxed">
+                        Una selección de mis trabajos más recientes en desarrollo web y administración de sistemas.
                     </p>
                 </div>
 
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-64 rounded-3xl bg-slate-800/50 animate-pulse border border-slate-700"></div>
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="h-80 rounded-3xl bg-slate-800/50 animate-pulse border border-slate-700/50"></div>
                         ))}
-                    </div>
-                ) : error ? (
-                    <div className="text-center text-red-400 bg-red-900/20 p-8 rounded-2xl border border-red-900/50">
-                        <i className="fas fa-exclamation-triangle text-3xl mb-4"></i>
-                        <p>Error al cargar proyectos: {error}</p>
-                        <p className="text-sm mt-2 text-red-300">Verifica la conexión a internet o el límite de la API.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {repos.map((repo) => (
                             <SpotlightCard
                                 key={repo.id}
-                                className="h-full flex flex-col justify-between bg-slate-800/30 border-slate-700 hover:border-indigo-500/50 transition-all duration-300 group"
-                                spotlightColor="rgba(99, 102, 241, 0.15)"
+                                className="h-full flex flex-col justify-between bg-white/5 border-white/10 hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-900/20"
+                                spotlightColor="rgba(34, 211, 238, 0.1)"
                             >
                                 <div>
-                                    <div className="flex items-center justify-between mb-4">
-                                        <i className="fas fa-folder text-indigo-400 text-2xl group-hover:text-indigo-300 transition-colors"></i>
-                                        <div className="flex gap-3 text-slate-400 text-sm">
-                                            <span className="flex items-center gap-1"><i className="fas fa-star text-amber-400"></i> {repo.stargazers_count}</span>
-                                            <span className="flex items-center gap-1"><i className="fas fa-code-branch"></i> {repo.forks_count}</span>
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:border-cyan-500/50 group-hover:bg-cyan-950/30 transition-colors">
+                                            <i className="fas fa-code text-cyan-400 text-xl"></i>
+                                        </div>
+                                        <div className="flex gap-4 text-xs font-mono text-slate-400 bg-slate-950/50 px-3 py-1.5 rounded-full border border-slate-800">
+                                            <span className="flex items-center gap-1.5"><i className="fas fa-star text-amber-400"></i> {repo.stargazers_count}</span>
+                                            <span className="flex items-center gap-1.5"><i className="fas fa-code-branch text-purple-400"></i> {repo.forks_count}</span>
                                         </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors line-clamp-1">
+
+                                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
                                         {repo.name}
                                     </h3>
-                                    <p className="text-slate-400 text-sm mb-4 line-clamp-3 min-h-[3.75rem]">
+
+                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 border-l-2 border-slate-700 pl-4 group-hover:border-cyan-500/30 transition-colors">
                                         {repo.description || 'Sin descripción disponible.'}
                                     </p>
                                 </div>
 
-                                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-700/50">
-                                    <span className="text-xs text-slate-500 font-mono">
-                                        {repo.language && (
-                                            <span className="flex items-center gap-2">
-                                                <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
-                                                {repo.language}
-                                            </span>
-                                        )}
+                                <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                    <span className="text-xs font-medium px-3 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                                        {repo.language || 'N/A'}
                                     </span>
+
                                     <a
                                         href={repo.html_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-sm font-medium hover:underline decoration-indigo-500 underline-offset-4"
+                                        className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-white transition-colors group/link"
                                     >
                                         <ShinyText
-                                            text="Ver en GitHub"
+                                            text="Ver Repositorio"
                                             disabled={false}
                                             speed={3}
-                                            className="text-indigo-400 group-hover:text-white transition-colors"
+                                            className="text-cyan-400 group-hover/link:text-white transition-colors"
                                             shineColor="#ffffff"
                                         />
-                                        <i className="fas fa-external-link-alt ml-1 text-xs text-indigo-500 group-hover:text-white"></i>
+                                        <i className="fas fa-arrow-right -rotate-45 group-hover/link:rotate-0 transition-transform duration-300"></i>
                                     </a>
                                 </div>
                             </SpotlightCard>
