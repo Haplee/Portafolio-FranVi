@@ -1,87 +1,125 @@
+import { motion } from 'motion/react';
 import DecryptedText from './reactbits/DecryptedText';
-import ScrollFloat from './reactbits/ScrollFloat';
 import ShinyText from './reactbits/ShinyText';
 
 export default function AboutSection() {
     return (
-        <section id="about" className="py-24 px-4 w-full bg-slate-900/50 relative">
-            <div className="max-w-4xl mx-auto">
-                <div className="mb-12 text-center md:text-left">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2">
+        <section id="about" className="py-32 px-4 w-full bg-background/50 relative overflow-hidden">
+            <div className="max-w-6xl mx-auto z-10 relative">
+
+                {/* Header */}
+                <div className="mb-16 md:mb-24 text-center md:text-left">
+                    <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
                         <DecryptedText
-                            text="Sobre Mí"
+                            text="About Me"
                             animateOn="view"
                             revealDirection="start"
                             speed={70}
                             maxIterations={15}
-                            className="text-cyan-400"
+                            className="text-primary"
                             parentClassName="inline-block"
-                            encryptedClassName="text-slate-700"
+                            encryptedClassName="text-muted-foreground"
                         />
                     </h2>
-                    <div className="h-1 w-20 bg-cyan-500 rounded-full mt-2 mx-auto md:mx-0"></div>
+                    <div className="h-1.5 w-24 bg-primary rounded-full mt-2 mx-auto md:mx-0"></div>
                 </div>
 
-                <ScrollFloat
-                    animationDuration={0.8}
-                    ease="back.out(1.5)"
-                    stagger={0.1}
-                    containerClassName="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
-                >
-                    <div className="space-y-6 text-slate-300 leading-relaxed text-lg">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+                    {/* Text Content */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="space-y-6 text-muted-foreground leading-relaxed text-lg"
+                    >
                         <p>
-                            ¡Hola! Soy <strong className="text-white">Fran Vidal</strong>, un apasionado de la tecnología y la administración de sistemas.
-                            Actualmente estoy cursando el Grado Superior en <strong className="text-cyan-400">Administración de Sistemas Informáticos en Red (ASIR)</strong>.
+                            Hello! I'm <strong className="text-foreground">Fran Vidal</strong>, a technology enthusiast and System Administration student.
+                            Currently pursuing my Higher Technician degree in <strong className="text-primary">Network Computer Systems Administration (ASIR)</strong>.
                         </p>
                         <p>
-                            Mi objetivo es combinar mis conocimientos en infraestructura y redes con el desarrollo web moderno para crear soluciones completas, seguras y escalables.
-                            No solo me limito a administrar servidores; también disfruto diseñando interfaces intuitivas y funcionales.
+                            My goal is to combine my infrastructure and networking knowledge with modern web development to build complete, secure, and scalable solutions.
+                            I don't just manage servers; I enjoy crafting intuitive and functional interfaces.
                         </p>
-                        <div className="pt-4">
+
+                        <div className="pt-6">
                             <a
                                 href="./assets/docs/CV-FranVidal.pdf"
                                 download
-                                className="inline-block group relative px-8 py-3 rounded-xl bg-indigo-600/20 border border-indigo-500/50 overflow-hidden transition-all hover:bg-indigo-600/30 hover:border-indigo-400"
+                                className="inline-block group relative px-8 py-3 rounded-full bg-primary/10 border border-primary/20 overflow-hidden transition-all hover:bg-primary/20 hover:border-primary/40"
                             >
                                 <ShinyText
-                                    text="Descargar CV"
+                                    text="Download CV"
                                     disabled={false}
                                     speed={3}
-                                    className="font-medium text-indigo-300 group-hover:text-white transition-colors"
+                                    className="font-medium text-primary group-hover:text-foreground transition-colors"
                                     shineColor="#ffffff"
                                 />
-                                <i className="fas fa-download ml-2 text-indigo-400 group-hover:text-white transition-colors"></i>
+                                <i className="fas fa-download ml-3 text-primary/70 group-hover:text-foreground transition-colors"></i>
                             </a>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="relative">
-                        <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-2xl blur-2xl opacity-20"></div>
-                        <div className="relative bg-slate-800/50 border border-slate-700 p-6 rounded-2xl backdrop-blur-sm">
-                            <ul className="space-y-4">
-                                {[
-                                    { label: 'Ubicación', value: 'España, Barbate', icon: 'fas fa-map-marker-alt text-red-400' },
-                                    { label: 'Estudios', value: 'ASIR (2º Año)', icon: 'fas fa-graduation-cap text-yellow-400' },
-                                    { label: 'Intereses', value: 'DevOps, Cloud, Web Design', icon: 'fas fa-heart text-pink-400' },
-                                    { label: 'Disponibilidad', value: 'Open to Work', icon: 'fas fa-briefcase text-green-400' },
-                                ].map((item, idx) => (
-                                    <li key={idx} className="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-700/50 transition-colors">
-                                        <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center shrink-0">
-                                            <i className={item.icon}></i>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs text-slate-500 uppercase tracking-wider">{item.label}</p>
-                                            <p className="text-slate-200 font-medium">{item.value}</p>
-                                        </div>
-                                    </li>
-                                ))}
+                    {/* Info Card / Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="relative"
+                    >
+                        {/* Decorative background glow */}
+                        <div className="absolute -inset-1 bg-gradient-to-br from-primary via-indigo-500 to-purple-500 rounded-2xl blur-lg opacity-20"></div>
+
+                        <div className="relative bg-card border border-border p-8 rounded-2xl shadow-xl backdrop-blur-sm">
+                            <ul className="space-y-6">
+                                <ListItem
+                                    icon="fas fa-map-marker-alt"
+                                    iconColor="text-red-400"
+                                    label="Location"
+                                    value="Barbate, Cádiz, Spain"
+                                    highlight
+                                />
+                                <ListItem
+                                    icon="fas fa-graduation-cap"
+                                    iconColor="text-yellow-400"
+                                    label="Education"
+                                    value="ASIR (2nd Year)"
+                                />
+                                <ListItem
+                                    icon="fas fa-heart"
+                                    iconColor="text-pink-400"
+                                    label="Interests"
+                                    value="DevOps, Cloud, Web Design"
+                                />
+                                <ListItem
+                                    icon="fas fa-briefcase"
+                                    iconColor="text-green-400"
+                                    label="Status"
+                                    value="Open to Work"
+                                />
                             </ul>
                         </div>
-                    </div>
-                </ScrollFloat>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );
 };
+
+function ListItem({ icon, iconColor, label, value, highlight = false }: { icon: string, iconColor: string, label: string, value: string, highlight?: boolean }) {
+    return (
+        <li className={`flex items-center gap-5 p-4 rounded-xl transition-colors ${highlight ? 'bg-primary/10 border border-primary/20' : 'hover:bg-muted/50'}`}>
+            <div className={`w-12 h-12 rounded-full bg-background flex items-center justify-center shrink-0 border border-border ${highlight ? 'shadow-[0_0_15px_rgba(34,211,238,0.3)]' : ''}`}>
+                <i className={`${icon} ${iconColor} text-xl`}></i>
+            </div>
+            <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mb-1">{label}</p>
+                <p className={`font-medium text-lg ${highlight ? 'text-primary' : 'text-foreground'}`}>{value}</p>
+            </div>
+        </li>
+    );
+}
 
 

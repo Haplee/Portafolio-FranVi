@@ -1,5 +1,6 @@
 import SpotlightCard from './reactbits/SpotlightCard';
 import DecryptedText from './reactbits/DecryptedText';
+import { cn } from '@/lib/utils';
 
 const skills = [
     { name: 'HTML5', icon: 'fab fa-html5', color: 'text-orange-500' },
@@ -16,32 +17,32 @@ const skills = [
 
 export default function SkillsSection() {
     return (
-        <section id="skills" className="py-24 px-4 w-full bg-slate-900 relative overflow-hidden">
+        <section id="skills" className="py-32 px-4 w-full bg-background relative overflow-hidden">
             <div className="max-w-6xl mx-auto relative z-10">
-                <div className="mb-16 text-center">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2 inline-block">
+                <div className="mb-16 md:mb-24 text-center">
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 inline-block">
                         <DecryptedText
-                            text="Habilidades Técnicas"
+                            text="Technical Skills"
                             animateOn="view"
                             revealDirection="center"
                             speed={50}
                             maxIterations={10}
-                            className="text-white"
-                            encryptedClassName="text-slate-600"
+                            className="text-foreground"
+                            encryptedClassName="text-muted-foreground"
                         />
                     </h2>
-                    <div className="h-1 w-24 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mt-4 mx-auto"></div>
+                    <div className="h-1.5 w-24 bg-gradient-to-r from-primary to-indigo-500 rounded-full mt-2 mx-auto"></div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {skills.map((skill, index) => (
                         <SpotlightCard
                             key={index}
-                            className="flex flex-col items-center justify-center p-6 gap-4 bg-slate-800/40 border-slate-700 hover:border-slate-500 transition-colors group cursor-default"
+                            className="flex flex-col items-center justify-center p-6 gap-4 bg-card border-border hover:border-primary/50 transition-colors group cursor-default shadow-sm"
                             spotlightColor="rgba(34, 211, 238, 0.15)"
                         >
-                            <i className={`${skill.icon} text-5xl ${skill.color} transition-transform duration-300 group-hover:scale-110 drop-shadow-lg`}></i>
-                            <span className="text-slate-300 font-medium tracking-wide group-hover:text-white transition-colors">{skill.name}</span>
+                            <i className={cn(skill.icon, "text-5xl transition-transform duration-300 group-hover:scale-110 drop-shadow-md", skill.color)}></i>
+                            <span className="text-muted-foreground font-medium tracking-wide group-hover:text-foreground transition-colors">{skill.name}</span>
                         </SpotlightCard>
                     ))}
                 </div>
