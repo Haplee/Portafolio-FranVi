@@ -32,12 +32,13 @@ export default function AboutSection() {
                             Busco oportunidades donde pueda seguir aprendiendo y aportar valor con mis conocimientos.
                         </p>
                         <a
-                            href="./assets/docs/CV-FranVidal.pdf"
-                            download
+                            href="./assets/docs/CV-FranVidal.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-lg transition-colors"
                         >
-                            <i className="fas fa-download text-sm" />
-                            Descargar CV
+                            <i className="fas fa-file-alt text-sm" />
+                            Ver CV
                         </a>
                     </motion.div>
 

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV — Francisco Vidal Mateo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a2e;
+            background: #fff;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .page {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #0e7490;
+        }
+
+        .header-left h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0e7490;
+            letter-spacing: -0.5px;
+        }
+
+        .header-left .subtitle {
+            font-size: 16px;
+            color: #555;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .header-right a {
+            color: #0e7490;
+            text-decoration: none;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #0e7490;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .section p {
+            color: #333;
+            line-height: 1.7;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 12px;
+        }
+
+        .education-item .title {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .education-item .detail {
+            color: #555;
+            font-size: 13px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .skill-group h4 {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #1a1a2e;
+        }
+
+        .skill-group ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-group ul li {
+            font-size: 13px;
+            color: #444;
+            padding: 2px 0;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .project-item {
+            padding: 10px 14px;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            border-left: 3px solid #0e7490;
+        }
+
+        .project-item .name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #1a1a2e;
+        }
+
+        .project-item .desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .project-item .tech {
+            font-size: 11px;
+            color: #0e7490;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Setup */
+        .setup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .setup-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 3px 0;
+        }
+
+        .setup-item .label {
+            color: #1a1a2e;
+            font-weight: 500;
+        }
+
+        .setup-item .value {
+            color: #555;
+        }
+
+        /* Languages */
+        .languages {
+            display: flex;
+            gap: 32px;
+        }
+
+        .lang-item .name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .lang-item .level {
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .page {
+                padding: 20px 30px;
+                margin: 0;
+            }
+
+            .print-btn {
+                display: none !important;
+            }
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 24px;
+            background: #0e7490;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .print-btn:hover {
+            background: #0891b2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>Francisco Vidal Mateo</h1>
+                <p class="subtitle">Administrador de Sistemas · Desarrollador Web</p>
+            </div>
+            <div class="header-right">
+                Barbate, Cádiz, España<br>
+                <a href="https://github.com/Haplee">github.com/Haplee</a><br>
+                <a href="https://x.com/FranVidalMateo">x.com/FranVidalMateo</a><br>
+                <a href="https://www.instagram.com/franvidalmateo">instagram.com/franvidalmateo</a>
+            </div>
+        </header>
+
+        <!-- Perfil -->
+        <section class="section">
+            <h2 class="section-title">Perfil</h2>
+            <p>
+                Estudiante de 2º curso del Grado Superior de Administración de Sistemas Informáticos en Red (ASIR).
+                Apasionado por la tecnología, la administración de sistemas y el desarrollo web.
+                Con experiencia en gestión de servidores Linux y Windows, contenedores Docker, scripting y desarrollo
+                frontend con React.
+                Busco oportunidades donde seguir creciendo profesionalmente y aportar valor técnico.
+            </p>
+        </section>
+
+        <!-- Formación -->
+        <section class="section">
+            <h2 class="section-title">Formación</h2>
+            <div class="education-item">
+                <p class="title">Grado Superior en Administración de Sistemas Informáticos en Red (ASIR)</p>
+                <p class="detail">2º Curso · En curso</p>
+            </div>
+        </section>
+
+        <!-- Habilidades -->
+        <section class="section">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h4>Frontend</h4>
+                    <ul>
+                        <li>HTML5 / CSS3</li>
+                        <li>JavaScript / TypeScript</li>
+                        <li>React</li>
+                        <li>Tailwind CSS</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <h4>Backend y Sistemas</h4>
+                    <ul>
+                        <li>Linux (administración)</li>
+                        <li>Windows Server</li>
+                        <li>SQL / Bases de datos</li>
+                        <li>Docker</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <h4>Herramientas</h4>
+                    <ul>
+                        <li>Git / GitHub</li>
+                        <li>Redes (administración)</li>
+                        <li>PowerShell / Bash</li>
+                        <li>Vite</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proyectos -->
+        <section class="section">
+            <h2 class="section-title">Proyectos Destacados</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <p class="name">Portafolio-FranVi</p>
+                    <p class="desc">Portafolio personal con repos de GitHub en tiempo real</p>
+                    <p class="tech">TypeScript · React · Tailwind</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">Stats-Handball</p>
+                    <p class="desc">TFG: análisis automático de partidos de balonmano con IA</p>
+                    <p class="tech">TypeScript</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">Proyecto-25-26</p>
+                    <p class="desc">Sistema de copias de seguridad automatizadas para empresa de seguridad electrónica
+                    </p>
+                    <p class="tech">HTML · Scripts</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">AutoDriver-Updater</p>
+                    <p class="desc">Actualizador automático de drivers en Windows</p>
+                    <p class="tech">PowerShell</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">update-performance-w11</p>
+                    <p class="desc">Scripts para mejorar el rendimiento en Windows 11</p>
+                    <p class="tech">Batch</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">estudio</p>
+                    <p class="desc">Aplicación de estudio personal</p>
+                    <p class="tech">TypeScript</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">bm_barbate</p>
+                    <p class="desc">Web del Club Balonmano Barbate</p>
+                    <p class="tech">HTML</p>
+                </div>
+                <div class="project-item">
+                    <p class="name">TetePaco</p>
+                    <p class="desc">Descompresor de archivos con un clic</p>
+                    <p class="tech">HTML</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Idiomas -->
+        <section class="section">
+            <h2 class="section-title">Idiomas</h2>
+            <div class="languages">
+                <div class="lang-item">
+                    <p class="name">Español</p>
+                    <p class="level">Nativo</p>
+                </div>
+                <div class="lang-item">
+                    <p class="name">Inglés</p>
+                    <p class="level">Nivel técnico</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipo -->
+        <section class="section">
+            <h2 class="section-title">Equipo de Trabajo</h2>
+            <div class="setup-grid">
+                <div class="setup-item">
+                    <span class="label">Portátil</span>
+                    <span class="value">HP Victus 16</span>
+                </div>
+                <div class="setup-item">
+                    <span class="label">CPU</span>
+                    <span class="value">AMD Ryzen 7 5800H</span>
+                </div>
+                <div class="setup-item">
+                    <span class="label">GPU</span>
+                    <span class="value">NVIDIA RTX 3050 Ti 4GB</span>
+                </div>
+                <div class="setup-item">
+                    <span class="label">RAM</span>
+                    <span class="value">16 GB</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Guardar como PDF</button>
+</body>
+
+</html>
