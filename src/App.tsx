@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden">
       <Navbar />
       <main>
         <HeroSection />
@@ -23,4 +23,3 @@ export default function App() {
     </div>
   );
 }
-

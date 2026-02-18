@@ -1,58 +1,54 @@
-import GradientText from './reactbits/GradientText';
+import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
+const socials = [
+    { name: 'Instagram', icon: 'fab fa-instagram', link: 'https://www.instagram.com/franvidalmateo', color: 'hover:text-pink-500 hover:border-pink-500/30' },
+    { name: 'X', icon: 'fab fa-x-twitter', link: 'https://x.com/FranVidalMateo', color: 'hover:text-white hover:border-white/30' },
+    { name: 'GitHub', icon: 'fab fa-github', link: 'https://github.com/Haplee', color: 'hover:text-white hover:border-white/30' },
+];
+
 export default function ContactSection() {
-    const socials = [
-        { name: 'Email', icon: 'fas fa-envelope', link: 'mailto:franvidal2004@gmail.com', color: 'hover:text-red-400' },
-        { name: 'LinkedIn', icon: 'fab fa-linkedin', link: 'https://www.linkedin.com/in/francisco-vidal-mateo-2b8a4a238/', color: 'hover:text-blue-500' },
-        { name: 'GitHub', icon: 'fab fa-github', link: 'https://github.com/FranVi-Asir', color: 'hover:text-foreground' },
-        { name: 'Instagram', icon: 'fab fa-instagram', link: 'https://instagram.com/franvi_7', color: 'hover:text-pink-500' },
-    ];
-
     return (
-        <section id="contact" className="py-32 px-4 w-full bg-background relative">
+        <section id="contact" className="py-24 px-4 w-full bg-slate-900">
             <div className="max-w-4xl mx-auto text-center">
-                <div className="mb-16">
-                    <GradientText
-                        colors={['#22d3ee', '#818cf8', '#f472b6', '#22d3ee']}
-                        animationSpeed={6}
-                        showBorder={false}
-                        className="text-4xl md:text-6xl font-bold mb-6 block"
-                    >
-                        Get In Touch
-                    </GradientText>
-                    <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                        Do you have a proposal or project in mind? Let's talk!
-                        I am always open to connecting and exploring new opportunities.
-                    </p>
-                </div>
 
-                <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mb-12"
+                >
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">Contacto</h2>
+                    <div className="h-1 w-16 bg-cyan-500 rounded-full mx-auto" />
+                    <p className="text-slate-400 mt-4 max-w-lg mx-auto">
+                        ¿Tienes una propuesta o proyecto en mente? ¡Hablemos!
+                        Siempre estoy abierto a conectar y explorar nuevas oportunidades.
+                    </p>
+                </motion.div>
+
+                <div className="flex flex-wrap justify-center gap-6">
                     {socials.map((social, idx) => (
-                        <a
+                        <motion.a
                             key={idx}
                             href={social.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex flex-col items-center gap-3 group"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className={cn(
+                                'flex flex-col items-center gap-2 w-20 h-20 rounded-xl border border-slate-700 bg-slate-800/50 justify-center text-slate-400 transition-all',
+                                social.color
+                            )}
                             aria-label={social.name}
                         >
-                            <div className={cn(
-                                "w-16 h-16 md:w-20 md:h-20 rounded-full bg-card border-2 border-border flex items-center justify-center text-3xl md:text-4xl text-muted-foreground transition-all duration-300",
-                                "group-hover:scale-110 group-hover:border-primary/50 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]",
-                                social.color
-                            )}>
-                                <i className={social.icon}></i>
-                            </div>
-                            <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                                {social.name}
-                            </span>
-                        </a>
+                            <i className={cn(social.icon, 'text-2xl')} />
+                            <span className="text-[10px] font-medium">{social.name}</span>
+                        </motion.a>
                     ))}
                 </div>
             </div>
         </section>
     );
-};
-
-
+}

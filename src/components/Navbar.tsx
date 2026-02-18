@@ -10,11 +10,11 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-    { href: '#about', label: 'About', icon: 'fas fa-user' },
+    { href: '#about', label: 'Sobre mí', icon: 'fas fa-user' },
     { href: '#skills', label: 'Skills', icon: 'fas fa-microchip' },
-    { href: '#projects', label: 'Projects', icon: 'fas fa-code-branch' },
-    { href: '#setup', label: 'Setup', icon: 'fas fa-desktop' },
-    { href: '#contact', label: 'Contact', icon: 'fas fa-paper-plane' },
+    { href: '#projects', label: 'Proyectos', icon: 'fas fa-code-branch' },
+    { href: '#setup', label: 'Setup', icon: 'fas fa-laptop' },
+    { href: '#contact', label: 'Contacto', icon: 'fas fa-paper-plane' },
 ];
 
 export default function Navbar() {
@@ -35,22 +35,22 @@ export default function Navbar() {
         <motion.header
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
             className={cn(
-                "fixed z-50 transition-all duration-300 transform",
+                'fixed z-50 transition-all duration-300 transform',
                 isMobile
-                    ? "bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm"
-                    : "top-6 left-1/2 -translate-x-1/2 w-fit"
+                    ? 'bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm'
+                    : 'top-6 left-1/2 -translate-x-1/2 w-fit'
             )}
         >
             <nav
                 className={cn(
-                    "flex items-center justify-between px-2 py-2",
-                    "bg-background/60 backdrop-blur-md border border-border shadow-lg",
-                    isMobile ? "rounded-2xl" : "rounded-full px-4 py-2"
+                    'flex items-center px-2 py-2',
+                    'bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-lg',
+                    isMobile ? 'rounded-2xl' : 'rounded-full px-4'
                 )}
             >
-                <ul className="flex items-center justify-between w-full gap-2 md:gap-4 list-none m-0 p-0">
+                <ul className="flex items-center justify-between w-full gap-1 md:gap-3 list-none m-0 p-0">
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.substring(1);
                         return (
@@ -58,19 +58,19 @@ export default function Navbar() {
                                 <a
                                     href={link.href}
                                     className={cn(
-                                        "relative flex flex-col md:flex-row items-center gap-1.5 px-3 py-2 transition-colors duration-300 rounded-xl",
-                                        isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                                        'relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 transition-colors duration-300 rounded-xl text-sm',
+                                        isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-white'
                                     )}
                                     onClick={(e) => handleScrollTo(e, link.href)}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="active-pill"
-                                            className="absolute inset-0 bg-primary/10 rounded-xl -z-10"
-                                            transition={{ type: 'spring', duration: 0.6 }}
+                                            className="absolute inset-0 bg-cyan-500/10 rounded-xl -z-10"
+                                            transition={{ type: 'spring', duration: 0.5 }}
                                         />
                                     )}
-                                    <i className={cn(link.icon, "text-lg md:text-sm")}></i>
+                                    <i className={cn(link.icon, 'text-lg md:text-sm')} />
                                     <span className="text-[10px] md:text-sm font-medium">{link.label}</span>
                                 </a>
                             </li>
@@ -81,4 +81,3 @@ export default function Navbar() {
         </motion.header>
     );
 }
-
