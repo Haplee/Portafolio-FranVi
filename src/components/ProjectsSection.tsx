@@ -3,7 +3,7 @@ import SpotlightCard from './reactbits/SpotlightCard';
 import DecryptedText from './reactbits/DecryptedText';
 import ShinyText from './reactbits/ShinyText';
 
-const ProjectsSection = () => {
+export default function ProjectsSection() {
     const { repos, loading, error } = useGitHubData('FranVi-Asir');
 
     return (
@@ -97,4 +97,4 @@ const ProjectsSection = () => {
     );
 };
 
-export default ProjectsSection;
+

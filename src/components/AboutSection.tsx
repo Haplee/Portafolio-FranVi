@@ -2,7 +2,7 @@ import DecryptedText from './reactbits/DecryptedText';
 import ScrollFloat from './reactbits/ScrollFloat';
 import ShinyText from './reactbits/ShinyText';
 
-const AboutSection = () => {
+export default function AboutSection() {
     return (
         <section id="about" className="py-24 px-4 w-full bg-slate-900/50 relative">
             <div className="max-w-4xl mx-auto">
@@ -84,4 +84,4 @@ const AboutSection = () => {
     );
 };
 
-export default AboutSection;
+

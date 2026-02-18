@@ -3,7 +3,7 @@ import SplitText from './reactbits/SplitText';
 import BlurText from './reactbits/BlurText';
 import Particles from './reactbits/Particles';
 
-const HeroSection = () => {
+export default function HeroSection() {
     return (
         <section id="hero" className="relative h-screen min-h-[600px] w-full flex flex-col items-center justify-center overflow-hidden">
             <div className="absolute inset-0 z-0">
@@ -93,4 +93,4 @@ const HeroSection = () => {
     );
 };
 
-export default HeroSection;
+

@@ -25,22 +25,33 @@ export interface GitHubRepo {
     pushed_at: string;
 }
 
-export const useGitHubData = (username: string) => {
+interface UseGitHubDataResult {
+    user: GitHubUser | null;
+    repos: GitHubRepo[];
+    loading: boolean;
+    error: string | null;
+}
+
+export function useGitHubData(username: string): UseGitHubDataResult {
     const [user, setUser] = useState<GitHubUser | null>(null);
     const [repos, setRepos] = useState<GitHubRepo[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (!username) return;
+
         const fetchData = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
                 const [userRes, reposRes] = await Promise.all([
                     fetch(`https://api.github.com/users/${username}`),
                     fetch(`https://api.github.com/users/${username}/repos?sort=pushed&per_page=6`)
                 ]);
 
-                if (!userRes.ok || !reposRes.ok) throw new Error('Failed to fetch GitHub data');
+                if (!userRes.ok || !reposRes.ok) {
+                    throw new Error('Failed to fetch GitHub data');
+                }
 
                 const userData = await userRes.json();
                 const reposData = await reposRes.json();
@@ -54,8 +65,8 @@ export const useGitHubData = (username: string) => {
             }
         };
 
-        if (username) fetchData();
+        fetchData();
     }, [username]);
 
     return { user, repos, loading, error };
-};
+}

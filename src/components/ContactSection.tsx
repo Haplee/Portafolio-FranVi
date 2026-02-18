@@ -1,6 +1,6 @@
 import GradientText from './reactbits/GradientText';
 
-const ContactSection = () => {
+export default function ContactSection() {
     const socials = [
         { name: 'Email', icon: 'fas fa-envelope', link: 'mailto:franvidal2004@gmail.com', color: 'hover:text-red-400' },
         { name: 'LinkedIn', icon: 'fab fa-linkedin', link: 'https://linkedin.com/in/fran-vidal-leal', color: 'hover:text-blue-500' },
@@ -50,4 +50,4 @@ const ContactSection = () => {
     );
 };
 
-export default ContactSection;
+

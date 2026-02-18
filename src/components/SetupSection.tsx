@@ -1,6 +1,6 @@
 import DecryptedText from './reactbits/DecryptedText';
 
-const SetupSection = () => {
+export default function SetupSection() {
     const hardware = [
         { item: 'Monitor', detail: 'HP X24ih (144Hz IPS)', icon: 'fas fa-desktop' },
         { item: 'Teclado', detail: 'Logitech G413 TKL SE', icon: 'fas fa-keyboard' },
@@ -78,4 +78,4 @@ const SetupSection = () => {
     );
 };
 
-export default SetupSection;
+

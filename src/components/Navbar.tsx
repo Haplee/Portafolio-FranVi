@@ -1,8 +1,14 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useScrollSpy } from '@/hooks/useScrollSpy';
 
-const navLinks = [
+interface NavLink {
+    href: string;
+    label: string;
+    icon: string;
+}
+
+const navLinks: NavLink[] = [
     { href: '#about', label: 'Sobre Mí', icon: 'fas fa-user' },
     { href: '#skills', label: 'Habilidades', icon: 'fas fa-microchip' },
     { href: '#projects', label: 'Proyectos', icon: 'fas fa-code-branch' },
@@ -10,26 +16,19 @@ const navLinks = [
     { href: '#contact', label: 'Contacto', icon: 'fas fa-paper-plane' },
 ];
 
-const Navbar = () => {
+export default function Navbar() {
     const isMobile = useIsMobile();
-    const [activeSection, setActiveSection] = useState('');
+    const activeSection = useScrollSpy(
+        navLinks.map((link) => link.href.substring(1))
+    );
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = navLinks.map(link => link.href.substring(1));
-            const scrollPosition = window.scrollY + 200; // Offset for better triggering
-
-            for (const section of sections) {
-                const element = document.getElementById(section);
-                if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight) > scrollPosition) {
-                    setActiveSection(section);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     return (
         <motion.header
@@ -60,16 +59,12 @@ const Navbar = () => {
                     relative flex flex-col md:flex-row items-center gap-1 md:gap-2 px-3 py-2 md:px-4 md:py-2 transition-colors duration-300 rounded-xl
                     ${isActive ? 'text-white' : 'text-slate-400 hover:text-white'}
                   `}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
-                                        setActiveSection(link.href.substring(1));
-                                    }}
+                                    onClick={(e) => handleScrollTo(e, link.href)}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="active-pill"
-                                            className={`absolute inset-0 bg-white/10 rounded-xl -z-10`}
+                                            className="absolute inset-0 bg-white/10 rounded-xl -z-10"
                                             transition={{ type: 'spring', duration: 0.6 }}
                                         />
                                     )}
@@ -83,6 +78,5 @@ const Navbar = () => {
             </nav>
         </motion.header>
     );
-};
+}
 
-export default Navbar;

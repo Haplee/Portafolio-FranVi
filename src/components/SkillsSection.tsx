@@ -14,7 +14,7 @@ const skills = [
     { name: 'Network Admin', icon: 'fas fa-network-wired', color: 'text-purple-400' },
 ];
 
-const SkillsSection = () => {
+export default function SkillsSection() {
     return (
         <section id="skills" className="py-24 px-4 w-full bg-slate-900 relative overflow-hidden">
             <div className="max-w-6xl mx-auto relative z-10">
@@ -50,4 +50,4 @@ const SkillsSection = () => {
     );
 };
 
-export default SkillsSection;
+
