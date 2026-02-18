@@ -5,8 +5,8 @@ type SplitTextProps = {
     text: string;
     className?: string;
     delay?: number;
-    animationFrom?: { opacity: number; y: number };
-    animationTo?: { opacity: number; y: number };
+    animationFrom?: any;
+    animationTo?: any;
     threshold?: number;
     rootMargin?: string;
     textAlign?: 'left' | 'right' | 'center' | 'justify' | 'start' | 'end';

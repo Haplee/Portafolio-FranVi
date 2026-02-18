@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 export default function ContactSection() {
     const socials = [
         { name: 'Email', icon: 'fas fa-envelope', link: 'mailto:franvidal2004@gmail.com', color: 'hover:text-red-400' },
-        { name: 'LinkedIn', icon: 'fab fa-linkedin', link: 'https://linkedin.com/in/fran-vidal-leal', color: 'hover:text-blue-500' },
+        { name: 'LinkedIn', icon: 'fab fa-linkedin', link: 'https://www.linkedin.com/in/francisco-vidal-mateo-2b8a4a238/', color: 'hover:text-blue-500' },
         { name: 'GitHub', icon: 'fab fa-github', link: 'https://github.com/FranVi-Asir', color: 'hover:text-foreground' },
         { name: 'Instagram', icon: 'fab fa-instagram', link: 'https://instagram.com/franvi_7', color: 'hover:text-pink-500' },
     ];
