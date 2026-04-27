@@ -10,47 +10,50 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-    { href: '#about', label: 'Sobre mí', icon: 'fas fa-user' },
-    { href: '#skills', label: 'Skills', icon: 'fas fa-microchip' },
+    { href: '#about',    label: 'Sobre mí',  icon: 'fas fa-user' },
+    { href: '#skills',   label: 'Skills',    icon: 'fas fa-microchip' },
     { href: '#projects', label: 'Proyectos', icon: 'fas fa-code-branch' },
-    { href: '#setup', label: 'Setup', icon: 'fas fa-laptop' },
-    { href: '#contact', label: 'Contacto', icon: 'fas fa-paper-plane' },
+    { href: '#setup',    label: 'Setup',     icon: 'fas fa-laptop' },
+    { href: '#contact',  label: 'Contacto',  icon: 'fas fa-paper-plane' },
 ];
 
 export default function Navbar() {
     const isMobile = useIsMobile();
-    const activeSection = useScrollSpy(
-        navLinks.map((link) => link.href.substring(1))
-    );
+    const activeSection = useScrollSpy(navLinks.map((link) => link.href.substring(1)));
 
     const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
-        const element = document.querySelector(href);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
         <motion.header
-            initial={{ y: -100, opacity: 0 }}
+            initial={{ y: isMobile ? 100 : -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className={cn(
-                'fixed z-50 transition-all duration-300 transform',
+                'fixed z-50 transition-all duration-300',
                 isMobile
-                    ? 'bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm'
-                    : 'top-6 left-1/2 -translate-x-1/2 w-fit'
+                    ? 'bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm'
+                    : 'top-5 left-1/2 -translate-x-1/2 w-fit'
             )}
         >
             <nav
                 className={cn(
                     'flex items-center px-2 py-2',
-                    'bg-slate-900/80 backdrop-blur-md border border-slate-700 shadow-lg',
+                    'bg-slate-900/75 backdrop-blur-xl',
+                    'border border-white/8 shadow-2xl shadow-black/40',
                     isMobile ? 'rounded-2xl' : 'rounded-full px-4'
                 )}
+                style={{
+                    background: 'rgba(15,23,42,0.80)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    borderColor: 'rgba(255,255,255,0.06)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+                }}
             >
-                <ul className="flex items-center justify-between w-full gap-1 md:gap-3 list-none m-0 p-0">
+                <ul className="flex items-center justify-between w-full gap-1 md:gap-2 list-none m-0 p-0">
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.substring(1);
                         return (
@@ -58,20 +61,27 @@ export default function Navbar() {
                                 <a
                                     href={link.href}
                                     className={cn(
-                                        'relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 transition-colors duration-300 rounded-xl text-sm',
-                                        isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-white'
+                                        'relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 transition-all duration-300 rounded-xl text-sm',
+                                        isActive
+                                            ? 'text-cyan-300'
+                                            : 'text-slate-500 hover:text-slate-200'
                                     )}
                                     onClick={(e) => handleScrollTo(e, link.href)}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="active-pill"
-                                            className="absolute inset-0 bg-cyan-500/10 rounded-xl -z-10"
-                                            transition={{ type: 'spring', duration: 0.5 }}
+                                            className="absolute inset-0 rounded-xl -z-10"
+                                            style={{
+                                                background: 'linear-gradient(135deg, rgba(34,211,238,0.12), rgba(99,102,241,0.08))',
+                                                border: '1px solid rgba(34,211,238,0.18)',
+                                                boxShadow: '0 0 20px rgba(34,211,238,0.08)',
+                                            }}
+                                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                                         />
                                     )}
-                                    <i className={cn(link.icon, 'text-lg md:text-sm')} />
-                                    <span className="text-[10px] md:text-sm font-medium">{link.label}</span>
+                                    <i className={cn(link.icon, 'text-lg md:text-[13px]')} />
+                                    <span className="text-[10px] md:text-[13px] font-medium">{link.label}</span>
                                 </a>
                             </li>
                         );

@@ -151,6 +151,23 @@ const CONSTELLATIONS: Constellation[] = [
             { from: 0, to: 4 }, { from: 2, to: 5 },
         ]
     },
+    {
+        // ♋ Cancer — signo zodiacal de Fran (17 Jul 2003, 3 AM)
+        // En julio el Sol está en Cáncer → visible poniente en el oeste
+        name: 'Cancer',
+        stars: [
+            { x: 0.08, y: 0.44, brightness: 0.75, size: 2.2, name: '♋ Cáncer' }, // Tarf (β Cnc) — la más brillante
+            { x: 0.06, y: 0.38, brightness: 0.55, size: 1.5 },                     // Acubens (α Cnc)
+            { x: 0.11, y: 0.40, brightness: 0.55, size: 1.5 },                     // Asellus Australis (δ Cnc)
+            { x: 0.10, y: 0.35, brightness: 0.50, size: 1.4 },                     // Asellus Borealis (γ Cnc)
+            { x: 0.05, y: 0.50, brightness: 0.45, size: 1.3 },                     // ι Cnc
+        ],
+        lines: [
+            { from: 1, to: 3 }, { from: 3, to: 2 },
+            { from: 2, to: 0 }, { from: 0, to: 4 },
+            { from: 1, to: 0 },
+        ]
+    },
 ];
 
 // Summer Triangle (special — drawn as dashed line connecting the 3 brightest stars)
@@ -263,10 +280,18 @@ export default function ConstellationSky() {
 
             // Constellation lines and stars
             for (const constellation of CONSTELLATIONS) {
-                // Lines — brighter, with subtle pulse
+                const isScorpius = constellation.name === 'Scorpius';
+                const isCancer  = constellation.name === 'Cancer';
+                const isGolden  = isScorpius || isCancer;
                 const linePulse = 0.25 + 0.1 * Math.sin(time * 0.0008);
-                ctx.strokeStyle = `rgba(120, 180, 240, ${linePulse})`;
-                ctx.lineWidth = 1.2;
+
+                // Lines
+                if (isGolden) {
+                    ctx.strokeStyle = `rgba(251, 191, 36, ${linePulse + 0.1})`; // amber-400
+                } else {
+                    ctx.strokeStyle = `rgba(120, 180, 240, ${linePulse})`;
+                }
+                ctx.lineWidth = isGolden ? 1.4 : 1.2;
 
                 for (const line of constellation.lines) {
                     const from = constellation.stars[line.from];
@@ -288,15 +313,20 @@ export default function ConstellationSky() {
                     const glowRadius = isNamedStar ? star.size * 8 : star.size * 5;
 
                     // Outer glow
-                    const glow = ctx.createRadialGradient(
-                        pos.x, pos.y, 0,
-                        pos.x, pos.y, glowRadius
-                    );
-                    const glowColor = isNamedStar
-                        ? `rgba(140, 200, 255, ${alpha * 0.5})`
-                        : `rgba(180, 210, 255, ${alpha * 0.3})`;
-                    glow.addColorStop(0, glowColor);
-                    glow.addColorStop(1, 'rgba(180, 210, 255, 0)');
+                    const glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, glowRadius);
+                    if (isGolden) {
+                        const g0 = isNamedStar
+                            ? `rgba(251, 191, 36, ${alpha * 0.6})`
+                            : `rgba(252, 211, 77, ${alpha * 0.35})`;
+                        glow.addColorStop(0, g0);
+                        glow.addColorStop(1, 'rgba(251, 191, 36, 0)');
+                    } else {
+                        const glowColor = isNamedStar
+                            ? `rgba(140, 200, 255, ${alpha * 0.5})`
+                            : `rgba(180, 210, 255, ${alpha * 0.3})`;
+                        glow.addColorStop(0, glowColor);
+                        glow.addColorStop(1, 'rgba(180, 210, 255, 0)');
+                    }
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, glowRadius, 0, Math.PI * 2);
                     ctx.fillStyle = glow;
@@ -306,14 +336,19 @@ export default function ConstellationSky() {
                     const coreSize = isNamedStar ? star.size * 1.3 : star.size;
                     ctx.beginPath();
                     ctx.arc(pos.x, pos.y, coreSize, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(235, 245, 255, ${alpha})`;
+                    ctx.fillStyle = isGolden
+                        ? `rgba(253, 224, 71, ${alpha})`
+                        : `rgba(235, 245, 255, ${alpha})`;
                     ctx.fill();
 
-                    // Star name label for the brightest ones
+                    // Star name label
                     if (isNamedStar) {
                         const labelAlpha = 0.3 + 0.15 * Math.sin(time * 0.001);
-                        ctx.font = '10px Outfit, sans-serif';
-                        ctx.fillStyle = `rgba(150, 200, 240, ${labelAlpha})`;
+                        // Cancer gets a slightly larger, special label
+                        ctx.font = isCancer ? '11px Outfit, sans-serif' : '10px Outfit, sans-serif';
+                        ctx.fillStyle = isGolden
+                            ? `rgba(251, 191, 36, ${labelAlpha + 0.15})`
+                            : `rgba(150, 200, 240, ${labelAlpha})`;
                         ctx.textAlign = 'center';
                         ctx.fillText(star.name!, pos.x, pos.y - coreSize - 8);
                     }
