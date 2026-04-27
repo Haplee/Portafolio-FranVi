@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { motion, useScroll, useSpring } from 'motion/react';
+import { motion } from 'motion/react';
+import { useScroll, useSpring } from 'motion/react';
 
 export default function ScrollProgressBar() {
     const { scrollYProgress } = useScroll();

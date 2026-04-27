@@ -88,7 +88,6 @@ export default function AboutSection() {
                     >
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,211,238,0.10)">
                             <InfoCard
-                                icon="fas fa-map-marker-alt"
                                 label="Ubicación"
                                 value="Barbate, Cádiz"
                                 emoji="📍"
@@ -96,7 +95,6 @@ export default function AboutSection() {
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,211,238,0.10)">
                             <InfoCard
-                                icon="fas fa-graduation-cap"
                                 label="Formación"
                                 value="ASIR — 2º Curso"
                                 emoji="🎓"
@@ -104,7 +102,6 @@ export default function AboutSection() {
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,238,180,0.10)">
                             <InfoCard
-                                icon="fas fa-briefcase"
                                 label="Estado"
                                 value="Disponible para trabajar"
                                 emoji="✅"
@@ -113,7 +110,6 @@ export default function AboutSection() {
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(168,85,247,0.10)">
                             <InfoCard
-                                icon="fas fa-language"
                                 label="Idiomas"
                                 value="ES • EN (B1)"
                                 emoji="🌐"
@@ -127,9 +123,9 @@ export default function AboutSection() {
 }
 
 function InfoCard({
-    icon, label, value, highlight, emoji
+    label, value, highlight, emoji
 }: {
-    icon: string; label: string; value: string; highlight?: boolean; emoji?: string;
+    label: string; value: string; highlight?: boolean; emoji?: string;
 }) {
     return (
         <div className="flex items-center gap-4">
