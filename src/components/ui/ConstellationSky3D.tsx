@@ -349,6 +349,15 @@ export default function ConstellationSky3D() {
             shooters.push({ start, dir, len, life: 0, maxLife, mesh });
         };
 
+        // ── Konami meteor shower listener ─────────────────────────────────
+        const onKonami = () => {
+            // Burst of 18 shooting stars at once
+            for (let i = 0; i < 18; i++) {
+                setTimeout(() => spawnSS(), i * 80);
+            }
+        };
+        window.addEventListener('konami-burst', onKonami);
+
         // ── Mouse parallax ────────────────────────────────────────────────
         let tgtX = 0, tgtY = 0, camX = 0, camY = 0;
         const onMouse = (e: MouseEvent) => {
@@ -427,6 +436,7 @@ export default function ConstellationSky3D() {
             cancelAnimationFrame(animId);
             window.removeEventListener('mousemove', onMouse);
             window.removeEventListener('resize', onResize);
+            window.removeEventListener('konami-burst', onKonami);
 
             scene.traverse(obj => {
                 if ('geometry' in obj) (obj as THREE.Mesh).geometry?.dispose();

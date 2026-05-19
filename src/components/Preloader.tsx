@@ -1,176 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface Props {
     onComplete: () => void;
 }
 
-// Cancer constellation centered at (0.5, 0.5) in normalized [0-1] coords
-const CANCER_STARS_N = [
-    { nx: 0.500, ny: 0.520, size: 3.5, name: '♋' },
-    { nx: 0.465, ny: 0.445, size: 2.0 },
-    { nx: 0.540, ny: 0.470, size: 2.0 },
-    { nx: 0.530, ny: 0.400, size: 1.8 },
-    { nx: 0.460, ny: 0.580, size: 1.5 },
+// Cancer constellation — coords inside 600x600 viewBox, centered around (300,300)
+const STARS = [
+    { id: 0, x: 300, y: 340, r: 6,   name: '♋' },  // Tarf (brightest)
+    { id: 1, x: 220, y: 230, r: 3.5 },              // Acubens
+    { id: 2, x: 380, y: 260, r: 3.5 },              // Asellus Australis
+    { id: 3, x: 360, y: 180, r: 3 },                // Asellus Borealis
+    { id: 4, x: 200, y: 410, r: 2.8 },              // ι Cnc
 ];
-const CANCER_LINES_N = [
+
+const LINES: [number, number][] = [
     [1, 3], [3, 2], [2, 0], [0, 4], [1, 0],
 ];
 
+interface BgStar { x: number; y: number; r: number; delay: number; dur: number; }
+
 export default function Preloader({ onComplete }: Props) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const exitingRef = useRef(false);
     const [visible, setVisible] = useState(true);
+    const [phase, setPhase] = useState<'stars' | 'lines' | 'text' | 'done'>('stars');
+
+    // Stable random background stars
+    const bgStars: BgStar[] = useMemo(() =>
+        Array.from({ length: 180 }, () => ({
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            r: Math.random() * 1.6 + 0.4,
+            delay: Math.random() * 2,
+            dur: 1.8 + Math.random() * 2.5,
+        })),
+    []);
 
     useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        const dpr = Math.min(window.devicePixelRatio, 2);
-
-        const resize = () => {
-            canvas.width  = canvas.offsetWidth  * dpr;
-            canvas.height = canvas.offsetHeight * dpr;
-            ctx.scale(dpr, dpr);
-        };
-        resize();
-
-        const w = () => canvas.offsetWidth;
-        const h = () => canvas.offsetHeight;
-
-        // Random background stars with staggered appearance
-        const bgStars = Array.from({ length: 220 }, () => ({
-            x: Math.random(),
-            y: Math.random(),
-            r: Math.random() * 1.2 + 0.2,
-            a: Math.random() * 0.5 + 0.1,
-            t: Math.random() * 1100, // appear time ms
-        }));
-
-        let startTime: number | null = null;
-        let animId: number;
-
-        const draw = (ts: number) => {
-            if (!startTime) startTime = ts;
-            const el = ts - startTime;
-
-            const cw = w(), ch = h();
-            ctx.clearRect(0, 0, cw, ch);
-
-            // Background stars
-            for (const s of bgStars) {
-                const p = Math.min((el - s.t) / 500, 1);
-                if (p <= 0) continue;
-                const twinkle = 0.6 + 0.4 * Math.sin(ts * 0.0022 + s.x * 80 + s.y * 60);
-                ctx.beginPath();
-                ctx.arc(s.x * cw, s.y * ch, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(200,220,255,${s.a * p * twinkle})`;
-                ctx.fill();
-            }
-
-            // Cancer constellation — appears from 1.2s to 2.6s
-            const consP = Math.max(0, Math.min((el - 1200) / 1400, 1));
-            if (consP > 0) {
-                const scale = Math.min(cw, ch) * 0.22;
-
-                const stars = CANCER_STARS_N.map(s => ({
-                    x: s.nx * cw,
-                    y: s.ny * ch,
-                    size: s.size,
-                    name: s.name,
-                }));
-
-                // Trace constellation lines
-                let remaining = consP * CANCER_LINES_N.length;
-                for (const [fi, ti] of CANCER_LINES_N) {
-                    const seg = Math.min(remaining, 1);
-                    if (seg <= 0) break;
-                    remaining -= 1;
-
-                    const fx = stars[fi].x, fy = stars[fi].y;
-                    const tx = stars[ti].x, ty = stars[ti].y;
-                    const ex = fx + (tx - fx) * seg;
-                    const ey = fy + (ty - fy) * seg;
-
-                    ctx.beginPath();
-                    ctx.moveTo(fx, fy);
-                    ctx.lineTo(ex, ey);
-                    ctx.strokeStyle = `rgba(251,191,36,${0.45 * consP})`;
-                    ctx.lineWidth = 1.3;
-                    ctx.stroke();
-                }
-
-                // Stars
-                for (const star of stars) {
-                    const twinkle = 0.65 + 0.35 * Math.sin(ts * 0.003 + star.x);
-                    const alpha = consP * twinkle;
-                    const gr = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.size * 7);
-                    gr.addColorStop(0, `rgba(253,224,71,${alpha * 0.55})`);
-                    gr.addColorStop(1, 'rgba(253,224,71,0)');
-                    ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.size * 7, 0, Math.PI * 2);
-                    ctx.fillStyle = gr;
-                    ctx.fill();
-
-                    ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(253,224,71,${alpha})`;
-                    ctx.fill();
-                }
-
-                // Star label (♋)
-                const a = consP * 0.8;
-                ctx.font = `bold ${12 + scale * 0.04}px "Outfit", sans-serif`;
-                ctx.fillStyle = `rgba(251,191,36,${a})`;
-                ctx.textAlign = 'center';
-                ctx.fillText('♋', stars[0].x, stars[0].y - stars[0].size - 10);
-            }
-
-            // Text — from 2.7s
-            const textP = Math.max(0, Math.min((el - 2700) / 700, 1));
-            if (textP > 0) {
-                const centerX = cw / 2;
-                const baseY   = ch * 0.72;
-                ctx.textAlign = 'center';
-                ctx.globalAlpha = textP;
-
-                ctx.font = '11px "Courier New", monospace';
-                ctx.fillStyle = 'rgba(251,191,36,0.85)';
-                ctx.letterSpacing = '0.3em';
-                ctx.fillText('17 · 07 · 2003 · 03:00 AM', centerX, baseY);
-
-                ctx.font = '10px "Outfit", sans-serif';
-                ctx.fillStyle = 'rgba(148,163,184,0.65)';
-                ctx.letterSpacing = '0.15em';
-                ctx.fillText('Barbate, Cádiz', centerX, baseY + 22);
-
-                ctx.font = `${14 + cw * 0.01}px "Outfit", sans-serif`;
-                ctx.fillStyle = 'rgba(226,232,240,0.85)';
-                ctx.letterSpacing = '0.25em';
-                ctx.fillText('FRAN VIDAL', centerX, baseY + 52);
-
-                ctx.globalAlpha = 1;
-                ctx.letterSpacing = '0';
-            }
-
-            animId = requestAnimationFrame(draw);
-        };
-
-        animId = requestAnimationFrame(draw);
-
-        // Schedule exit
-        const t = setTimeout(() => {
-            exitingRef.current = true;
+        const t1 = setTimeout(() => setPhase('lines'), 1100);
+        const t2 = setTimeout(() => setPhase('text'),  2400);
+        const t3 = setTimeout(() => setPhase('done'),  4200);
+        const t4 = setTimeout(() => {
             setVisible(false);
-            setTimeout(onComplete, 650);
+            setTimeout(onComplete, 700);
         }, 4400);
 
-        return () => {
-            cancelAnimationFrame(animId);
-            clearTimeout(t);
-        };
+        return () => [t1, t2, t3, t4].forEach(clearTimeout);
     }, [onComplete]);
 
     return (
@@ -178,24 +52,177 @@ export default function Preloader({ onComplete }: Props) {
             {visible && (
                 <motion.div
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.65, ease: 'easeInOut' }}
-                    className="fixed inset-0 z-[9999] bg-slate-950 flex items-center justify-center"
+                    transition={{ duration: 0.7, ease: 'easeInOut' }}
+                    className="fixed inset-0 z-[9999] bg-slate-950 overflow-hidden flex items-center justify-center"
                 >
-                    <canvas
-                        ref={canvasRef}
-                        className="absolute inset-0 w-full h-full"
-                        aria-hidden="true"
-                    />
-                    {/* Loading indicator */}
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2">
-                        <div className="w-20 h-px bg-slate-800 rounded-full overflow-hidden">
+                    {/* Background twinkling stars (pure CSS, vector-crisp) */}
+                    <div className="absolute inset-0">
+                        {bgStars.map((s, i) => (
+                            <span
+                                key={i}
+                                className="absolute rounded-full bg-blue-100"
+                                style={{
+                                    left: `${s.x}%`,
+                                    top:  `${s.y}%`,
+                                    width:  `${s.r}px`,
+                                    height: `${s.r}px`,
+                                    opacity: 0,
+                                    animation: `preloader-twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`,
+                                    boxShadow: '0 0 4px rgba(200, 220, 255, 0.6)',
+                                }}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Constellation SVG (always vector-sharp) */}
+                    <div className="relative w-[min(85vw,85vh,560px)] aspect-square">
+                        <svg
+                            viewBox="0 0 600 600"
+                            className="w-full h-full"
+                            style={{ overflow: 'visible' }}
+                        >
+                            <defs>
+                                <radialGradient id="prelStarGlow">
+                                    <stop offset="0%"   stopColor="rgba(253,224,71,1)" />
+                                    <stop offset="40%"  stopColor="rgba(251,191,36,0.6)" />
+                                    <stop offset="100%" stopColor="rgba(251,191,36,0)" />
+                                </radialGradient>
+                                <filter id="prelGlow">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            {/* Lines — animated stroke-dashoffset */}
+                            <g>
+                                {LINES.map(([from, to], i) => {
+                                    const f = STARS[from];
+                                    const t = STARS[to];
+                                    const len = Math.sqrt((t.x - f.x) ** 2 + (t.y - f.y) ** 2);
+                                    return (
+                                        <motion.line
+                                            key={i}
+                                            x1={f.x} y1={f.y}
+                                            x2={t.x} y2={t.y}
+                                            stroke="rgba(251, 191, 36, 0.6)"
+                                            strokeWidth={1.5}
+                                            strokeLinecap="round"
+                                            strokeDasharray={len}
+                                            initial={{ strokeDashoffset: len }}
+                                            animate={{
+                                                strokeDashoffset: phase === 'stars' ? len : 0,
+                                            }}
+                                            transition={{
+                                                duration: 0.6,
+                                                delay: phase !== 'stars' ? i * 0.25 : 0,
+                                                ease: 'easeInOut',
+                                            }}
+                                            filter="url(#prelGlow)"
+                                        />
+                                    );
+                                })}
+                            </g>
+
+                            {/* Stars with progressive appearance */}
+                            <g>
+                                {STARS.map((s, i) => (
+                                    <motion.g
+                                        key={s.id}
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{
+                                            duration: 0.5,
+                                            delay: 0.2 + i * 0.18,
+                                            ease: 'easeOut',
+                                        }}
+                                    >
+                                        {/* Outer glow */}
+                                        <circle
+                                            cx={s.x} cy={s.y}
+                                            r={s.r * 5}
+                                            fill="url(#prelStarGlow)"
+                                        />
+                                        {/* Core */}
+                                        <circle
+                                            cx={s.x} cy={s.y}
+                                            r={s.r}
+                                            fill="rgba(253, 224, 71, 1)"
+                                            filter="url(#prelGlow)"
+                                        >
+                                            <animate
+                                                attributeName="r"
+                                                values={`${s.r};${s.r * 1.2};${s.r}`}
+                                                dur="2.5s"
+                                                repeatCount="indefinite"
+                                            />
+                                        </circle>
+                                        {/* Label for main star */}
+                                        {s.name && phase !== 'stars' && (
+                                            <motion.text
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 1.8, duration: 0.6 }}
+                                                x={s.x}
+                                                y={s.y - 18}
+                                                textAnchor="middle"
+                                                fill="rgba(251, 191, 36, 0.95)"
+                                                fontSize={18}
+                                                fontWeight="bold"
+                                                fontFamily="'Outfit', sans-serif"
+                                            >
+                                                {s.name}
+                                            </motion.text>
+                                        )}
+                                    </motion.g>
+                                ))}
+                            </g>
+                        </svg>
+
+                        {/* Text — pure DOM for crisp typography */}
+                        <AnimatePresence>
+                            {(phase === 'text' || phase === 'done') && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.7, ease: 'easeOut' }}
+                                    className="absolute left-1/2 -translate-x-1/2 -bottom-2 text-center w-max max-w-[90vw]"
+                                >
+                                    <p className="text-amber-400 font-mono text-xs sm:text-sm tracking-[0.35em] mb-2 font-semibold">
+                                        17 · 07 · 2003 · 03:00 AM
+                                    </p>
+                                    <p className="text-slate-500 text-[10px] sm:text-xs tracking-[0.2em] mb-4">
+                                        Barbate, Cádiz · ♋ Cáncer
+                                    </p>
+                                    <motion.p
+                                        initial={{ letterSpacing: '0.05em', opacity: 0 }}
+                                        animate={{ letterSpacing: '0.3em', opacity: 1 }}
+                                        transition={{ duration: 0.9, delay: 0.3, ease: 'easeOut' }}
+                                        className="text-slate-200 text-xl sm:text-2xl font-light tracking-[0.3em]"
+                                    >
+                                        FRAN VIDAL
+                                    </motion.p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Progress bar at bottom */}
+                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+                        <div className="w-24 h-px bg-slate-800 rounded-full overflow-hidden">
                             <motion.div
-                                className="h-full bg-gradient-to-r from-amber-500 to-cyan-500 rounded-full"
                                 initial={{ width: '0%' }}
                                 animate={{ width: '100%' }}
                                 transition={{ duration: 4.2, ease: 'easeInOut' }}
+                                className="h-full bg-gradient-to-r from-amber-500 via-amber-400 to-cyan-400"
                             />
                         </div>
+                        <p className="text-[9px] text-slate-700 font-mono tracking-[0.3em] uppercase">
+                            Cargando · constelación
+                        </p>
                     </div>
                 </motion.div>
             )}

@@ -22,10 +22,15 @@ export function useLenis() {
             const target = e.target as HTMLElement;
             const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
             if (!anchor) return;
-            e.preventDefault();
-            const id = anchor.getAttribute('href')!;
+            const id = anchor.getAttribute('href');
+            if (!id || id === '#') return;
             const el = document.querySelector(id);
-            if (el) lenis.scrollTo(el as HTMLElement, { offset: 0, duration: 1.4 });
+            if (!el) return;
+            e.preventDefault();
+            // Mobile nav is bottom-fixed (no offset needed), desktop nav top-fixed (~80px)
+            const isMobileNav = window.matchMedia('(max-width: 767px)').matches;
+            const offset = isMobileNav ? -20 : -80;
+            lenis.scrollTo(el as HTMLElement, { offset, duration: 1.4 });
         };
 
         document.addEventListener('click', handleAnchorClick);

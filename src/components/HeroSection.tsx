@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import ConstellationSky3D from './ui/ConstellationSky3D';
 import ShinyText from './reactbits/ShinyText';
+import MagneticButton from './ui/MagneticButton';
 
 export default function HeroSection() {
     return (
@@ -99,24 +100,22 @@ export default function HeroSection() {
 
                     {/* CTA buttons */}
                     <div className="flex flex-wrap gap-3 pt-1">
-                        <motion.a
+                        <MagneticButton
                             href="#projects"
-                            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(34,211,238,0.4)' }}
-                            whileTap={{ scale: 0.96 }}
-                            className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 transition-all text-sm sm:text-base"
+                            className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow text-sm sm:text-base"
+                            strength={0.4}
                         >
-                            <i className="fas fa-code-branch mr-2 text-xs sm:text-sm" />
-                            Ver Proyectos
-                        </motion.a>
-                        <motion.a
+                            <i className="fas fa-code-branch text-xs sm:text-sm" />
+                            <span>Ver Proyectos</span>
+                        </MagneticButton>
+                        <MagneticButton
                             href="#contact"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.96 }}
                             className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl border border-slate-600/80 text-slate-300 font-medium hover:border-cyan-500/60 hover:text-white hover:bg-cyan-500/5 transition-all backdrop-blur-sm text-sm sm:text-base"
+                            strength={0.3}
                         >
-                            <i className="fas fa-paper-plane mr-2 text-xs sm:text-sm" />
-                            Contacto
-                        </motion.a>
+                            <i className="fas fa-paper-plane text-xs sm:text-sm" />
+                            <span>Contacto</span>
+                        </MagneticButton>
                     </div>
 
                     {/* Quick info — oculto en xs, visible desde sm */}

@@ -1,23 +1,26 @@
 import { useState } from 'react';
-import { ThemeProvider } from '@/contexts/ThemeContext';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
+import StatsSection from '@/components/StatsSection';
+import NowSection from '@/components/NowSection';
 import SkillsSection from '@/components/SkillsSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import TimelineSection from '@/components/TimelineSection';
+import AchievementsSection from '@/components/AchievementsSection';
 import SetupSection from '@/components/SetupSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
 import BackToTop from '@/components/BackToTop';
 import Preloader from '@/components/Preloader';
-import SoundToggle from '@/components/SoundToggle';
+import KonamiEffect from '@/components/KonamiEffect';
 import ProjectOverlay from '@/components/ProjectOverlay';
+import SectionDivider from '@/components/ui/SectionDivider';
 import { useLenis } from '@/hooks/useLenis';
 import type { GitHubRepo } from '@/hooks/useGitHubData';
 
-function Portfolio() {
+export default function App() {
   useLenis();
   const [loaded, setLoaded] = useState(false);
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
@@ -32,27 +35,31 @@ function Portfolio() {
           <Navbar />
           <main>
             <HeroSection />
+            <SectionDivider variant="cancer" />
             <AboutSection />
+            <SectionDivider variant="star" />
+            <StatsSection />
+            <SectionDivider variant="star" />
             <TimelineSection />
+            <SectionDivider variant="line" />
+            <NowSection />
+            <SectionDivider variant="star" />
             <SkillsSection />
+            <SectionDivider variant="line" />
             <ProjectsSection onSelectRepo={setSelectedRepo} />
+            <SectionDivider variant="cancer" />
+            <AchievementsSection />
+            <SectionDivider variant="star" />
             <SetupSection />
+            <SectionDivider variant="star" />
             <ContactSection />
           </main>
           <Footer />
           <BackToTop />
-          <SoundToggle />
+          <KonamiEffect />
           <ProjectOverlay repo={selectedRepo} onClose={() => setSelectedRepo(null)} />
         </div>
       )}
     </>
-  );
-}
-
-export default function App() {
-  return (
-    <ThemeProvider>
-      <Portfolio />
-    </ThemeProvider>
   );
 }

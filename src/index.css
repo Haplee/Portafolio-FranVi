@@ -249,16 +249,134 @@ button:focus-visible {
   border-radius: 4px;
 }
 
-/* ── Theme schemes ── */
-[data-scheme='cosmos'] {
-    --glow-cyan:   rgba(168, 85, 247, 0.35);
-    --glow-purple: rgba(99, 102, 241, 0.30);
-    filter: hue-rotate(200deg) saturate(1.1);
+/* ── Form input ── */
+.input-field {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 10px;
+    color: rgba(226, 232, 240, 0.95);
+    font-size: 14px;
+    font-family: var(--font-sans);
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    outline: none;
 }
-[data-scheme='amanecer'] {
-    --glow-cyan:   rgba(251, 146, 60, 0.35);
-    --glow-purple: rgba(245, 158, 11, 0.25);
-    filter: hue-rotate(155deg) saturate(1.05);
+.input-field::placeholder {
+    color: rgba(100, 116, 139, 0.5);
+}
+.input-field:hover {
+    border-color: rgba(71, 85, 105, 0.7);
+}
+.input-field:focus {
+    border-color: rgba(34, 211, 238, 0.5);
+    background: rgba(15, 23, 42, 0.85);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+}
+.input-field:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ── Preloader twinkle ── */
+@keyframes preloader-twinkle {
+    0%, 100% { opacity: 0; }
+    50%      { opacity: 0.9; }
+}
+
+/* ── Leaflet overrides — dark theme + custom marker ── */
+.leaflet-container {
+    background: #0a0e1a !important;
+    font-family: var(--font-sans) !important;
+}
+.leaflet-control-zoom a {
+    background: rgba(15, 23, 42, 0.9) !important;
+    color: rgba(226, 232, 240, 0.8) !important;
+    border: 1px solid rgba(34, 211, 238, 0.2) !important;
+    backdrop-filter: blur(8px);
+}
+.leaflet-control-zoom a:hover {
+    background: rgba(34, 211, 238, 0.15) !important;
+    color: #22d3ee !important;
+}
+.leaflet-control-attribution {
+    background: rgba(15, 23, 42, 0.7) !important;
+    color: rgba(148, 163, 184, 0.6) !important;
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+.leaflet-control-attribution a {
+    color: rgba(34, 211, 238, 0.7) !important;
+}
+
+/* Custom Barbate marker */
+.barbate-marker {
+    position: relative;
+    width: 40px !important;
+    height: 40px !important;
+}
+.barbate-marker-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(251, 191, 36, 0.6);
+    animation: barbate-pulse 2.5s ease-out infinite;
+}
+.barbate-marker-ring--outer {
+    animation-delay: 0s;
+}
+.barbate-marker-ring--inner {
+    animation-delay: 1.25s;
+    border-color: rgba(251, 191, 36, 0.4);
+}
+.barbate-marker-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fde047, #fbbf24);
+    color: #422006;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    z-index: 2;
+}
+@keyframes barbate-pulse {
+    0%   { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Custom Barbate label tooltip */
+.barbate-label {
+    pointer-events: none;
+}
+.barbate-label-box {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(251, 191, 36, 0.5);
+    border-radius: 6px;
+    padding: 6px 10px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+.barbate-label-title {
+    color: #fbbf24;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+}
+.barbate-label-coords {
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 9px;
+    font-family: 'Courier New', monospace;
+    margin-top: 2px;
 }
 
 /* ── Hologram card ── */

@@ -2,6 +2,7 @@ import { useGitHubData, type GitHubRepo } from '@/hooks/useGitHubData';
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
 import AnimatedCounter from './AnimatedCounter';
+import ContributionGraph from './ui/ContributionGraph';
 
 interface Props {
     onSelectRepo: (repo: GitHubRepo) => void;
@@ -86,6 +87,11 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                         ))}
                     </motion.div>
                 )}
+
+                {/* GitHub contribution heatmap */}
+                <div className="mb-10">
+                    <ContributionGraph username="Haplee" />
+                </div>
 
                 {error && (
                     <p className="text-slate-400 text-center py-12 flex items-center justify-center gap-2">

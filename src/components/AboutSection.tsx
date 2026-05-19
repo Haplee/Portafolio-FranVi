@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
+import BarbateMap from './ui/BarbateMap';
 
 export default function AboutSection() {
     return (
@@ -116,6 +117,11 @@ export default function AboutSection() {
                             />
                         </SpotlightCard>
                     </motion.div>
+                </div>
+
+                {/* Birthplace map */}
+                <div className="mt-8">
+                    <BarbateMap />
                 </div>
             </div>
         </section>
