@@ -249,6 +249,57 @@ button:focus-visible {
   border-radius: 4px;
 }
 
+/* ── Theme schemes ── */
+[data-scheme='cosmos'] {
+    --glow-cyan:   rgba(168, 85, 247, 0.35);
+    --glow-purple: rgba(99, 102, 241, 0.30);
+    filter: hue-rotate(200deg) saturate(1.1);
+}
+[data-scheme='amanecer'] {
+    --glow-cyan:   rgba(251, 146, 60, 0.35);
+    --glow-purple: rgba(245, 158, 11, 0.25);
+    filter: hue-rotate(155deg) saturate(1.05);
+}
+
+/* ── Hologram card ── */
+.hologram-card {
+    position: relative;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(34, 211, 238, 0.12);
+    overflow: hidden;
+}
+.hologram-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(34, 211, 238, 0.015) 3px,
+        rgba(34, 211, 238, 0.015) 4px
+    );
+    pointer-events: none;
+}
+.hologram-card::after {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(34, 211, 238, 0.06) 50%,
+        transparent 60%
+    );
+    animation: holo-sheen 4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes holo-sheen {
+    0%   { transform: translateX(-100%) rotate(10deg); }
+    50%  { transform: translateX(100%)  rotate(10deg); }
+    100% { transform: translateX(-100%) rotate(10deg); }
+}
+
 /* ── Noise texture overlay (subtle) ── */
 body::before {
   content: '';

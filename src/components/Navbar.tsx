@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { cn } from '@/lib/utils';
+import { useTheme, ICONS, LABELS } from '@/contexts/ThemeContext';
 
 interface NavLink {
     href: string;
@@ -11,6 +12,7 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
     { href: '#about',    label: 'Sobre mí',  icon: 'fas fa-user' },
+    { href: '#timeline', label: 'Historia',  icon: 'fas fa-star' },
     { href: '#skills',   label: 'Skills',    icon: 'fas fa-microchip' },
     { href: '#projects', label: 'Proyectos', icon: 'fas fa-code-branch' },
     { href: '#setup',    label: 'Setup',     icon: 'fas fa-laptop' },
@@ -20,6 +22,7 @@ const navLinks: NavLink[] = [
 export default function Navbar() {
     const isMobile = useIsMobile();
     const activeSection = useScrollSpy(navLinks.map((link) => link.href.substring(1)));
+    const { scheme, nextScheme } = useTheme();
 
     const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
@@ -53,7 +56,7 @@ export default function Navbar() {
                     boxShadow: '0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
                 }}
             >
-                <ul className="flex items-center justify-between w-full gap-1 md:gap-2 list-none m-0 p-0">
+                <ul className="flex items-center justify-between w-full gap-1 md:gap-2 list-none m-0 p-0" role="list">
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.substring(1);
                         return (
@@ -86,6 +89,19 @@ export default function Navbar() {
                             </li>
                         );
                     })}
+                    {/* Theme toggle */}
+                    <li>
+                        <motion.button
+                            onClick={nextScheme}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            title={`Tema: ${LABELS[scheme]}`}
+                            className="relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 rounded-xl text-slate-500 hover:text-slate-200 transition-all duration-300 text-sm"
+                        >
+                            <span className="text-lg md:text-[13px]">{ICONS[scheme]}</span>
+                            <span className="text-[10px] md:text-[13px] font-medium hidden md:block">{LABELS[scheme]}</span>
+                        </motion.button>
+                    </li>
                 </ul>
             </nav>
         </motion.header>

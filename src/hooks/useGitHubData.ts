@@ -10,6 +10,8 @@ export interface GitHubRepo {
     forks_count: number;
     pushed_at: string;
     homepage: string;
+    topics: string[];
+    updated_at: string;
 }
 
 interface UseGitHubDataResult {

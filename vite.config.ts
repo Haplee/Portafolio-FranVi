@@ -9,6 +9,15 @@ export default defineConfig({
   build: {
     outDir: 'docs',
     emptyOutDir: true,
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ['three'],
+          motion: ['motion'],
+        },
+      },
+    },
   },
   resolve: {
     alias: {

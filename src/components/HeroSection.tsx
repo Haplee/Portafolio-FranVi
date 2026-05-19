@@ -1,11 +1,11 @@
 import { motion } from 'motion/react';
-import ConstellationSky from './ui/ConstellationSky';
+import ConstellationSky3D from './ui/ConstellationSky3D';
 import ShinyText from './reactbits/ShinyText';
 
 export default function HeroSection() {
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center bg-slate-950 overflow-hidden">
-            <ConstellationSky />
+            <ConstellationSky3D />
 
             {/* Ambient glow blobs */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />

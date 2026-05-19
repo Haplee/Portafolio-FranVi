@@ -1,8 +1,11 @@
-import { useGitHubData } from '@/hooks/useGitHubData';
+import { useGitHubData, type GitHubRepo } from '@/hooks/useGitHubData';
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
 import AnimatedCounter from './AnimatedCounter';
 
+interface Props {
+    onSelectRepo: (repo: GitHubRepo) => void;
+}
 
 const LANG_COLORS: Record<string, string> = {
     TypeScript: 'bg-blue-500',
@@ -15,7 +18,7 @@ const LANG_COLORS: Record<string, string> = {
     Java:       'bg-red-500',
 };
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ onSelectRepo }: Props) {
     const { repos, loading, error } = useGitHubData('Haplee');
 
     const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
@@ -109,11 +112,9 @@ export default function ProjectsSection() {
                                 transition={{ delay: idx * 0.04 }}
                             >
                                 <SpotlightCard className="h-full" spotlightColor="rgba(34,211,238,0.08)">
-                                    <a
-                                        href={repo.html_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex flex-col justify-between h-full p-6 group"
+                                    <button
+                                        onClick={() => onSelectRepo(repo)}
+                                        className="flex flex-col justify-between h-full p-6 group w-full text-left cursor-pointer"
                                     >
                                         <div>
                                             <div className="flex items-start gap-3 mb-3">
@@ -150,11 +151,11 @@ export default function ProjectsSection() {
                                                     </span>
                                                 )}
                                                 <span className="flex items-center gap-1 text-slate-600 group-hover:text-cyan-500/70 transition-colors">
-                                                    <i className="fas fa-arrow-up-right-from-square text-[10px]" />
+                                                    <i className="fas fa-expand text-[10px]" />
                                                 </span>
                                             </div>
                                         </div>
-                                    </a>
+                                    </button>
                                 </SpotlightCard>
                             </motion.div>
                         ))}
