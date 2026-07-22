@@ -25,6 +25,7 @@ export default function Footer() {
                     {/* Social links */}
                     <div className="flex items-center gap-3">
                         {[
+                            { href: 'https://linkedin.com/in/franciscovidal-mateo-2b8a4a238', icon: 'fab fa-linkedin-in', label: 'LinkedIn',  hoverColor: 'hover:text-[#0a66c2] hover:bg-[#0a66c2]/10' },
                             { href: 'https://github.com/Haplee',                    icon: 'fab fa-github',    label: 'GitHub',    hoverColor: 'hover:text-cyan-400 hover:bg-cyan-500/10' },
                             { href: 'https://x.com/FranVidalMateo',                 icon: 'fab fa-x-twitter', label: 'X',         hoverColor: 'hover:text-white hover:bg-white/10' },
                             { href: 'https://www.instagram.com/franvidalmateo',     icon: 'fab fa-instagram', label: 'Instagram', hoverColor: 'hover:text-pink-400 hover:bg-pink-500/10' },
