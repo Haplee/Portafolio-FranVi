@@ -5,7 +5,7 @@ Incluye un cielo de constelaciones en **Three.js**, un mapa de Barbate con **Lea
 scroll suave con **Lenis** y animaciones con **Motion**. Los proyectos y las contribuciones
 se cargan en vivo desde la API de GitHub.
 
-Sitio en producción: <https://haplee.github.io/>
+Sitio en producción: <https://haplee.github.io/Portafolio-FranVi/>
 
 ## Stack
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://haplee.github.io/sitemap.xml
+Sitemap: https://haplee.github.io/Portafolio-FranVi/sitemap.xml
