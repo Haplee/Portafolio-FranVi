@@ -1,29 +1,33 @@
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 import SpotlightCard from './reactbits/SpotlightCard';
+import { useLang } from '@/i18n/LangProvider';
 
 export default function SetupSection() {
+    const { t } = useLang();
+    const L = t.setup.labels;
+
     const laptop = [
-        { item: 'CPU',      detail: 'AMD Ryzen 7 5800H',          icon: 'fas fa-microchip',  badge: 'AMD' },
-        { item: 'GPU',      detail: 'NVIDIA RTX 3050 Ti 4GB',     icon: 'fas fa-tv',         badge: 'NVIDIA' },
-        { item: 'RAM',      detail: '16 GB (8GB × 2)',             icon: 'fas fa-memory',     badge: '16 GB' },
-        { item: 'SSD',      detail: '1 TB NVMe',                   icon: 'fas fa-hdd',        badge: '1 TB' },
-        { item: 'HDD',      detail: '512 GB',                      icon: 'fas fa-hdd',        badge: '512 GB' },
-        { item: 'Pantalla', detail: '16.1″ FHD 144 Hz',           icon: 'fas fa-desktop',    badge: '144 Hz' },
+        { item: 'CPU',       detail: 'AMD Ryzen 7 5800H',      icon: 'fas fa-microchip', badge: 'AMD' },
+        { item: 'GPU',       detail: 'NVIDIA RTX 3050 Ti 4GB', icon: 'fas fa-tv',        badge: 'NVIDIA' },
+        { item: 'RAM',       detail: '16 GB (8GB × 2)',         icon: 'fas fa-memory',    badge: '16 GB' },
+        { item: 'SSD',       detail: '1 TB NVMe',               icon: 'fas fa-hdd',       badge: '1 TB' },
+        { item: 'HDD',       detail: '512 GB',                  icon: 'fas fa-hdd',       badge: '512 GB' },
+        { item: L.display,   detail: '16.1″ FHD 144 Hz',        icon: 'fas fa-desktop',   badge: '144 Hz' },
     ];
 
     const peripherals = [
-        { item: 'Teclado',     detail: 'Ajazz AK820 Pro',                 icon: 'fas fa-keyboard', badge: 'Mech' },
-        { item: 'Ratón',       detail: 'Ajazz AJ199 White Carbon Fiber',  icon: 'fas fa-mouse',    badge: 'Carbon' },
-        { item: 'Auriculares', detail: 'HyperX Cloud Stinger Core',       icon: 'fas fa-headphones',badge: 'HyperX' },
-        { item: 'Alfombrilla', detail: 'TitanWolf 900 × 400',             icon: 'fas fa-square',   badge: 'XL' },
+        { item: L.keyboard,   detail: 'Ajazz AK820 Pro',                icon: 'fas fa-keyboard',  badge: 'Mech' },
+        { item: L.mouse,      detail: 'Ajazz AJ199 White Carbon Fiber', icon: 'fas fa-mouse',     badge: 'Carbon' },
+        { item: L.headphones, detail: 'HyperX Cloud Stinger Core',      icon: 'fas fa-headphones',badge: 'HyperX' },
+        { item: L.mousepad,   detail: 'TitanWolf 900 × 400',            icon: 'fas fa-square',    badge: 'XL' },
     ];
 
     const software = [
-        { item: 'SO',       detail: 'Windows 11 + WSL2 (Ubuntu)',  icon: 'fab fa-linux' },
-        { item: 'Editor',   detail: 'VS Code',                      icon: 'fas fa-code' },
-        { item: 'Terminal', detail: 'Zsh + Oh My Posh',            icon: 'fas fa-terminal' },
-        { item: 'Shell',    detail: 'Bash / PowerShell',            icon: 'fas fa-hashtag' },
+        { item: L.os,       detail: 'Windows 11 + WSL2 (Ubuntu)', icon: 'fab fa-linux' },
+        { item: L.editor,   detail: 'VS Code',                     icon: 'fas fa-code' },
+        { item: L.terminal, detail: 'Zsh + Oh My Posh',           icon: 'fas fa-terminal' },
+        { item: L.shell,    detail: 'Bash / PowerShell',           icon: 'fas fa-hashtag' },
     ];
 
     return (
@@ -38,13 +42,13 @@ export default function SetupSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-laptop mr-2" />Hardware & Software
+                        <i aria-hidden="true" className="fas fa-laptop mr-2" />{t.setup.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
-                        Mi Setup
+                        {t.setup.title}
                     </h2>
                     <p className="text-slate-500 max-w-lg mt-6">
-                        El equipo y herramientas con los que trabajo cada día.
+                        {t.setup.subtitle}
                     </p>
                 </motion.div>
 
@@ -64,7 +68,7 @@ export default function SetupSection() {
                                     <h3 className="text-lg font-semibold text-white">HP Victus 16</h3>
                                     <p className="text-xs text-slate-500 flex items-center gap-1.5">
                                         <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-                                        Portátil Gaming
+                                        {t.setup.laptopSub}
                                     </p>
                                 </div>
                             </div>
@@ -109,8 +113,8 @@ export default function SetupSection() {
                                     <i aria-hidden="true" className="fas fa-gamepad text-2xl text-purple-400" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-white">Periféricos</h3>
-                                    <p className="text-xs text-slate-500">Equipamiento de trabajo</p>
+                                    <h3 className="text-lg font-semibold text-white">{t.setup.periphTitle}</h3>
+                                    <p className="text-xs text-slate-500">{t.setup.periphSub}</p>
                                 </div>
                             </div>
                             <ul className="space-y-2.5">
@@ -154,7 +158,7 @@ export default function SetupSection() {
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 flex items-center justify-center border border-emerald-500/15">
                                 <i aria-hidden="true" className="fas fa-terminal text-emerald-400 text-sm" />
                             </div>
-                            <h3 className="text-base font-semibold text-white">Software</h3>
+                            <h3 className="text-base font-semibold text-white">{t.setup.softwareTitle}</h3>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {software.map((sw, idx) => (

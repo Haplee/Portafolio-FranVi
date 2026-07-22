@@ -1,19 +1,44 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useKonami } from '@/hooks/useKonami';
 
+const EFFECT_MS = 4000;
+
+// Parámetros de los ♋ que caen, generados una vez fuera del render (pureza).
+const CANCERS = Array.from({ length: 12 }, (_, i) => ({
+    x: Math.random() * 100,
+    dur: 3.5 + Math.random() * 1.5,
+    delay: i * 0.15,
+    size: 24 + Math.random() * 28,
+}));
+
 export default function KonamiEffect() {
     const [active, setActive] = useState(false);
+    const activeRef = useRef(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    useKonami(() => {
-        // Scroll to hero
+    const trigger = useCallback(() => {
+        // Ignora reactivaciones mientras el efecto ya está en marcha.
+        if (activeRef.current) return;
+        activeRef.current = true;
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Trigger meteor shower in constellation
         window.dispatchEvent(new CustomEvent('konami-burst'));
-        // Show golden flash overlay
         setActive(true);
-        setTimeout(() => setActive(false), 4000);
-    });
+
+        timerRef.current = setTimeout(() => {
+            setActive(false);
+            activeRef.current = false;
+            timerRef.current = null;
+        }, EFFECT_MS);
+    }, []);
+
+    // Limpia el temporizador si el componente se desmonta durante el efecto.
+    useEffect(() => () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+    }, []);
+
+    useKonami(trigger);
 
     return (
         <AnimatePresence>
@@ -31,11 +56,11 @@ export default function KonamiEffect() {
 
                     {/* Floating ♋ symbols */}
                     <div className="fixed inset-0 z-[301] pointer-events-none overflow-hidden">
-                        {Array.from({ length: 12 }).map((_, i) => (
+                        {CANCERS.map((c, i) => (
                             <motion.span
                                 key={i}
                                 initial={{
-                                    x: `${Math.random() * 100}%`,
+                                    x: `${c.x}%`,
                                     y: '110vh',
                                     rotate: 0,
                                     opacity: 0,
@@ -46,12 +71,12 @@ export default function KonamiEffect() {
                                     opacity: [0, 1, 1, 0],
                                 }}
                                 transition={{
-                                    duration: 3.5 + Math.random() * 1.5,
-                                    delay: i * 0.15,
+                                    duration: c.dur,
+                                    delay: c.delay,
                                     ease: 'easeOut',
                                 }}
                                 style={{
-                                    fontSize: `${24 + Math.random() * 28}px`,
+                                    fontSize: `${c.size}px`,
                                     color: 'rgba(251,191,36,0.85)',
                                     textShadow: '0 0 15px rgba(251,191,36,0.6)',
                                 }}

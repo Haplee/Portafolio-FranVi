@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { useGitHubContributions } from '@/hooks/useGitHubContributions';
+import { useLang } from '@/i18n/LangProvider';
 
 const LEVEL_COLORS = [
     'bg-slate-800/60',
@@ -10,10 +11,8 @@ const LEVEL_COLORS = [
     'bg-cyan-400',
 ];
 
-const MONTHS_ES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-const DAYS_ES = ['', 'Lun', '', 'Mié', '', 'Vie', ''];
-
 export default function ContributionGraph({ username }: { username: string }) {
+    const { t } = useLang();
     const { days, total, loading, error } = useGitHubContributions(username);
     const [hovered, setHovered] = useState<ContribTooltip | null>(null);
 
@@ -47,22 +46,22 @@ export default function ContributionGraph({ username }: { username: string }) {
                 <div>
                     <h3 className="text-sm font-bold text-white flex items-center gap-2">
                         <i aria-hidden="true" className="fas fa-fire text-amber-400" />
-                        Contribuciones último año
+                        {t.contrib.title}
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">
-                        {loading ? 'Cargando…' : (
+                        {loading ? t.contrib.loading : (
                             <>
-                                <span className="text-cyan-400 font-mono font-bold">{total}</span> commits en GitHub @{username}
+                                <span className="text-cyan-400 font-mono font-bold">{total}</span> {t.contrib.commitsOn} @{username}
                             </>
                         )}
                     </p>
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                    <span>menos</span>
+                    <span>{t.contrib.less}</span>
                     {LEVEL_COLORS.map((c, i) => (
                         <span key={i} className={`w-2.5 h-2.5 rounded-sm ${c}`} />
                     ))}
-                    <span>más</span>
+                    <span>{t.contrib.more}</span>
                 </div>
             </div>
 
@@ -74,7 +73,7 @@ export default function ContributionGraph({ username }: { username: string }) {
                         <div className="inline-flex gap-[3px] min-w-full">
                             {/* Day labels column */}
                             <div className="flex flex-col gap-[3px] pr-2 text-[9px] text-slate-600 justify-around">
-                                {DAYS_ES.map((d, i) => (
+                                {t.contrib.days.map((d, i) => (
                                     <span key={i} className="h-2.5 leading-none">{d}</span>
                                 ))}
                             </div>
@@ -91,7 +90,7 @@ export default function ContributionGraph({ username }: { username: string }) {
                                                 w-2.5 h-2.5 rounded-sm cursor-pointer transition-transform hover:scale-150
                                                 ${LEVEL_COLORS[day.level]}
                                             `}
-                                            aria-label={`${day.count} contribuciones el ${day.date}`}
+                                            aria-label={t.contrib.dayAria(day.count, day.date)}
                                         />
                                     ))}
                                 </div>
@@ -105,7 +104,7 @@ export default function ContributionGraph({ username }: { username: string }) {
                     <div className="absolute top-2 right-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs pointer-events-none shadow-lg z-10">
                         <p className="text-white font-mono">{hovered.date}</p>
                         <p className="text-cyan-400">
-                            {hovered.count === 0 ? 'Sin commits' : `${hovered.count} commit${hovered.count !== 1 ? 's' : ''}`}
+                            {hovered.count === 0 ? t.contrib.noCommits : t.contrib.commitCount(hovered.count)}
                         </p>
                     </div>
                 )}
@@ -114,7 +113,7 @@ export default function ContributionGraph({ username }: { username: string }) {
             {/* Month labels */}
             {!loading && (
                 <div className="hidden sm:flex justify-between mt-2 pl-7 pr-1 text-[9px] text-slate-600 font-mono">
-                    {MONTHS_ES.map((m) => <span key={m}>{m}</span>)}
+                    {t.contrib.months.map((m) => <span key={m}>{m}</span>)}
                 </div>
             )}
         </motion.div>

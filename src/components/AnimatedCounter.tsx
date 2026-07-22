@@ -14,8 +14,9 @@ export default function AnimatedCounter({ target, duration = 1500, className = '
 
     useEffect(() => {
         if (!isInView) return;
-        if (target === 0) { setCount(0); return; }
 
+        // Para target 0 el propio bucle fija el valor a 0 (round(eased*0)); no
+        // hace falta un setState síncrono aquí.
         const startTime = performance.now();
         const tick = (now: number) => {
             const elapsed = now - startTime;
