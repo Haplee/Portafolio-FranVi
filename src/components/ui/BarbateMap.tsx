@@ -79,16 +79,17 @@ export default function BarbateMap() {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800/60 bg-slate-900/80 relative z-10">
                 <div className="flex items-center gap-2">
-                    <i className="fas fa-map-marker-alt text-amber-400" />
+                    <i aria-hidden="true" className="fas fa-map-marker-alt text-amber-400" />
                     <span className="text-sm font-semibold text-white">Barbate, Cádiz · España</span>
                 </div>
                 <a
                     href={`https://www.openstreetmap.org/?mlat=${BARBATE[0]}&mlon=${BARBATE[1]}#map=13/${BARBATE[0]}/${BARBATE[1]}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Ver Barbate en OpenStreetMap (abre en una pestaña nueva)"
                     className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1"
                 >
-                    <i className="fas fa-external-link-alt text-[10px]" />
+                    <i aria-hidden="true" className="fas fa-external-link-alt text-[10px]" />
                     <span className="hidden sm:inline">OSM</span>
                 </a>
             </div>

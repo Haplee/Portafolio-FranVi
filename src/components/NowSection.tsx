@@ -50,7 +50,7 @@ export default function NowSection() {
                 >
                     <div className="flex items-center gap-3 mb-3">
                         <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em]">
-                            <i className="fas fa-circle-dot mr-2 animate-pulse text-green-400" />Ahora mismo
+                            <i aria-hidden="true" className="fas fa-circle-dot mr-2 animate-pulse text-green-400" />Ahora mismo
                         </span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white section-title">

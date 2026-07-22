@@ -33,7 +33,7 @@ export default function BackToTop() {
                         bottom-24 right-4
                         sm:bottom-8 sm:right-6"
                 >
-                    <i className="fas fa-chevron-up text-xs" />
+                    <i aria-hidden="true" className="fas fa-chevron-up text-xs" />
                 </motion.button>
             )}
         </AnimatePresence>

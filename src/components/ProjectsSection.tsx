@@ -39,7 +39,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fab fa-github mr-2" />Open Source
+                        <i aria-hidden="true" className="fab fa-github mr-2" />Open Source
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
                         Proyectos
@@ -72,7 +72,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                                     className={`stat-card bg-gradient-to-br ${stat.bg} border ${stat.border} rounded-2xl p-5 text-center hover:border-cyan-500/30 group`}
                                 >
                                     <div className={`text-2xl font-bold ${stat.color} group-hover:text-cyan-400 transition-colors mb-1`}>
-                                        <i className={stat.icon} />
+                                        <i aria-hidden="true" className={stat.icon} />
                                     </div>
                                     <div className="text-xs text-slate-500 uppercase tracking-wider group-hover:text-slate-400 transition-colors">{stat.label}</div>
                                 </a>
@@ -95,7 +95,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
 
                 {error && (
                     <p className="text-slate-400 text-center py-12 flex items-center justify-center gap-2">
-                        <i className="fas fa-exclamation-triangle text-amber-500" />
+                        <i aria-hidden="true" className="fas fa-exclamation-triangle text-amber-500" />
                         {error}
                     </p>
                 )}
@@ -125,7 +125,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                                         <div>
                                             <div className="flex items-start gap-3 mb-3">
                                                 <div className="w-9 h-9 rounded-lg bg-slate-700/60 flex items-center justify-center flex-shrink-0 group-hover:bg-cyan-500/10 transition-colors">
-                                                    <i className="fab fa-github text-slate-400 group-hover:text-cyan-400 transition-colors" />
+                                                    <i aria-hidden="true" className="fab fa-github text-slate-400 group-hover:text-cyan-400 transition-colors" />
                                                 </div>
                                                 <h3 className="text-base font-semibold text-white group-hover:text-cyan-400 transition-colors leading-tight pt-1 truncate">
                                                     {repo.name}
@@ -148,16 +148,16 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                                             <div className="flex gap-3 text-xs text-slate-600">
                                                 {repo.stargazers_count > 0 && (
                                                     <span className="flex items-center gap-1 text-amber-400/80">
-                                                        <i className="fas fa-star" /> {repo.stargazers_count}
+                                                        <i aria-hidden="true" className="fas fa-star" /> {repo.stargazers_count}
                                                     </span>
                                                 )}
                                                 {repo.forks_count > 0 && (
                                                     <span className="flex items-center gap-1 text-slate-500">
-                                                        <i className="fas fa-code-branch" /> {repo.forks_count}
+                                                        <i aria-hidden="true" className="fas fa-code-branch" /> {repo.forks_count}
                                                     </span>
                                                 )}
                                                 <span className="flex items-center gap-1 text-slate-600 group-hover:text-cyan-500/70 transition-colors">
-                                                    <i className="fas fa-expand text-[10px]" />
+                                                    <i aria-hidden="true" className="fas fa-expand text-[10px]" />
                                                 </span>
                                             </div>
                                         </div>

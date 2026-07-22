@@ -86,7 +86,7 @@ export default function SkillsSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-microchip mr-2" />Stack técnico
+                        <i aria-hidden="true" className="fas fa-microchip mr-2" />Stack técnico
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
                         Habilidades
@@ -109,7 +109,7 @@ export default function SkillsSection() {
                                 {/* Card header */}
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${group.gradient} flex items-center justify-center border border-white/5`}>
-                                        <i className={`${group.icon} text-white/80`} />
+                                        <i aria-hidden="true" className={`${group.icon} text-white/80`} />
                                     </div>
                                     <h3 className="text-base font-semibold text-white">{group.category}</h3>
                                 </div>
@@ -142,7 +142,7 @@ export default function SkillsSection() {
                                                             <img src={svgUrl} alt={skill.name} className="w-5 h-5 object-contain" />
                                                         ) : (
                                                             <span className="w-5 h-5 flex items-center justify-center text-slate-500 text-xs">
-                                                                <i className="fas fa-terminal" />
+                                                                <i aria-hidden="true" className="fas fa-terminal" />
                                                             </span>
                                                         )}
                                                         <span className="text-sm text-slate-300 group-hover/skill:text-white transition-colors font-medium">

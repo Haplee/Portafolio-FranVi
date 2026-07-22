@@ -1,6 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
-import BarbateMap from './ui/BarbateMap';
+
+// Leaflet + su CSS se cargan bajo demanda (el mapa está por debajo del pliegue).
+const BarbateMap = lazy(() => import('./ui/BarbateMap'));
 
 export default function AboutSection() {
     return (
@@ -18,7 +21,7 @@ export default function AboutSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-user mr-2" />Quién soy
+                        <i aria-hidden="true" className="fas fa-user mr-2" />Quién soy
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
                         Sobre mí
@@ -39,7 +42,7 @@ export default function AboutSection() {
                         <SpotlightCard className="p-8 h-full" spotlightColor="rgba(34,211,238,0.12)">
                             <div className="flex items-center gap-4 mb-7">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/30 to-blue-500/20 flex items-center justify-center border border-cyan-500/20">
-                                    <i className="fas fa-terminal text-cyan-400 text-lg" />
+                                    <i aria-hidden="true" className="fas fa-terminal text-cyan-400 text-lg" />
                                 </div>
                                 <div>
                                     <h3 className="text-white font-semibold text-lg">Biografía</h3>
@@ -63,7 +66,7 @@ export default function AboutSection() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
                                 >
-                                    <i className="fas fa-file-alt text-sm" />
+                                    <i aria-hidden="true" className="fas fa-file-alt text-sm" />
                                     Ver CV
                                 </a>
                                 <a
@@ -72,7 +75,7 @@ export default function AboutSection() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-600 hover:border-cyan-500/50 text-slate-300 hover:text-white font-medium rounded-xl transition-all hover:bg-cyan-500/5"
                                 >
-                                    <i className="fab fa-github text-sm" />
+                                    <i aria-hidden="true" className="fab fa-github text-sm" />
                                     GitHub
                                 </a>
                             </div>
@@ -121,7 +124,9 @@ export default function AboutSection() {
 
                 {/* Birthplace map */}
                 <div className="mt-8">
-                    <BarbateMap />
+                    <Suspense fallback={<div className="h-64 sm:h-80 md:h-96 rounded-2xl bg-slate-800/40 animate-pulse border border-slate-700/50" />}>
+                        <BarbateMap />
+                    </Suspense>
                 </div>
             </div>
         </section>

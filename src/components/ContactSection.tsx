@@ -137,7 +137,7 @@ export default function ContactSection() {
                     className="mb-12 text-center"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-paper-plane mr-2" />Conectemos
+                        <i aria-hidden="true" className="fas fa-paper-plane mr-2" />Conectemos
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title inline-block">
                         Contacto
@@ -249,7 +249,7 @@ export default function ContactSection() {
 
                         <div className="flex flex-wrap items-center justify-between gap-3 mt-6">
                             <p className="text-xs text-slate-500 flex items-center gap-2">
-                                <i className="fas fa-shield-halved text-cyan-500/60" />
+                                <i aria-hidden="true" className="fas fa-shield-halved text-cyan-500/60" />
                                 Sin spam — directo a mi email
                             </p>
                             <MagneticButton
@@ -262,11 +262,11 @@ export default function ContactSection() {
                                     'disabled:opacity-60 disabled:cursor-not-allowed'
                                 )}
                             >
-                                {status === 'sending'  && (<><i className="fas fa-spinner fa-spin" /> Enviando...</>)}
-                                {status === 'idle'     && (<><i className="fas fa-paper-plane" /> Enviar mensaje</>)}
-                                {status === 'success'  && (<><i className="fas fa-check" /> Enviado</>)}
-                                {status === 'fallback' && (<><i className="fas fa-envelope" /> Abriendo email...</>)}
-                                {status === 'error'    && (<><i className="fas fa-exclamation-triangle" /> Reintentar</>)}
+                                {status === 'sending'  && (<><i aria-hidden="true" className="fas fa-spinner fa-spin" /> Enviando...</>)}
+                                {status === 'idle'     && (<><i aria-hidden="true" className="fas fa-paper-plane" /> Enviar mensaje</>)}
+                                {status === 'success'  && (<><i aria-hidden="true" className="fas fa-check" /> Enviado</>)}
+                                {status === 'fallback' && (<><i aria-hidden="true" className="fas fa-envelope" /> Abriendo email...</>)}
+                                {status === 'error'    && (<><i aria-hidden="true" className="fas fa-exclamation-triangle" /> Reintentar</>)}
                             </MagneticButton>
                         </div>
 
@@ -280,7 +280,7 @@ export default function ContactSection() {
                                     className="mt-5 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-sm text-green-300 relative z-10"
                                 >
                                     <p className="font-semibold flex items-center gap-2">
-                                        <i className="fas fa-check-circle" /> ¡Mensaje enviado!
+                                        <i aria-hidden="true" className="fas fa-check-circle" /> ¡Mensaje enviado!
                                     </p>
                                     <p className="text-green-400/70 text-xs mt-1">
                                         Te responderé en menos de 24h a tu email.
@@ -295,7 +295,7 @@ export default function ContactSection() {
                                     className="mt-5 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-sm text-amber-200"
                                 >
                                     <p className="font-semibold flex items-center gap-2">
-                                        <i className="fas fa-envelope-open-text" /> Abriendo tu cliente de email
+                                        <i aria-hidden="true" className="fas fa-envelope-open-text" /> Abriendo tu cliente de email
                                     </p>
                                     <p className="text-amber-300/70 text-xs mt-1 leading-relaxed">
                                         El servicio formsubmit.co no está disponible aún (requiere activación tras primer envío). Abro tu app de email con el mensaje listo — solo dale a <b>Enviar</b>.
@@ -317,7 +317,7 @@ export default function ContactSection() {
                                     className="mt-5 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-sm text-red-300"
                                 >
                                     <p className="font-semibold flex items-center gap-2">
-                                        <i className="fas fa-exclamation-circle" /> No se pudo enviar
+                                        <i aria-hidden="true" className="fas fa-exclamation-circle" /> No se pudo enviar
                                     </p>
                                     <p className="text-red-400/70 text-xs mt-1">
                                         {errorMsg || `Intenta de nuevo o escríbeme directamente a ${EMAIL}`}
@@ -342,7 +342,7 @@ export default function ContactSection() {
                                 href="mailto:fvidalmateo@gmail.com"
                                 className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 hover:bg-cyan-500/15 transition-all text-sm font-mono break-all"
                             >
-                                <i className="fas fa-envelope text-cyan-400 flex-shrink-0" />
+                                <i aria-hidden="true" className="fas fa-envelope text-cyan-400 flex-shrink-0" />
                                 fvidalmateo@gmail.com
                             </a>
                         </div>
@@ -362,12 +362,12 @@ export default function ContactSection() {
                                             s.border
                                         )}
                                     >
-                                        <i className={cn(s.icon, s.iconColor, 'text-lg w-5 text-center')} />
+                                        <i aria-hidden="true" className={cn(s.icon, s.iconColor, 'text-lg w-5 text-center')} />
                                         <div className="flex-1 min-w-0">
                                             <p className="text-xs font-semibold text-white">{s.name}</p>
                                             <p className="text-[10px] text-slate-500 truncate">{s.handle}</p>
                                         </div>
-                                        <i className="fas fa-arrow-up-right-from-square text-[9px] text-slate-600" />
+                                        <i aria-hidden="true" className="fas fa-arrow-up-right-from-square text-[9px] text-slate-600" />
                                     </a>
                                 ))}
                             </div>
@@ -403,7 +403,7 @@ function FormField({
     return (
         <div className="mb-4">
             <label className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                <i className={cn('fas', icon, 'text-cyan-500/70 text-[11px]')} />
+                <i aria-hidden="true" className={cn('fas', icon, 'text-cyan-500/70 text-[11px]')} />
                 {label}
                 {error && (
                     <span className="text-red-400 normal-case font-normal ml-auto">{error}</span>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -26,7 +27,7 @@ export default function App() {
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Preloader onComplete={() => setLoaded(true)} />
 
       {loaded && (
@@ -60,6 +61,6 @@ export default function App() {
           <ProjectOverlay repo={selectedRepo} onClose={() => setSelectedRepo(null)} />
         </div>
       )}
-    </>
+    </MotionConfig>
   );
 }

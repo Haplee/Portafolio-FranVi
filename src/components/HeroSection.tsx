@@ -1,12 +1,18 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
-import ConstellationSky3D from './ui/ConstellationSky3D';
 import ShinyText from './reactbits/ShinyText';
 import MagneticButton from './ui/MagneticButton';
+
+// Three.js es pesado (~600 KB): se carga en un chunk aparte para no bloquear
+// el primer render. El hero sigue siendo usable mientras carga (fondo vacío).
+const ConstellationSky3D = lazy(() => import('./ui/ConstellationSky3D'));
 
 export default function HeroSection() {
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center bg-slate-950 overflow-hidden">
-            <ConstellationSky3D />
+            <Suspense fallback={null}>
+                <ConstellationSky3D />
+            </Suspense>
 
             {/* Ambient glow blobs */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
@@ -105,7 +111,7 @@ export default function HeroSection() {
                             className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow text-sm sm:text-base"
                             strength={0.4}
                         >
-                            <i className="fas fa-code-branch text-xs sm:text-sm" />
+                            <i aria-hidden="true" className="fas fa-code-branch text-xs sm:text-sm" />
                             <span>Ver Proyectos</span>
                         </MagneticButton>
                         <MagneticButton
@@ -113,7 +119,7 @@ export default function HeroSection() {
                             className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl border border-slate-600/80 text-slate-300 font-medium hover:border-cyan-500/60 hover:text-white hover:bg-cyan-500/5 transition-all backdrop-blur-sm text-sm sm:text-base"
                             strength={0.3}
                         >
-                            <i className="fas fa-paper-plane text-xs sm:text-sm" />
+                            <i aria-hidden="true" className="fas fa-paper-plane text-xs sm:text-sm" />
                             <span>Contacto</span>
                         </MagneticButton>
                     </div>
@@ -128,12 +134,12 @@ export default function HeroSection() {
                             item.href ? (
                                 <a key={i} href={item.href} target="_blank" rel="noopener noreferrer"
                                     className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-cyan-400 transition-colors">
-                                    <i className={`${item.icon} text-cyan-500/70`} />
+                                    <i aria-hidden="true" className={`${item.icon} text-cyan-500/70`} />
                                     {item.text}
                                 </a>
                             ) : (
                                 <span key={i} className="flex items-center gap-1.5 text-xs text-slate-500">
-                                    <i className={`${item.icon} text-cyan-500/70`} />
+                                    <i aria-hidden="true" className={`${item.icon} text-cyan-500/70`} />
                                     {item.text}
                                 </span>
                             )
