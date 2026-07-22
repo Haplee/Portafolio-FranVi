@@ -1,12 +1,18 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
-import ConstellationSky3D from './ui/ConstellationSky3D';
 import ShinyText from './reactbits/ShinyText';
 import MagneticButton from './ui/MagneticButton';
+
+// Three.js es pesado (~600 KB): se carga en un chunk aparte para no bloquear
+// el primer render. El hero sigue siendo usable mientras carga (fondo vacío).
+const ConstellationSky3D = lazy(() => import('./ui/ConstellationSky3D'));
 
 export default function HeroSection() {
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center bg-slate-950 overflow-hidden">
-            <ConstellationSky3D />
+            <Suspense fallback={null}>
+                <ConstellationSky3D />
+            </Suspense>
 
             {/* Ambient glow blobs */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />

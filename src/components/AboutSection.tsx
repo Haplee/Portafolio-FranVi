@@ -1,6 +1,9 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
-import BarbateMap from './ui/BarbateMap';
+
+// Leaflet + su CSS se cargan bajo demanda (el mapa está por debajo del pliegue).
+const BarbateMap = lazy(() => import('./ui/BarbateMap'));
 
 export default function AboutSection() {
     return (
@@ -121,7 +124,9 @@ export default function AboutSection() {
 
                 {/* Birthplace map */}
                 <div className="mt-8">
-                    <BarbateMap />
+                    <Suspense fallback={<div className="h-64 sm:h-80 md:h-96 rounded-2xl bg-slate-800/40 animate-pulse border border-slate-700/50" />}>
+                        <BarbateMap />
+                    </Suspense>
                 </div>
             </div>
         </section>
