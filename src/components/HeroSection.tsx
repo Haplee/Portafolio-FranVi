@@ -128,7 +128,7 @@ export default function HeroSection() {
                     <div className="hidden sm:flex flex-wrap items-center gap-4 pt-1">
                         {[
                             { icon: 'fas fa-map-marker-alt', text: 'Barbate, Cádiz' },
-                            { icon: 'fas fa-graduation-cap', text: 'ASIR Titulado' },
+                            { icon: 'fas fa-graduation-cap', text: 'Técnico Superior en ASIR' },
                             { icon: 'fab fa-github', text: 'Haplee', href: 'https://github.com/Haplee' },
                         ].map((item, i) => (
                             item.href ? (
