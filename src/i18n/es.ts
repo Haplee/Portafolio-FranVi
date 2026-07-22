@@ -126,6 +126,7 @@ export const es = {
                     { name: 'Ejército de Tierra', detail: 'Próximo paso: alistamiento en el Ejército de Tierra español' },
                     { name: 'Primera oportunidad', detail: 'Sysadmin junior o Desarrollador Web junior — full-time o prácticas' },
                     { name: 'Equipos pequeños', detail: 'Donde pueda aprender de seniors y aportar desde día 1' },
+                    { name: 'Stack moderno', detail: 'TypeScript, React, Linux, Docker — empresas que apuesten por el futuro' },
                 ],
             },
         ],

@@ -1,43 +1,16 @@
 import { motion } from 'motion/react';
+import { useLang } from '@/i18n/LangProvider';
 
-const NOW_ITEMS = [
-    {
-        category: 'Aprendiendo',
-        icon: '📚',
-        items: [
-            { name: 'React + TypeScript',    detail: 'Profundizando hooks avanzados y patrones de composición' },
-            { name: 'Docker + Kubernetes',   detail: 'Contenedores y orquestación para sysadmin moderno' },
-            { name: 'Inglés B1',             detail: 'Certificación en curso: lectura técnica y comunicación profesional' },
-        ],
-        accent: 'border-cyan-500/30 bg-cyan-500/5',
-        chipColor: 'text-cyan-400',
-    },
-    {
-        category: 'Construyendo',
-        icon: '🔨',
-        items: [
-            { name: 'Este portfolio',         detail: 'React 19, TypeScript, Three.js, GSAP — open source' },
-            { name: 'Scripts de automatización', detail: 'Bash + Python para gestionar servidores Linux' },
-            { name: 'Proyectos ASIR',         detail: 'Active Directory, redes, virtualización' },
-        ],
-        accent: 'border-purple-500/30 bg-purple-500/5',
-        chipColor: 'text-purple-400',
-    },
-    {
-        category: 'Buscando',
-        icon: '🎯',
-        items: [
-            { name: 'Ejército de Tierra',     detail: 'Próximo paso: alistamiento en el Ejército de Tierra español' },
-            { name: 'Primera oportunidad',    detail: 'Sysadmin junior o Desarrollador Web junior — full-time o prácticas' },
-            { name: 'Equipos pequeños',       detail: 'Donde pueda aprender de seniors y aportar desde día 1' },
-            { name: 'Stack moderno',          detail: 'TypeScript, React, Linux, Docker — empresas que apuesten por el futuro' },
-        ],
-        accent: 'border-amber-500/30 bg-amber-500/5',
-        chipColor: 'text-amber-400',
-    },
+// Solo metadatos visuales; categoría e items salen del diccionario por índice.
+const NOW_META = [
+    { icon: '📚', accent: 'border-cyan-500/30 bg-cyan-500/5', chipColor: 'text-cyan-400' },
+    { icon: '🔨', accent: 'border-purple-500/30 bg-purple-500/5', chipColor: 'text-purple-400' },
+    { icon: '🎯', accent: 'border-amber-500/30 bg-amber-500/5', chipColor: 'text-amber-400' },
 ];
 
 export default function NowSection() {
+    const { t } = useLang();
+    const NOW_ITEMS = t.now.columns.map((col, i) => ({ ...NOW_META[i], ...col }));
     return (
         <section id="now" className="py-16 md:py-24 px-4 w-full bg-slate-950 relative overflow-hidden">
             <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-cyan-500/3 blur-3xl pointer-events-none" />
@@ -51,14 +24,14 @@ export default function NowSection() {
                 >
                     <div className="flex items-center gap-3 mb-3">
                         <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em]">
-                            <i aria-hidden="true" className="fas fa-circle-dot mr-2 animate-pulse text-green-400" />Ahora mismo
+                            <i aria-hidden="true" className="fas fa-circle-dot mr-2 animate-pulse text-green-400" />{t.now.kicker}
                         </span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white section-title">
-                        ¿Qué estoy haciendo?
+                        {t.now.title}
                     </h2>
                     <p className="text-slate-500 mt-6 max-w-xl">
-                        Snapshot de mi presente. Lo que aprendo, construyo y busco — actualizado regularmente.
+                        {t.now.subtitle}
                     </p>
                 </motion.div>
 

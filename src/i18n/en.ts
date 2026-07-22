@@ -126,6 +126,7 @@ export const en: Dict = {
                     { name: 'Spanish Army', detail: 'Next step: enlisting in the Spanish Army' },
                     { name: 'First opportunity', detail: 'Junior sysadmin or junior web developer — full-time or internship' },
                     { name: 'Small teams', detail: 'Where I can learn from seniors and contribute from day 1' },
+                    { name: 'Modern stack', detail: 'TypeScript, React, Linux, Docker — companies betting on the future' },
                 ],
             },
         ],
