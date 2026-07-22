@@ -1,0 +1,51 @@
+name: Build y desplegar docs/
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Necesario para que el job pueda commitear docs/ de vuelta al repo.
+permissions:
+  contents: write
+
+# Evita ejecuciones solapadas si se empujan varios commits seguidos.
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: true
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Commitear docs/ si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain docs)" ]; then
+            git add docs
+            # [skip ci] no es imprescindible (los push con GITHUB_TOKEN no
+            # re-disparan workflows) pero deja constancia y da doble seguridad.
+            git commit -m "build: regenerar docs/ [skip ci]"
+            git push
+          else
+            echo "docs/ ya está actualizado; nada que commitear."
+          fi
