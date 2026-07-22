@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 
 export function useIsMobile(breakpoint: number = 768): boolean {
-    const [isMobile, setIsMobile] = useState(false);
+    // Inicializa de forma síncrona con el ancho real para acertar en el primer
+    // render (así en móvil no se llega a montar/cargar Three.js).
+    const [isMobile, setIsMobile] = useState(
+        () => typeof window !== 'undefined' && window.innerWidth < breakpoint
+    );
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < breakpoint);

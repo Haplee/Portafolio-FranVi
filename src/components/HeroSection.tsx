@@ -2,17 +2,35 @@ import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
 import ShinyText from './reactbits/ShinyText';
 import MagneticButton from './ui/MagneticButton';
+import StaticSky from './ui/StaticSky';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
-// Three.js es pesado (~600 KB): se carga en un chunk aparte para no bloquear
-// el primer render. El hero sigue siendo usable mientras carga (fondo vacío).
+// Three.js es pesado (~500 KB): se carga en un chunk aparte para no bloquear
+// el primer render. StaticSky pinta el fondo desde el primer frame; el 3D se
+// funde por encima cuando termina de cargar. En móvil no se carga Three.js.
 const ConstellationSky3D = lazy(() => import('./ui/ConstellationSky3D'));
 
 export default function HeroSection() {
+    const isMobile = useIsMobile();
+
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center bg-slate-950 overflow-hidden">
-            <Suspense fallback={null}>
-                <ConstellationSky3D />
-            </Suspense>
+            {/* Fondo base, visible al instante */}
+            <StaticSky />
+
+            {/* Constelación 3D (solo escritorio), fundida sobre el fondo estático */}
+            {!isMobile && (
+                <Suspense fallback={null}>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.2, ease: 'easeOut' }}
+                        className="absolute inset-0"
+                    >
+                        <ConstellationSky3D />
+                    </motion.div>
+                </Suspense>
+            )}
 
             {/* Ambient glow blobs */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
