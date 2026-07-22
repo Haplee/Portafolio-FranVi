@@ -25,9 +25,38 @@ interface UseGitHubDataResult {
 const cache = new Map<string, GitHubRepo[]>();
 const inflight = new Map<string, Promise<GitHubRepo[]>>();
 
+const storageKey = (username: string) => `gh-repos:${username}`;
+
+// sessionStorage sobrevive a recargas dentro de la sesión sin gastar cuota.
+// Puede lanzar en modo privado o si está deshabilitado, de ahí el try/catch.
+function readSession(username: string): GitHubRepo[] | null {
+    try {
+        const raw = sessionStorage.getItem(storageKey(username));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? (parsed as GitHubRepo[]) : null;
+    } catch {
+        return null;
+    }
+}
+
+function writeSession(username: string, repos: GitHubRepo[]): void {
+    try {
+        sessionStorage.setItem(storageKey(username), JSON.stringify(repos));
+    } catch {
+        /* almacenamiento no disponible: se ignora */
+    }
+}
+
 function loadRepos(username: string): Promise<GitHubRepo[]> {
     const cached = cache.get(username);
     if (cached) return Promise.resolve(cached);
+
+    const fromSession = readSession(username);
+    if (fromSession) {
+        cache.set(username, fromSession);
+        return Promise.resolve(fromSession);
+    }
 
     const pending = inflight.get(username);
     if (pending) return pending;
@@ -46,6 +75,7 @@ function loadRepos(username: string): Promise<GitHubRepo[]> {
             throw new Error('Respuesta inesperada de la API de GitHub');
         }
         cache.set(username, data as GitHubRepo[]);
+        writeSession(username, data as GitHubRepo[]);
         return data as GitHubRepo[];
     })();
 

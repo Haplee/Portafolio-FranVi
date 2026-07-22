@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
 import AnimatedCounter from './AnimatedCounter';
 import ContributionGraph from './ui/ContributionGraph';
+import { curatedProjects } from '@/data/projects';
 
 interface Props {
     onSelectRepo: (repo: GitHubRepo) => void;
@@ -20,7 +21,12 @@ const LANG_COLORS: Record<string, string> = {
 };
 
 export default function ProjectsSection({ onSelectRepo }: Props) {
-    const { repos, loading, error } = useGitHubData('Haplee');
+    const { repos, loading } = useGitHubData('Haplee');
+
+    // Si la API de GitHub falla o agota su cuota, `repos` queda vacío: se pintan
+    // los proyectos curados para que la sección nunca aparezca sin contenido.
+    const usingFallback = !loading && repos.length === 0;
+    const displayRepos = repos.length > 0 ? repos : curatedProjects;
 
     const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
     const totalForks = repos.reduce((acc, repo) => acc + repo.forks_count, 0);
@@ -50,7 +56,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                 </motion.div>
 
                 {/* Stats row */}
-                {!loading && !error && repos.length > 0 && (
+                {!loading && repos.length > 0 && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -93,10 +99,10 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                     <ContributionGraph username="Haplee" />
                 </div>
 
-                {error && (
-                    <p className="text-slate-400 text-center py-12 flex items-center justify-center gap-2">
-                        <i aria-hidden="true" className="fas fa-exclamation-triangle text-amber-500" />
-                        {error}
+                {usingFallback && (
+                    <p className="text-slate-500 text-center text-sm mb-6 flex items-center justify-center gap-2">
+                        <i aria-hidden="true" className="fas fa-star text-cyan-500/70" />
+                        Proyectos destacados seleccionados a mano.
                     </p>
                 )}
 
@@ -109,7 +115,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {repos.map((repo, idx) => (
+                        {displayRepos.map((repo, idx) => (
                             <motion.div
                                 key={repo.id}
                                 initial={{ opacity: 0, y: 20 }}
