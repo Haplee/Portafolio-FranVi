@@ -14,7 +14,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="flex items-center gap-3 group">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:border-cyan-500/40 transition-colors">
-                            <i className="fas fa-code text-cyan-400 text-sm" />
+                            <i aria-hidden="true" className="fas fa-code text-cyan-400 text-sm" />
                         </div>
                         <div>
                             <p className="text-white font-semibold">Fran Vidal</p>
@@ -37,7 +37,7 @@ export default function Footer() {
                                 aria-label={s.label}
                                 className={`w-9 h-9 flex items-center justify-center rounded-xl border border-slate-700/60 text-slate-500 transition-all ${s.hoverColor} hover:border-slate-600`}
                             >
-                                <i className={`${s.icon} text-base`} />
+                                <i aria-hidden="true" className={`${s.icon} text-base`} />
                             </a>
                         ))}
                     </div>

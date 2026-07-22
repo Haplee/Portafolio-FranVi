@@ -79,7 +79,7 @@ export default function AchievementsSection() {
                     className="mb-12"
                 >
                     <span className="text-xs font-semibold text-amber-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-trophy mr-2" />Logros
+                        <i aria-hidden="true" className="fas fa-trophy mr-2" />Logros
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white section-title">
                         Hitos y formación
@@ -104,7 +104,7 @@ export default function AchievementsSection() {
                             >
                                 <div className="flex items-start justify-between mb-3">
                                     <div className={`w-12 h-12 rounded-xl ${cfg.bg} border ${cfg.border} flex items-center justify-center`}>
-                                        <i className={`${a.icon} ${cfg.color} text-xl`} />
+                                        <i aria-hidden="true" className={`${a.icon} ${cfg.color} text-xl`} />
                                     </div>
                                     <span className={`text-[10px] font-mono px-2 py-1 rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border}`}>
                                         {cfg.label}

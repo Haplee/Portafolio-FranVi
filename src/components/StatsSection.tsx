@@ -42,7 +42,7 @@ export default function StatsSection() {
                     className="mb-12 text-center"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-chart-line mr-2" />En números
+                        <i aria-hidden="true" className="fas fa-chart-line mr-2" />En números
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                         Datos curiosos

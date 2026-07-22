@@ -64,7 +64,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                         <div className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md">
                             <div className="flex items-center gap-3 min-w-0">
                                 <div className="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center flex-shrink-0">
-                                    <i className="fab fa-github text-slate-300 text-sm" />
+                                    <i aria-hidden="true" className="fab fa-github text-slate-300 text-sm" />
                                 </div>
                                 <h2 className="font-semibold text-white truncate">{repo.name}</h2>
                             </div>
@@ -73,7 +73,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                 className="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors flex-shrink-0 ml-3"
                                 aria-label="Cerrar"
                             >
-                                <i className="fas fa-times text-sm" />
+                                <i aria-hidden="true" className="fas fa-times text-sm" />
                             </button>
                         </div>
 
@@ -89,13 +89,13 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="p-4 rounded-xl bg-slate-800/40 border border-slate-700/30 text-center">
                                     <div className="text-xl font-bold text-amber-400 mb-1">
-                                        {repo.stargazers_count} <i className="fas fa-star text-sm" />
+                                        {repo.stargazers_count} <i aria-hidden="true" className="fas fa-star text-sm" />
                                     </div>
                                     <div className="text-xs text-slate-500">Stars</div>
                                 </div>
                                 <div className="p-4 rounded-xl bg-slate-800/40 border border-slate-700/30 text-center">
                                     <div className="text-xl font-bold text-purple-400 mb-1">
-                                        {repo.forks_count} <i className="fas fa-code-branch text-sm" />
+                                        {repo.forks_count} <i aria-hidden="true" className="fas fa-code-branch text-sm" />
                                     </div>
                                     <div className="text-xs text-slate-500">Forks</div>
                                 </div>
@@ -113,7 +113,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                     </div>
                                 )}
                                 <div className="flex items-center gap-2 text-slate-400">
-                                    <i className="fas fa-clock text-slate-500 w-4 text-center" />
+                                    <i aria-hidden="true" className="fas fa-clock text-slate-500 w-4 text-center" />
                                     <span>Actualizado: {updated}</span>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                     rel="noopener noreferrer"
                                     className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold text-sm hover:opacity-90 transition-opacity"
                                 >
-                                    <i className="fab fa-github" />
+                                    <i aria-hidden="true" className="fab fa-github" />
                                     Ver en GitHub
                                 </a>
                                 {repo.homepage && (
@@ -136,7 +136,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                         rel="noopener noreferrer"
                                         className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-600 text-slate-300 text-sm hover:border-cyan-500/60 hover:text-white transition-all"
                                     >
-                                        <i className="fas fa-external-link-alt text-xs" />
+                                        <i aria-hidden="true" className="fas fa-external-link-alt text-xs" />
                                         Demo
                                     </a>
                                 )}

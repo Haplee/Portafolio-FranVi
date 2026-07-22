@@ -46,7 +46,7 @@ export default function ContributionGraph({ username }: { username: string }) {
             <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
                 <div>
                     <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                        <i className="fas fa-fire text-amber-400" />
+                        <i aria-hidden="true" className="fas fa-fire text-amber-400" />
                         Contribuciones último año
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">

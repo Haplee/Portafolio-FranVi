@@ -57,6 +57,7 @@ export default function Navbar() {
                             <li key={link.href} className="relative">
                                 <a
                                     href={link.href}
+                                    aria-current={isActive ? 'true' : undefined}
                                     className={cn(
                                         'relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 transition-all duration-300 rounded-xl text-sm',
                                         isActive
@@ -76,7 +77,7 @@ export default function Navbar() {
                                             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                                         />
                                     )}
-                                    <i className={cn(link.icon, 'text-lg md:text-[13px]')} />
+                                    <i aria-hidden="true" className={cn(link.icon, 'text-lg md:text-[13px]')} />
                                     <span className="text-[10px] md:text-[13px] font-medium">{link.label}</span>
                                 </a>
                             </li>

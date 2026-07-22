@@ -38,7 +38,7 @@ export default function SetupSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i className="fas fa-laptop mr-2" />Hardware & Software
+                        <i aria-hidden="true" className="fas fa-laptop mr-2" />Hardware & Software
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
                         Mi Setup
@@ -58,7 +58,7 @@ export default function SetupSection() {
                         <SpotlightCard className="h-full p-6" spotlightColor="rgba(34,211,238,0.10)">
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-13 h-13 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 flex items-center justify-center border border-cyan-500/15 p-3">
-                                    <i className="fas fa-laptop text-2xl text-cyan-400" />
+                                    <i aria-hidden="true" className="fas fa-laptop text-2xl text-cyan-400" />
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-white">HP Victus 16</h3>
@@ -80,7 +80,7 @@ export default function SetupSection() {
                                     >
                                         <span className="flex items-center gap-3 text-slate-300 text-sm">
                                             <span className="w-7 h-7 rounded-lg bg-slate-700/60 flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
-                                                <i className={cn(spec.icon, 'text-xs text-cyan-400/70 group-hover:text-cyan-400 transition-colors')} />
+                                                <i aria-hidden="true" className={cn(spec.icon, 'text-xs text-cyan-400/70 group-hover:text-cyan-400 transition-colors')} />
                                             </span>
                                             {spec.item}
                                         </span>
@@ -106,7 +106,7 @@ export default function SetupSection() {
                         <SpotlightCard className="h-full p-6" spotlightColor="rgba(168,85,247,0.10)">
                             <div className="flex items-center gap-4 mb-6">
                                 <div className="w-13 h-13 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/10 flex items-center justify-center border border-purple-500/15 p-3">
-                                    <i className="fas fa-gamepad text-2xl text-purple-400" />
+                                    <i aria-hidden="true" className="fas fa-gamepad text-2xl text-purple-400" />
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-white">Periféricos</h3>
@@ -125,7 +125,7 @@ export default function SetupSection() {
                                     >
                                         <span className="flex items-center gap-3 text-slate-300 text-sm">
                                             <span className="w-7 h-7 rounded-lg bg-slate-700/60 flex items-center justify-center group-hover:bg-purple-500/10 transition-colors">
-                                                <i className={cn(hw.icon, 'text-xs text-purple-400/70 group-hover:text-purple-400 transition-colors')} />
+                                                <i aria-hidden="true" className={cn(hw.icon, 'text-xs text-purple-400/70 group-hover:text-purple-400 transition-colors')} />
                                             </span>
                                             {hw.item}
                                         </span>
@@ -152,14 +152,14 @@ export default function SetupSection() {
                     <SpotlightCard className="p-6" spotlightColor="rgba(34,211,238,0.06)">
                         <div className="flex items-center gap-3 mb-5">
                             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 flex items-center justify-center border border-emerald-500/15">
-                                <i className="fas fa-terminal text-emerald-400 text-sm" />
+                                <i aria-hidden="true" className="fas fa-terminal text-emerald-400 text-sm" />
                             </div>
                             <h3 className="text-base font-semibold text-white">Software</h3>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                             {software.map((sw, idx) => (
                                 <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/40 hover:border-emerald-500/20 hover:bg-emerald-500/5 transition-all group">
-                                    <i className={cn(sw.icon, 'text-emerald-400/70 group-hover:text-emerald-400 transition-colors')} />
+                                    <i aria-hidden="true" className={cn(sw.icon, 'text-emerald-400/70 group-hover:text-emerald-400 transition-colors')} />
                                     <div>
                                         <p className="text-xs text-slate-500">{sw.item}</p>
                                         <p className="text-sm text-slate-300 font-medium">{sw.detail}</p>

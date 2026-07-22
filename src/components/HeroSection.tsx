@@ -105,7 +105,7 @@ export default function HeroSection() {
                             className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/50 transition-shadow text-sm sm:text-base"
                             strength={0.4}
                         >
-                            <i className="fas fa-code-branch text-xs sm:text-sm" />
+                            <i aria-hidden="true" className="fas fa-code-branch text-xs sm:text-sm" />
                             <span>Ver Proyectos</span>
                         </MagneticButton>
                         <MagneticButton
@@ -113,7 +113,7 @@ export default function HeroSection() {
                             className="px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl border border-slate-600/80 text-slate-300 font-medium hover:border-cyan-500/60 hover:text-white hover:bg-cyan-500/5 transition-all backdrop-blur-sm text-sm sm:text-base"
                             strength={0.3}
                         >
-                            <i className="fas fa-paper-plane text-xs sm:text-sm" />
+                            <i aria-hidden="true" className="fas fa-paper-plane text-xs sm:text-sm" />
                             <span>Contacto</span>
                         </MagneticButton>
                     </div>
@@ -128,12 +128,12 @@ export default function HeroSection() {
                             item.href ? (
                                 <a key={i} href={item.href} target="_blank" rel="noopener noreferrer"
                                     className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-cyan-400 transition-colors">
-                                    <i className={`${item.icon} text-cyan-500/70`} />
+                                    <i aria-hidden="true" className={`${item.icon} text-cyan-500/70`} />
                                     {item.text}
                                 </a>
                             ) : (
                                 <span key={i} className="flex items-center gap-1.5 text-xs text-slate-500">
-                                    <i className={`${item.icon} text-cyan-500/70`} />
+                                    <i aria-hidden="true" className={`${item.icon} text-cyan-500/70`} />
                                     {item.text}
                                 </span>
                             )
