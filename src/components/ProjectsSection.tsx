@@ -4,6 +4,7 @@ import SpotlightCard from './reactbits/SpotlightCard';
 import AnimatedCounter from './AnimatedCounter';
 import ContributionGraph from './ui/ContributionGraph';
 import { curatedProjects } from '@/data/projects';
+import { useLang } from '@/i18n/LangProvider';
 
 interface Props {
     onSelectRepo: (repo: GitHubRepo) => void;
@@ -21,6 +22,7 @@ const LANG_COLORS: Record<string, string> = {
 };
 
 export default function ProjectsSection({ onSelectRepo }: Props) {
+    const { t } = useLang();
     const { repos, loading } = useGitHubData('Haplee');
 
     // Si la API de GitHub falla o agota su cuota, `repos` queda vacío: se pintan
@@ -45,13 +47,13 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fab fa-github mr-2" />Open Source
+                        <i aria-hidden="true" className="fab fa-github mr-2" />{t.projects.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
-                        Proyectos
+                        {t.projects.title}
                     </h2>
                     <p className="text-slate-500 mt-6">
-                        Repositorios públicos en GitHub — actualizados automáticamente.
+                        {t.projects.subtitle}
                     </p>
                 </motion.div>
 
@@ -64,10 +66,10 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                         className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10"
                     >
                         {[
-                            { value: repos.length, label: 'Repos', icon: 'fas fa-code-branch', color: 'text-cyan-400', bg: 'from-cyan-500/10 to-blue-500/5', border: 'border-cyan-500/15' },
-                            { value: totalStars,   label: 'Estrellas', icon: 'fas fa-star',        color: 'text-amber-400', bg: 'from-amber-500/10 to-yellow-500/5', border: 'border-amber-500/15' },
-                            { value: totalForks,   label: 'Forks',     icon: 'fas fa-code-fork',   color: 'text-purple-400', bg: 'from-purple-500/10 to-violet-500/5', border: 'border-purple-500/15' },
-                            { value: null,         label: 'Ver Perfil', icon: 'fab fa-github',     color: 'text-white', bg: 'from-slate-700/50 to-slate-800/30', border: 'border-slate-600/30', href: 'https://github.com/Haplee' },
+                            { value: repos.length, label: t.projects.repos, icon: 'fas fa-code-branch', color: 'text-cyan-400', bg: 'from-cyan-500/10 to-blue-500/5', border: 'border-cyan-500/15' },
+                            { value: totalStars,   label: t.projects.stars, icon: 'fas fa-star',        color: 'text-amber-400', bg: 'from-amber-500/10 to-yellow-500/5', border: 'border-amber-500/15' },
+                            { value: totalForks,   label: t.projects.forks,     icon: 'fas fa-code-fork',   color: 'text-purple-400', bg: 'from-purple-500/10 to-violet-500/5', border: 'border-purple-500/15' },
+                            { value: null,         label: t.projects.profile, icon: 'fab fa-github',     color: 'text-white', bg: 'from-slate-700/50 to-slate-800/30', border: 'border-slate-600/30', href: 'https://github.com/Haplee' },
                         ].map((stat, i) => (
                             stat.href ? (
                                 <a
@@ -102,7 +104,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                 {usingFallback && (
                     <p className="text-slate-500 text-center text-sm mb-6 flex items-center justify-center gap-2">
                         <i aria-hidden="true" className="fas fa-star text-cyan-500/70" />
-                        Proyectos destacados seleccionados a mano.
+                        {t.projects.fallbackNote}
                     </p>
                 )}
 
@@ -138,7 +140,7 @@ export default function ProjectsSection({ onSelectRepo }: Props) {
                                                 </h3>
                                             </div>
                                             <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 mb-4 pl-12">
-                                                {repo.description || <span className="italic">Sin descripción</span>}
+                                                {repo.description || <span className="italic">{t.projects.noDesc}</span>}
                                             </p>
                                         </div>
 

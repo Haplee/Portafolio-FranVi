@@ -1,59 +1,57 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSvglIcons } from '@/hooks/useSvglIcons';
+import { useLang } from '@/i18n/LangProvider';
 import SpotlightCard from './reactbits/SpotlightCard';
 
 interface Skill {
     name: string;
     svglName: string;
     level?: number; // 1-5
-    desc?: string;
     years?: number;
 }
 
 interface SkillGroup {
-    category: string;
     icon: string;
     gradient: string;
     glowColor: string;
     items: Skill[];
 }
 
+// Los nombres/niveles/años son datos neutros; la categoría y las descripciones
+// salen del diccionario por índice (t.skills.groups).
 const skills: SkillGroup[] = [
     {
-        category: 'Sistemas',
         icon: 'fas fa-server',
         gradient: 'from-blue-500/20 to-purple-500/10',
         glowColor: 'rgba(99,102,241,0.15)',
         items: [
-            { name: 'Linux',          svglName: 'Linux',   level: 5, years: 5, desc: 'Mi sistema diario en WSL2. Ubuntu, scripting Bash, gestión de servicios systemd.' },
-            { name: 'Windows Server', svglName: 'Windows', level: 4, years: 3, desc: 'Active Directory, GPOs, DNS, DHCP, IIS. Núcleo del temario ASIR.' },
-            { name: 'SQL',            svglName: 'MySQL',   level: 3, years: 3, desc: 'MySQL, PostgreSQL. CRUD, joins, índices, normalización.' },
-            { name: 'Docker',         svglName: 'Docker',  level: 3, years: 2, desc: 'Contenedores, docker-compose, Dockerfiles. Stack moderno de despliegue.' },
+            { name: 'Linux',          svglName: 'Linux',   level: 5, years: 5 },
+            { name: 'Windows Server', svglName: 'Windows', level: 4, years: 3 },
+            { name: 'SQL',            svglName: 'MySQL',   level: 3, years: 3 },
+            { name: 'Docker',         svglName: 'Docker',  level: 3, years: 2 },
         ]
     },
     {
-        category: 'Redes y Scripting',
         icon: 'fas fa-network-wired',
         gradient: 'from-cyan-500/20 to-emerald-500/10',
         glowColor: 'rgba(16,185,129,0.15)',
         items: [
-            { name: 'Redes',  svglName: '',       level: 4, years: 4, desc: 'TCP/IP, subnetting, VLANs, routing. MikroTik y Cisco en entorno real durante la FCT.' },
-            { name: 'Bash',   svglName: '',       level: 4, years: 4, desc: 'Scripts de automatización para sysadmin. Zsh + Oh My Posh como shell diario.' },
-            { name: 'PowerShell', svglName: '',   level: 3, years: 2, desc: 'Automatización y diagnósticos en Windows. Usado en el TFG ResolveCore.' },
-            { name: 'Python', svglName: 'Python', level: 3, years: 3, desc: 'Scripting, automatización, parsing. APIs REST con requests.' },
+            { name: 'Redes',      svglName: '',       level: 4, years: 4 },
+            { name: 'Bash',       svglName: '',       level: 4, years: 4 },
+            { name: 'PowerShell', svglName: '',       level: 3, years: 2 },
+            { name: 'Python',     svglName: 'Python', level: 3, years: 3 },
         ]
     },
     {
-        category: 'Desarrollo y Herramientas',
         icon: 'fas fa-code',
         gradient: 'from-purple-500/20 to-pink-500/10',
         glowColor: 'rgba(168,85,247,0.15)',
         items: [
-            { name: 'Git',        svglName: 'Git',        level: 4, years: 4, desc: 'Branches, merges, rebases, conflict resolution. Workflow profesional con GitHub.' },
-            { name: 'React',      svglName: 'React',      level: 3, years: 2, desc: 'Hooks, context, Motion. Este portfolio está construido con React 19.' },
-            { name: 'TypeScript', svglName: 'TypeScript', level: 3, years: 2, desc: 'Tipado estático en modo strict. La base de este portfolio y de GymLog.' },
-            { name: 'Tailwind',   svglName: 'TailwindCSS', level: 4, years: 2, desc: 'Utility-first. Todo el estilado de este sitio.' },
+            { name: 'Git',        svglName: 'Git',        level: 4, years: 4 },
+            { name: 'React',      svglName: 'React',      level: 3, years: 2 },
+            { name: 'TypeScript', svglName: 'TypeScript', level: 3, years: 2 },
+            { name: 'Tailwind',   svglName: 'TailwindCSS', level: 4, years: 2 },
         ]
     }
 ];
@@ -63,10 +61,10 @@ const allSvglNames = skills
     .map((item) => item.svglName)
     .filter(Boolean);
 
-const LEVEL_LABELS = ['', 'Básico', 'Básico', 'Intermedio', 'Avanzado', 'Experto'];
 const LEVEL_COLORS = ['', 'bg-slate-500', 'bg-slate-500', 'bg-blue-500', 'bg-cyan-500', 'bg-green-500'];
 
 export default function SkillsSection() {
+    const { t } = useLang();
     const stableNames = useMemo(() => allSvglNames, []);
     const { icons, loading } = useSvglIcons(stableNames);
     const [openSkill, setOpenSkill] = useState<string | null>(null);
@@ -86,13 +84,13 @@ export default function SkillsSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-microchip mr-2" />Stack técnico
+                        <i aria-hidden="true" className="fas fa-microchip mr-2" />{t.skills.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
-                        Habilidades
+                        {t.skills.title}
                     </h2>
                     <p className="text-slate-500 max-w-lg mt-6">
-                        Tecnologías y herramientas con las que trabajo a diario.
+                        {t.skills.subtitle}
                     </p>
                 </motion.div>
 
@@ -111,7 +109,7 @@ export default function SkillsSection() {
                                     <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${group.gradient} flex items-center justify-center border border-white/5`}>
                                         <i aria-hidden="true" className={`${group.icon} text-white/80`} />
                                     </div>
-                                    <h3 className="text-base font-semibold text-white">{group.category}</h3>
+                                    <h3 className="text-base font-semibold text-white">{t.skills.groups[idx].category}</h3>
                                 </div>
 
                                 {/* Skills list */}
@@ -120,7 +118,8 @@ export default function SkillsSection() {
                                         const svgUrl = skill.svglName ? icons[skill.svglName] : null;
                                         const level = skill.level ?? 3;
 
-                                        const skillKey = `${group.category}-${skill.name}`;
+                                        const skillKey = `${idx}-${skill.name}`;
+                                        const skillDesc = t.skills.groups[idx].descriptions[skillIdx];
                                         const isOpen = openSkill === skillKey;
                                         return (
                                             <motion.div
@@ -155,7 +154,7 @@ export default function SkillsSection() {
                                                         )}
                                                     </div>
                                                     <span className="text-[10px] text-slate-600 group-hover/skill:text-slate-500 transition-colors">
-                                                        {LEVEL_LABELS[level]}
+                                                        {t.skills.levels[level]}
                                                     </span>
                                                 </div>
                                                 {/* Progress bar */}
@@ -170,7 +169,7 @@ export default function SkillsSection() {
                                                 </div>
                                                 {/* Description on hover */}
                                                 <AnimatePresence>
-                                                    {isOpen && skill.desc && (
+                                                    {isOpen && skillDesc && (
                                                         <motion.p
                                                             initial={{ opacity: 0, height: 0, marginTop: 0 }}
                                                             animate={{ opacity: 1, height: 'auto', marginTop: 8 }}
@@ -178,7 +177,7 @@ export default function SkillsSection() {
                                                             transition={{ duration: 0.2 }}
                                                             className="text-xs text-slate-500 leading-relaxed pl-7 border-l border-cyan-500/20 ml-[9px] overflow-hidden"
                                                         >
-                                                            {skill.desc}
+                                                            {skillDesc}
                                                         </motion.p>
                                                     )}
                                                 </AnimatePresence>

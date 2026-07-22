@@ -266,4 +266,16 @@ export const en: Dict = {
         noDesc: 'No description available.',
         close: 'Close',
     },
+    contrib: {
+        title: 'Contributions last year',
+        loading: 'Loading…',
+        commitsOn: 'commits on GitHub',
+        less: 'less',
+        more: 'more',
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        days: ['', 'Mon', '', 'Wed', '', 'Fri', ''],
+        noCommits: 'No commits',
+        dayAria: (count: number, date: string) => `${count} contributions on ${date}`,
+        commitCount: (n: number) => `${n} commit${n !== 1 ? 's' : ''}`,
+    },
 };

@@ -1,72 +1,32 @@
 import { motion } from 'motion/react';
+import { useLang } from '@/i18n/LangProvider';
 
-interface Achievement {
-    title: string;
-    issuer: string;
-    date: string;
-    icon: string;
-    status: 'completed' | 'in-progress' | 'planned';
-    description: string;
-}
+type Status = 'completed' | 'in-progress' | 'planned';
 
-const ACHIEVEMENTS: Achievement[] = [
-    {
-        title: 'ASIR 1º Curso',
-        issuer: 'Formación Profesional',
-        date: '2022',
-        icon: 'fas fa-graduation-cap',
-        status: 'completed',
-        description: 'Sistemas operativos, redes, hardware, scripting básico.',
-    },
-    {
-        title: 'Titulado en ASIR',
-        issuer: 'Formación Profesional',
-        date: '2026',
-        icon: 'fas fa-user-graduate',
-        status: 'completed',
-        description: 'Título de Técnico Superior en Administración de Sistemas Informáticos en Red obtenido.',
-    },
-    {
-        title: 'Primer repositorio público',
-        issuer: 'GitHub @Haplee',
-        date: '2023',
-        icon: 'fab fa-github',
-        status: 'completed',
-        description: 'Inicio del viaje open source. Commits, issues, pull requests.',
-    },
-    {
-        title: 'Portfolio profesional',
-        issuer: 'Auto-desarrollado',
-        date: '2025',
-        icon: 'fas fa-rocket',
-        status: 'completed',
-        description: 'React 19 + TypeScript + Three.js. Esta web que estás viendo.',
-    },
-    {
-        title: 'Inglés B1',
-        issuer: 'Competencia lingüística',
-        date: '2026',
-        icon: 'fas fa-language',
-        status: 'in-progress',
-        description: 'Certificación B1 en curso: lectura técnica y comunicación profesional en inglés.',
-    },
-    {
-        title: 'Ejército de Tierra',
-        issuer: 'Ejército de Tierra español',
-        date: '2026',
-        icon: 'fas fa-shield-halved',
-        status: 'planned',
-        description: 'Siguiente paso: alistamiento en el Ejército de Tierra español.',
-    },
+// Metadatos visuales; título/issuer/descripción salen del diccionario por índice.
+const ACHIEVEMENTS: { date: string; icon: string; status: Status }[] = [
+    { date: '2022', icon: 'fas fa-graduation-cap', status: 'completed' },
+    { date: '2026', icon: 'fas fa-user-graduate',  status: 'completed' },
+    { date: '2023', icon: 'fab fa-github',         status: 'completed' },
+    { date: '2025', icon: 'fas fa-rocket',         status: 'completed' },
+    { date: '2026', icon: 'fas fa-language',        status: 'in-progress' },
+    { date: '2026', icon: 'fas fa-shield-halved',   status: 'planned' },
 ];
 
-const STATUS_CONFIG = {
-    'completed':   { color: 'text-green-400',  bg: 'bg-green-500/15', border: 'border-green-500/30',  label: '✓ Completado' },
-    'in-progress': { color: 'text-cyan-400',   bg: 'bg-cyan-500/15',  border: 'border-cyan-500/30',   label: '◐ En curso' },
-    'planned':     { color: 'text-amber-400',  bg: 'bg-amber-500/15', border: 'border-amber-500/30',  label: '○ Próximo' },
+const STATUS_STYLE: Record<Status, { color: string; bg: string; border: string }> = {
+    'completed':   { color: 'text-green-400', bg: 'bg-green-500/15', border: 'border-green-500/30' },
+    'in-progress': { color: 'text-cyan-400',  bg: 'bg-cyan-500/15',  border: 'border-cyan-500/30' },
+    'planned':     { color: 'text-amber-400', bg: 'bg-amber-500/15', border: 'border-amber-500/30' },
+};
+
+const STATUS_KEY: Record<Status, 'completed' | 'inProgress' | 'planned'> = {
+    'completed': 'completed',
+    'in-progress': 'inProgress',
+    'planned': 'planned',
 };
 
 export default function AchievementsSection() {
+    const { t } = useLang();
     return (
         <section id="achievements" className="py-16 md:py-24 px-4 w-full bg-slate-900 relative overflow-hidden">
             <div className="absolute top-0 left-1/3 w-96 h-96 rounded-full bg-amber-500/3 blur-3xl pointer-events-none" />
@@ -79,22 +39,23 @@ export default function AchievementsSection() {
                     className="mb-12"
                 >
                     <span className="text-xs font-semibold text-amber-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-trophy mr-2" />Logros
+                        <i aria-hidden="true" className="fas fa-trophy mr-2" />{t.achievements.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white section-title">
-                        Hitos y formación
+                        {t.achievements.title}
                     </h2>
                     <p className="text-slate-500 mt-6 max-w-xl">
-                        Cada uno representa horas de estudio, errores corregidos y pequeñas victorias.
+                        {t.achievements.subtitle}
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {ACHIEVEMENTS.map((a, i) => {
-                        const cfg = STATUS_CONFIG[a.status];
+                        const cfg = STATUS_STYLE[a.status];
+                        const item = t.achievements.items[i];
                         return (
                             <motion.div
-                                key={a.title}
+                                key={i}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -107,14 +68,14 @@ export default function AchievementsSection() {
                                         <i aria-hidden="true" className={`${a.icon} ${cfg.color} text-xl`} />
                                     </div>
                                     <span className={`text-[10px] font-mono px-2 py-1 rounded-full ${cfg.bg} ${cfg.color} border ${cfg.border}`}>
-                                        {cfg.label}
+                                        {t.achievements.status[STATUS_KEY[a.status]]}
                                     </span>
                                 </div>
-                                <h3 className="text-base font-bold text-white mb-1 leading-tight">{a.title}</h3>
+                                <h3 className="text-base font-bold text-white mb-1 leading-tight">{item.title}</h3>
                                 <p className="text-xs text-slate-500 mb-2 font-mono tracking-wide">
-                                    {a.issuer} · {a.date}
+                                    {item.issuer} · {a.date}
                                 </p>
-                                <p className="text-sm text-slate-400 leading-relaxed">{a.description}</p>
+                                <p className="text-sm text-slate-400 leading-relaxed">{item.description}</p>
                             </motion.div>
                         );
                     })}

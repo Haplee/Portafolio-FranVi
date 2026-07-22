@@ -2,10 +2,12 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useLang } from '@/i18n/LangProvider';
 
 const BARBATE: [number, number] = [36.1903, -5.9215];
 
 export default function BarbateMap() {
+    const { t } = useLang();
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstance = useRef<L.Map | null>(null);
 
@@ -80,13 +82,13 @@ export default function BarbateMap() {
             <div className="flex items-center justify-between px-5 py-3 border-b border-slate-800/60 bg-slate-900/80 relative z-10">
                 <div className="flex items-center gap-2">
                     <i aria-hidden="true" className="fas fa-map-marker-alt text-amber-400" />
-                    <span className="text-sm font-semibold text-white">Barbate, Cádiz · España</span>
+                    <span className="text-sm font-semibold text-white">{t.barbate.headerTitle}</span>
                 </div>
                 <a
                     href={`https://www.openstreetmap.org/?mlat=${BARBATE[0]}&mlon=${BARBATE[1]}#map=13/${BARBATE[0]}/${BARBATE[1]}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Ver Barbate en OpenStreetMap (abre en una pestaña nueva)"
+                    aria-label={t.barbate.osmAria}
                     className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1"
                 >
                     <i aria-hidden="true" className="fas fa-external-link-alt text-[10px]" />
@@ -108,7 +110,7 @@ export default function BarbateMap() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
                         </span>
-                        Barbate, Cádiz · Disponible en la provincia y en remoto
+                        {t.barbate.availLabel}
                     </span>
                 </div>
             </div>
@@ -116,8 +118,8 @@ export default function BarbateMap() {
             {/* Bottom info bar */}
             <div className="px-5 py-3 border-t border-slate-800/60 bg-slate-900/80 flex items-center justify-between text-xs">
                 <div>
-                    <p className="text-amber-400 font-mono font-bold">Costa de la Luz · Atlántico</p>
-                    <p className="text-slate-500 text-[10px]">Donde nací el 17.07.2003 a las 3:00 AM ♋</p>
+                    <p className="text-amber-400 font-mono font-bold">{t.barbate.bottomTitle}</p>
+                    <p className="text-slate-500 text-[10px]">{t.barbate.bottomSub}</p>
                 </div>
                 <p className="text-slate-500 font-mono text-[10px] hidden sm:block">
                     36.1903°N<br />5.9215°W

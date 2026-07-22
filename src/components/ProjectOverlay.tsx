@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import type { GitHubRepo } from '@/hooks/useGitHubData';
+import { useLang } from '@/i18n/LangProvider';
 
 interface Props {
     repo: GitHubRepo | null;
@@ -19,6 +20,7 @@ const LANG_COLORS: Record<string, string> = {
 };
 
 export default function ProjectOverlay({ repo, onClose }: Props) {
+    const { t, lang } = useLang();
     // Escape key
     useEffect(() => {
         const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -34,7 +36,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
     }, [repo]);
 
     const updated = repo
-        ? new Date(repo.pushed_at).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+        ? new Date(repo.pushed_at).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         : '';
 
     return (
@@ -71,7 +73,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                             <button
                                 onClick={onClose}
                                 className="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white transition-colors flex-shrink-0 ml-3"
-                                aria-label="Cerrar"
+                                aria-label={t.overlay.close}
                             >
                                 <i aria-hidden="true" className="fas fa-times text-sm" />
                             </button>
@@ -81,7 +83,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                             {/* Description */}
                             <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40">
                                 <p className="text-slate-300 text-sm leading-relaxed">
-                                    {repo.description || <span className="italic text-slate-500">Sin descripción disponible.</span>}
+                                    {repo.description || <span className="italic text-slate-500">{t.overlay.noDesc}</span>}
                                 </p>
                             </div>
 
@@ -91,13 +93,13 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                     <div className="text-xl font-bold text-amber-400 mb-1">
                                         {repo.stargazers_count} <i aria-hidden="true" className="fas fa-star text-sm" />
                                     </div>
-                                    <div className="text-xs text-slate-500">Stars</div>
+                                    <div className="text-xs text-slate-500">{t.overlay.stars}</div>
                                 </div>
                                 <div className="p-4 rounded-xl bg-slate-800/40 border border-slate-700/30 text-center">
                                     <div className="text-xl font-bold text-purple-400 mb-1">
                                         {repo.forks_count} <i aria-hidden="true" className="fas fa-code-branch text-sm" />
                                     </div>
-                                    <div className="text-xs text-slate-500">Forks</div>
+                                    <div className="text-xs text-slate-500">{t.overlay.forks}</div>
                                 </div>
                             </div>
 
@@ -114,7 +116,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                 )}
                                 <div className="flex items-center gap-2 text-slate-400">
                                     <i aria-hidden="true" className="fas fa-clock text-slate-500 w-4 text-center" />
-                                    <span>Actualizado: {updated}</span>
+                                    <span>{t.overlay.updated} {updated}</span>
                                 </div>
                             </div>
 
@@ -127,7 +129,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                     className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-semibold text-sm hover:opacity-90 transition-opacity"
                                 >
                                     <i aria-hidden="true" className="fab fa-github" />
-                                    Ver en GitHub
+                                    {t.overlay.viewGithub}
                                 </a>
                                 {repo.homepage && (
                                     <a
@@ -137,7 +139,7 @@ export default function ProjectOverlay({ repo, onClose }: Props) {
                                         className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-600 text-slate-300 text-sm hover:border-cyan-500/60 hover:text-white transition-all"
                                     >
                                         <i aria-hidden="true" className="fas fa-external-link-alt text-xs" />
-                                        Demo
+                                        {t.overlay.demo}
                                     </a>
                                 )}
                             </div>

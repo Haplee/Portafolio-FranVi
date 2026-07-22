@@ -266,6 +266,18 @@ export const es = {
         noDesc: 'Sin descripción disponible.',
         close: 'Cerrar',
     },
+    contrib: {
+        title: 'Contribuciones último año',
+        loading: 'Cargando…',
+        commitsOn: 'commits en GitHub',
+        less: 'menos',
+        more: 'más',
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        days: ['', 'Lun', '', 'Mié', '', 'Vie', ''],
+        noCommits: 'Sin commits',
+        dayAria: (count: number, date: string) => `${count} contribuciones el ${date}`,
+        commitCount: (n: number) => `${n} commit${n !== 1 ? 's' : ''}`,
+    },
 };
 
 export type Dict = typeof es;
