@@ -21,19 +21,7 @@ interface SkillGroup {
 
 const skills: SkillGroup[] = [
     {
-        category: 'Frontend',
-        icon: 'fas fa-code',
-        gradient: 'from-cyan-500/20 to-blue-500/10',
-        glowColor: 'rgba(34,211,238,0.15)',
-        items: [
-            { name: 'HTML5',      svglName: 'HTML5',      level: 4, years: 4, desc: 'Semántica, accesibilidad y SEO. Base sólida desde el primer día.' },
-            { name: 'CSS3',       svglName: 'CSS',        level: 4, years: 4, desc: 'Flexbox, Grid, animaciones, custom properties. Tailwind como herramienta principal.' },
-            { name: 'JavaScript', svglName: 'JavaScript', level: 3, years: 3, desc: 'ES6+, async/await, módulos, fetch API. La base de todo lo que construyo.' },
-            { name: 'React',      svglName: 'React',      level: 3, years: 2, desc: 'Hooks, context, Framer Motion. Este portfolio está construido con React 19.' },
-        ]
-    },
-    {
-        category: 'Backend y Sistemas',
+        category: 'Sistemas',
         icon: 'fas fa-server',
         gradient: 'from-blue-500/20 to-purple-500/10',
         glowColor: 'rgba(99,102,241,0.15)',
@@ -45,15 +33,27 @@ const skills: SkillGroup[] = [
         ]
     },
     {
-        category: 'Herramientas',
-        icon: 'fas fa-toolbox',
+        category: 'Redes y Scripting',
+        icon: 'fas fa-network-wired',
+        gradient: 'from-cyan-500/20 to-emerald-500/10',
+        glowColor: 'rgba(16,185,129,0.15)',
+        items: [
+            { name: 'Redes',  svglName: '',       level: 4, years: 4, desc: 'TCP/IP, subnetting, VLANs, routing. MikroTik y Cisco en entorno real durante la FCT.' },
+            { name: 'Bash',   svglName: '',       level: 4, years: 4, desc: 'Scripts de automatización para sysadmin. Zsh + Oh My Posh como shell diario.' },
+            { name: 'PowerShell', svglName: '',   level: 3, years: 2, desc: 'Automatización y diagnósticos en Windows. Usado en el TFG ResolveCore.' },
+            { name: 'Python', svglName: 'Python', level: 3, years: 3, desc: 'Scripting, automatización, parsing. APIs REST con requests.' },
+        ]
+    },
+    {
+        category: 'Desarrollo y Herramientas',
+        icon: 'fas fa-code',
         gradient: 'from-purple-500/20 to-pink-500/10',
         glowColor: 'rgba(168,85,247,0.15)',
         items: [
-            { name: 'Git',    svglName: 'Git',    level: 4, years: 4, desc: 'Branches, merges, rebases, conflict resolution. Workflow profesional con GitHub.' },
-            { name: 'Redes',  svglName: '',       level: 4, years: 4, desc: 'TCP/IP, subnetting, VLANs, routing. Cisco Packet Tracer + redes reales.' },
-            { name: 'Bash',   svglName: '',       level: 4, years: 4, desc: 'Scripts de automatización para sysadmin. Zsh + Oh My Posh como shell diario.' },
-            { name: 'Python', svglName: 'Python', level: 3, years: 3, desc: 'Scripting, automatización, parsing. APIs REST con requests.' },
+            { name: 'Git',        svglName: 'Git',        level: 4, years: 4, desc: 'Branches, merges, rebases, conflict resolution. Workflow profesional con GitHub.' },
+            { name: 'React',      svglName: 'React',      level: 3, years: 2, desc: 'Hooks, context, Motion. Este portfolio está construido con React 19.' },
+            { name: 'TypeScript', svglName: 'TypeScript', level: 3, years: 2, desc: 'Tipado estático en modo strict. La base de este portfolio y de GymLog.' },
+            { name: 'Tailwind',   svglName: 'TailwindCSS', level: 4, years: 2, desc: 'Utility-first. Todo el estilado de este sitio.' },
         ]
     }
 ];

@@ -14,6 +14,7 @@ const navLinks: NavLink[] = [
     { href: '#timeline',     label: 'Historia', icon: 'fas fa-star' },
     { href: '#now',          label: 'Ahora',    icon: 'fas fa-circle-dot' },
     { href: '#skills',       label: 'Skills',   icon: 'fas fa-microchip' },
+    { href: '#stack',        label: 'Sistemas', icon: 'fas fa-server' },
     { href: '#projects',     label: 'Repos',    icon: 'fas fa-code-branch' },
     { href: '#achievements', label: 'Logros',   icon: 'fas fa-trophy' },
     { href: '#contact',      label: 'Contacto', icon: 'fas fa-paper-plane' },

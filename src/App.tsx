@@ -6,6 +6,7 @@ import AboutSection from '@/components/AboutSection';
 import StatsSection from '@/components/StatsSection';
 import NowSection from '@/components/NowSection';
 import SkillsSection from '@/components/SkillsSection';
+import StackSection from '@/components/StackSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import TimelineSection from '@/components/TimelineSection';
 import AchievementsSection from '@/components/AchievementsSection';
@@ -46,6 +47,8 @@ export default function App() {
             <NowSection />
             <SectionDivider variant="star" />
             <SkillsSection />
+            <SectionDivider variant="star" />
+            <StackSection />
             <SectionDivider variant="line" />
             <ProjectsSection onSelectRepo={setSelectedRepo} />
             <SectionDivider variant="cancer" />
