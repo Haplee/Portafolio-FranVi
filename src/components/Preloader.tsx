@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface Props {
@@ -20,20 +20,21 @@ const LINES: [number, number][] = [
 
 interface BgStar { x: number; y: number; r: number; delay: number; dur: number; }
 
+// Estrellas de fondo generadas una sola vez al cargar el módulo. Fuera del
+// render para no llamar a Math.random() durante el renderizado (pureza).
+const BG_STARS: BgStar[] = Array.from({ length: 180 }, () => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    r: Math.random() * 1.6 + 0.4,
+    delay: Math.random() * 2,
+    dur: 1.8 + Math.random() * 2.5,
+}));
+
 export default function Preloader({ onComplete }: Props) {
     const [visible, setVisible] = useState(true);
     const [phase, setPhase] = useState<'stars' | 'lines' | 'text' | 'done'>('stars');
 
-    // Stable random background stars
-    const bgStars: BgStar[] = useMemo(() =>
-        Array.from({ length: 180 }, () => ({
-            x: Math.random() * 100,
-            y: Math.random() * 100,
-            r: Math.random() * 1.6 + 0.4,
-            delay: Math.random() * 2,
-            dur: 1.8 + Math.random() * 2.5,
-        })),
-    []);
+    const bgStars = BG_STARS;
 
     useEffect(() => {
         const t1 = setTimeout(() => setPhase('lines'), 1100);

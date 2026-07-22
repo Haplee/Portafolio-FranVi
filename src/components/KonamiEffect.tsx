@@ -4,6 +4,14 @@ import { useKonami } from '@/hooks/useKonami';
 
 const EFFECT_MS = 4000;
 
+// Parámetros de los ♋ que caen, generados una vez fuera del render (pureza).
+const CANCERS = Array.from({ length: 12 }, (_, i) => ({
+    x: Math.random() * 100,
+    dur: 3.5 + Math.random() * 1.5,
+    delay: i * 0.15,
+    size: 24 + Math.random() * 28,
+}));
+
 export default function KonamiEffect() {
     const [active, setActive] = useState(false);
     const activeRef = useRef(false);
@@ -48,11 +56,11 @@ export default function KonamiEffect() {
 
                     {/* Floating ♋ symbols */}
                     <div className="fixed inset-0 z-[301] pointer-events-none overflow-hidden">
-                        {Array.from({ length: 12 }).map((_, i) => (
+                        {CANCERS.map((c, i) => (
                             <motion.span
                                 key={i}
                                 initial={{
-                                    x: `${Math.random() * 100}%`,
+                                    x: `${c.x}%`,
                                     y: '110vh',
                                     rotate: 0,
                                     opacity: 0,
@@ -63,12 +71,12 @@ export default function KonamiEffect() {
                                     opacity: [0, 1, 1, 0],
                                 }}
                                 transition={{
-                                    duration: 3.5 + Math.random() * 1.5,
-                                    delay: i * 0.15,
+                                    duration: c.dur,
+                                    delay: c.delay,
                                     ease: 'easeOut',
                                 }}
                                 style={{
-                                    fontSize: `${24 + Math.random() * 28}px`,
+                                    fontSize: `${c.size}px`,
                                     color: 'rgba(251,191,36,0.85)',
                                     textShadow: '0 0 15px rgba(251,191,36,0.6)',
                                 }}
