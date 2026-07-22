@@ -7,7 +7,7 @@ const NOW_ITEMS = [
         items: [
             { name: 'React + TypeScript',    detail: 'Profundizando hooks avanzados y patrones de composición' },
             { name: 'Docker + Kubernetes',   detail: 'Contenedores y orquestación para sysadmin moderno' },
-            { name: 'Three.js / WebGL',      detail: 'Gráficos 3D y shaders — esta misma constelación' },
+            { name: 'Inglés B1',             detail: 'Certificación en curso: lectura técnica y comunicación profesional' },
         ],
         accent: 'border-cyan-500/30 bg-cyan-500/5',
         chipColor: 'text-cyan-400',
@@ -27,6 +27,7 @@ const NOW_ITEMS = [
         category: 'Buscando',
         icon: '🎯',
         items: [
+            { name: 'Ejército de Tierra',     detail: 'Próximo paso: alistamiento en el Ejército de Tierra español' },
             { name: 'Primera oportunidad',    detail: 'Sysadmin junior o Desarrollador Web junior — full-time o prácticas' },
             { name: 'Equipos pequeños',       detail: 'Donde pueda aprender de seniors y aportar desde día 1' },
             { name: 'Stack moderno',          detail: 'TypeScript, React, Linux, Docker — empresas que apuesten por el futuro' },
