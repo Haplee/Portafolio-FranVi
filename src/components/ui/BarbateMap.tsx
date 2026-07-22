@@ -95,11 +95,23 @@ export default function BarbateMap() {
             </div>
 
             {/* Real map */}
-            <div
-                ref={mapRef}
-                className="w-full h-64 sm:h-80 md:h-96 bg-slate-950"
-                style={{ background: '#0a0e1a' }}
-            />
+            <div className="relative">
+                <div
+                    ref={mapRef}
+                    className="w-full h-64 sm:h-80 md:h-96 bg-slate-950"
+                    style={{ background: '#0a0e1a' }}
+                />
+                {/* Etiqueta profesional de ubicación y disponibilidad */}
+                <div className="absolute top-3 left-3 z-[500] pointer-events-none">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/85 border border-cyan-500/25 backdrop-blur-sm text-xs font-medium text-cyan-200 shadow-lg">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                        </span>
+                        Barbate, Cádiz · Disponible en la provincia y en remoto
+                    </span>
+                </div>
+            </div>
 
             {/* Bottom info bar */}
             <div className="px-5 py-3 border-t border-slate-800/60 bg-slate-900/80 flex items-center justify-between text-xs">
