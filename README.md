@@ -1,40 +1,53 @@
-# Portafolio Personal con API de GitHub
+# Portafolio · Fran Vidal (Haplee)
 
-Este es un portafolio personal de una sola página que muestra tu información de perfil y tus 6 repositorios más recientes de GitHub. Está diseñado para ser visualmente atractivo, con un tema oscuro, un efecto de neón y un diseño responsivo.
+Portafolio personal de una sola página construido con **React 19 + Vite + Tailwind CSS 4**.
+Incluye un cielo de constelaciones en **Three.js**, un mapa de Barbate con **Leaflet**,
+scroll suave con **Lenis** y animaciones con **Motion**. Los proyectos y las contribuciones
+se cargan en vivo desde la API de GitHub.
 
-## Características
+Sitio en producción: <https://haplee.github.io/>
 
--   **Tema oscuro con degradado:** Un fondo oscuro y elegante.
--   **Efecto de neón:** Tu nombre resalta con un llamativo efecto de neón amarillo.
--   **Diseño responsivo:** Se ve genial tanto en dispositivos de escritorio como en móviles.
--   **Dinámico:** Carga automáticamente tu información de perfil y tus repositorios más recientes desde la API de GitHub.
--   **Personalizable:** Fácil de configurar con tu propio nombre de usuario de GitHub.
+## Stack
 
-## Cómo usarlo
+- **React 19** + **TypeScript** (modo `strict`)
+- **Vite 7** como bundler (build a `docs/` para GitHub Pages)
+- **Tailwind CSS 4** (vía `@tailwindcss/vite`)
+- **Three.js** — hero con constelaciones y estrellas fugaces (WebGL, shaders propios)
+- **Leaflet** — mapa oscuro de Barbate (CartoDB Dark Matter)
+- **Lenis** — scroll suave
+- **Motion** — animaciones de entrada y transiciones
+- **OGL** — partículas ligeras en algunos fondos
 
-1.  **Clona o descarga este repositorio.**
-2.  **Abre `index.html` en tu navegador.**
-    -   ¡Y eso es todo! Tu portafolio ahora mostrará tu información.
+## Desarrollo
 
-## Despliegue en GitHub Pages
-Este proyecto está optimizado para funcionar directamente en GitHub Pages.
+```bash
+npm install
+npm run dev       # servidor de desarrollo (Vite)
+npm run build     # type-check + build de producción a docs/
+npm run preview   # sirve el build de docs/
+npm run lint      # ESLint
+```
 
-1.  **Sube este código a GitHub.**
-2.  Ve a la pestaña **Settings** (Configuración) de tu repositorio.
-3.  Selecciona **Pages** en el menú lateral.
-4.  En **Source**, selecciona `Deploy from a branch`.
-5.  En **Branch**, selecciona `main` (o `master`) y la carpeta `/docs`.
-6.  Guarda los cambios. GitHub te dará un enlace (ej. `https://tu-usuario.github.io/tu-repo/`) donde tu web estará activa en unos minutos.
+## Estructura
 
-**Nota sobre el CV:**
-Para que el PDF se descargue correctamente, asegúrate de colocar tu archivo `cv.pdf` en la carpeta `docs/assets/`.
+```
+src/
+  components/          Secciones de la página (Hero, About, Projects, …)
+    reactbits/         Efectos de texto reutilizables (BlurText, ShinyText, …)
+    ui/                Componentes visuales (mapa, constelaciones, gráficos)
+  hooks/               Hooks de datos y comportamiento (GitHub, Lenis, scroll-spy, …)
+  lib/                 Utilidades (cn, etc.)
+  types/               Tipos compartidos
+  index.css            Estilos globales y utilidades Tailwind
+```
 
-## Tecnologías utilizadas
+## Despliegue (GitHub Pages)
 
--   **HTML5:** Para la estructura de la página.
--   **CSS3:** Para los estilos, incluyendo Flexbox, Grid, media queries y animaciones.
--   **JavaScript (ES6):** Para interactuar con la API de GitHub y manipular el DOM.
+`npm run build` genera el sitio en `docs/`. En **Settings → Pages** del repositorio,
+selecciona `Deploy from a branch`, rama `main` y carpeta `/docs`.
 
-## Vista previa
+## Datos externos
 
-Puedes abrir el archivo `index.html` localmente para ver cómo se ve. Para una demostración en vivo, puedes alojar estos archivos en servicios como GitHub Pages, Netlify o Vercel.
+- **Repositorios:** `https://api.github.com/users/Haplee/repos` (API pública, sin token;
+  límite de 60 peticiones/hora por IP).
+- **Contribuciones:** `https://github-contributions-api.jogruber.de`.
