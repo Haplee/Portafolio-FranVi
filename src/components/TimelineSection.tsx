@@ -63,6 +63,16 @@ const ITEMS = [
     },
     {
         date:  '2026',
+        title: 'Prácticas en Ingenia Market',
+        desc:  'FCT en Chiclana: cableado estructurado Cat6, switches y WiFi con MikroTik y Cisco, CCTV Hikvision con acceso remoto, sistemas de alarma y soporte de incidencias en cliente.',
+        icon:  '🔧',
+        accent: 'from-blue-500/15 to-blue-500/5',
+        border: 'border-blue-500/25',
+        dot:    'bg-blue-400',
+        text:   'text-blue-400',
+    },
+    {
+        date:  '2026',
         title: 'Titulado en ASIR',
         desc:  'Obtengo el título de Técnico Superior en Administración de Sistemas Informáticos en Red. El B1 de inglés sigue en curso.',
         icon:  '🎓',
