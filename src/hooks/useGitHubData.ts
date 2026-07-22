@@ -56,22 +56,20 @@ function loadRepos(username: string): Promise<GitHubRepo[]> {
 
 export function useGitHubData(username: string): UseGitHubDataResult {
     const [repos, setRepos] = useState<GitHubRepo[]>(() => cache.get(username) ?? []);
-    const [loading, setLoading] = useState(() => !cache.has(username));
+    const [loading, setLoading] = useState(() => Boolean(username) && !cache.has(username));
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!username) {
-            setLoading(false);
-            return;
-        }
+        if (!username) return;
 
         let active = true;
-        setLoading(true);
-        setError(null);
 
         loadRepos(username)
             .then((data) => {
-                if (active) setRepos(data);
+                if (active) {
+                    setRepos(data);
+                    setError(null);
+                }
             })
             .catch((err) => {
                 if (!active) return;
