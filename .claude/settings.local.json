@@ -23,7 +23,12 @@
       "Bash(git commit -q -m 'a11y: ocultar iconos decorativos y mejorar semantica de navegacion *)",
       "Bash(git commit -q -m 'a11y: respetar la preferencia de reducir movimiento *)",
       "Bash(git commit -q -m 'perf: cargar Three.js y Leaflet de forma diferida \\(lazy\\) *)",
-      "Bash(git commit -q -m 'refactor: evitar setState sincrono en el efecto de useGitHubData *)"
+      "Bash(git commit -q -m 'refactor: evitar setState sincrono en el efecto de useGitHubData *)",
+      "Bash(git commit *)",
+      "Bash(echo \"exit tsc: $?\")",
+      "Bash(npm uninstall *)",
+      "Bash(cd *)",
+      "Bash(grep -nE '>[A-Za-zÁÉÍÓÚÑáéíóúñ][^<>{}]{2,}<' src/components/Preloader.tsx)"
     ]
   }
 }
