@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { useLang } from '@/i18n/LangProvider';
 
 // Email ofuscado (T15): se compone en tiempo de ejecución desde base64 para que
 // la cadena literal no aparezca en el JS servido y no la recojan los scrapers.
@@ -13,7 +14,6 @@ interface ContactLink {
     external: boolean;
     iconColor: string;
     border: string;
-    ariaLabel: string;
 }
 
 const links: ContactLink[] = [
@@ -25,7 +25,6 @@ const links: ContactLink[] = [
         external: true,
         iconColor: 'text-[#0a66c2]',
         border: 'hover:border-[#0a66c2]/50',
-        ariaLabel: 'Perfil de LinkedIn de Fran Vidal (abre en una pestaña nueva)',
     },
     {
         name: 'GitHub',
@@ -35,7 +34,6 @@ const links: ContactLink[] = [
         external: true,
         iconColor: 'text-cyan-400',
         border: 'hover:border-cyan-500/40',
-        ariaLabel: 'Perfil de GitHub de Fran Vidal (abre en una pestaña nueva)',
     },
     {
         name: 'Email',
@@ -45,7 +43,6 @@ const links: ContactLink[] = [
         external: false,
         iconColor: 'text-amber-400',
         border: 'hover:border-amber-500/40',
-        ariaLabel: 'Enviar un email a Fran Vidal',
     },
     {
         name: 'Instagram',
@@ -55,7 +52,6 @@ const links: ContactLink[] = [
         external: true,
         iconColor: 'text-pink-400',
         border: 'hover:border-pink-500/40',
-        ariaLabel: 'Perfil de Instagram de Fran Vidal (abre en una pestaña nueva)',
     },
     {
         name: 'X',
@@ -65,11 +61,15 @@ const links: ContactLink[] = [
         external: true,
         iconColor: 'text-white',
         border: 'hover:border-white/30',
-        ariaLabel: 'Perfil de X (Twitter) de Fran Vidal (abre en una pestaña nueva)',
     },
 ];
 
 export default function ContactSection() {
+    const { t } = useLang();
+
+    const ariaFor = (l: ContactLink) =>
+        l.name === 'Email' ? t.contact.emailAria : t.contact.profileAria(l.name);
+
     return (
         <section id="contact" className="py-16 md:py-24 px-4 w-full bg-slate-900 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/2 to-transparent pointer-events-none" />
@@ -83,14 +83,13 @@ export default function ContactSection() {
                     className="mb-12 text-center"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-paper-plane mr-2" />Conectemos
+                        <i aria-hidden="true" className="fas fa-paper-plane mr-2" />{t.contact.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title inline-block">
-                        Contacto
+                        {t.contact.title}
                     </h2>
                     <p className="text-slate-400 mt-8 max-w-lg mx-auto leading-relaxed">
-                        ¿Propuesta laboral, proyecto o colaboración? El canal más rápido es LinkedIn o el email.
-                        Respondo en menos de 24h.
+                        {t.contact.intro}
                     </p>
                 </motion.div>
 
@@ -105,7 +104,7 @@ export default function ContactSection() {
                         <a
                             key={l.name}
                             href={l.href}
-                            aria-label={l.ariaLabel}
+                            aria-label={ariaFor(l)}
                             {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                             className={cn(
                                 'hologram-card flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-slate-700/40 bg-slate-800/30 transition-all',
@@ -126,13 +125,13 @@ export default function ContactSection() {
                         href="./assets/docs/CV-FranVidal.html"
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Ver el currículum de Fran Vidal (abre en una pestaña nueva)"
+                        aria-label={t.contact.cvAria}
                         className="hologram-card flex items-center gap-3 px-4 py-3.5 rounded-2xl border border-cyan-500/25 bg-cyan-500/5 transition-all hover:border-cyan-500/50"
                     >
                         <i aria-hidden="true" className="fas fa-file-lines text-cyan-300 text-xl w-6 text-center flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-white">Currículum</p>
-                            <p className="text-xs text-slate-500 truncate">Ver CV completo</p>
+                            <p className="text-sm font-semibold text-white">{t.contact.cvName}</p>
+                            <p className="text-xs text-slate-500 truncate">{t.contact.cvSub}</p>
                         </div>
                         <i aria-hidden="true" className="fas fa-arrow-up-right-from-square text-[10px] text-slate-600" />
                     </a>
@@ -149,12 +148,11 @@ export default function ContactSection() {
                     <div className="flex items-center gap-2 mb-2">
                         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                         <span className="text-xs font-bold text-amber-300 uppercase tracking-wider">
-                            Disponible para trabajar
+                            {t.contact.availTitle}
                         </span>
                     </div>
                     <p className="text-xs text-slate-400 leading-relaxed">
-                        Busco mi primera oportunidad en sistemas, redes o soporte IT. Disponible en la provincia
-                        de Cádiz y en remoto. Respondo rápido.
+                        {t.contact.availText}
                     </p>
                 </motion.div>
             </div>

@@ -1,11 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
 import SpotlightCard from './reactbits/SpotlightCard';
+import { useLang } from '@/i18n/LangProvider';
 
 // Leaflet + su CSS se cargan bajo demanda (el mapa está por debajo del pliegue).
 const BarbateMap = lazy(() => import('./ui/BarbateMap'));
 
 export default function AboutSection() {
+    const { t } = useLang();
     return (
         <section id="about" className="py-16 md:py-24 px-4 w-full bg-slate-900 relative overflow-hidden">
             {/* Background decoration */}
@@ -21,13 +23,13 @@ export default function AboutSection() {
                     className="mb-14"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-user mr-2" />Quién soy
+                        <i aria-hidden="true" className="fas fa-user mr-2" />{t.about.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 section-title">
-                        Sobre mí
+                        {t.about.title}
                     </h2>
                     <p className="text-slate-500 max-w-xl mt-6">
-                        Un apasionado de la tecnología en constante aprendizaje.
+                        {t.about.subtitle}
                     </p>
                 </motion.div>
 
@@ -45,19 +47,16 @@ export default function AboutSection() {
                                     <i aria-hidden="true" className="fas fa-terminal text-cyan-400 text-lg" />
                                 </div>
                                 <div>
-                                    <h3 className="text-white font-semibold text-lg">Biografía</h3>
-                                    <p className="text-xs text-slate-500">Conoce mi historia</p>
+                                    <h3 className="text-white font-semibold text-lg">{t.about.bioTitle}</h3>
+                                    <p className="text-xs text-slate-500">{t.about.bioSubtitle}</p>
                                 </div>
                             </div>
 
                             <p className="text-base text-slate-300 leading-relaxed mb-4">
-                                Soy <strong className="text-cyan-400 glow-text-cyan">Fran Vidal</strong>, Técnico Superior en
-                                Administración de Sistemas Informáticos en Red (ASIR), titulado.
+                                {t.about.bioPre} <strong className="text-cyan-400 glow-text-cyan">Fran Vidal</strong>{t.about.bioPost}
                             </p>
                             <p className="text-base text-slate-400 leading-relaxed mb-8">
-                                Me apasiona la tecnología, la administración de sistemas y el desarrollo web.
-                                Con la titulación en el bolsillo y el B1 de inglés en curso, mi siguiente paso
-                                es alistarme en el Ejército de Tierra español.
+                                {t.about.bio2}
                             </p>
 
                             <div className="flex flex-wrap gap-3">
@@ -68,7 +67,7 @@ export default function AboutSection() {
                                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
                                 >
                                     <i aria-hidden="true" className="fas fa-file-alt text-sm" />
-                                    Ver CV
+                                    {t.about.cvBtn}
                                 </a>
                                 <a
                                     href="https://github.com/Haplee"
@@ -93,30 +92,30 @@ export default function AboutSection() {
                     >
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,211,238,0.10)">
                             <InfoCard
-                                label="Ubicación"
+                                label={t.about.cards.location}
                                 value="Barbate, Cádiz"
                                 emoji="📍"
                             />
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,211,238,0.10)">
                             <InfoCard
-                                label="Formación"
-                                value="ASIR — Titulado"
+                                label={t.about.cards.education}
+                                value={t.about.cards.educationValue}
                                 emoji="🎓"
                             />
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,238,180,0.10)">
                             <InfoCard
-                                label="Estado"
-                                value="Disponible para trabajar"
+                                label={t.about.cards.status}
+                                value={t.about.cards.statusValue}
                                 emoji="✅"
                                 highlight
                             />
                         </SpotlightCard>
                         <SpotlightCard className="p-5" spotlightColor="rgba(168,85,247,0.10)">
                             <InfoCard
-                                label="Idiomas"
-                                value="ES • EN (B1 en curso)"
+                                label={t.about.cards.languages}
+                                value={t.about.cards.languagesValue}
                                 emoji="🌐"
                             />
                         </SpotlightCard>

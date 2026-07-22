@@ -1,4 +1,7 @@
+import { useLang } from '@/i18n/LangProvider';
+
 export default function Footer() {
+    const { t } = useLang();
     const year = new Date().getFullYear();
 
     return (
@@ -18,7 +21,7 @@ export default function Footer() {
                         </div>
                         <div>
                             <p className="text-white font-semibold">Fran Vidal</p>
-                            <p className="text-xs text-slate-500">Desarrollador Web · Sysadmin</p>
+                            <p className="text-xs text-slate-500">{t.footer.role}</p>
                         </div>
                     </div>
 
@@ -47,10 +50,10 @@ export default function Footer() {
                 {/* Divider */}
                 <div className="mt-10 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
                     <p className="text-slate-600 text-sm">
-                        © {year} Fran Vidal. Todos los derechos reservados.
+                        {t.footer.rights(year)}
                     </p>
                     <p className="text-xs text-slate-700">
-                        Hecho con <span className="text-red-500/70">❤</span> usando{' '}
+                        {t.footer.madeWith} <span className="text-red-500/70">❤</span> {t.footer.using}{' '}
                         <span className="text-slate-500">React · Tailwind · Motion</span>
                     </p>
                 </div>

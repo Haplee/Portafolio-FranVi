@@ -4,6 +4,7 @@ import ShinyText from './reactbits/ShinyText';
 import MagneticButton from './ui/MagneticButton';
 import StaticSky from './ui/StaticSky';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { useLang } from '@/i18n/LangProvider';
 
 // Three.js es pesado (~500 KB): se carga en un chunk aparte para no bloquear
 // el primer render. StaticSky pinta el fondo desde el primer frame; el 3D se
@@ -12,6 +13,7 @@ const ConstellationSky3D = lazy(() => import('./ui/ConstellationSky3D'));
 
 export default function HeroSection() {
     const isMobile = useIsMobile();
+    const { t } = useLang();
 
     return (
         <section id="hero" className="relative min-h-screen w-full flex items-center bg-slate-950 overflow-hidden">
@@ -98,7 +100,7 @@ export default function HeroSection() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
                         </span>
-                        <span className="text-xs sm:text-sm text-cyan-300 font-medium tracking-wide">Disponible para trabajar</span>
+                        <span className="text-xs sm:text-sm text-cyan-300 font-medium tracking-wide">{t.hero.available}</span>
                     </motion.div>
 
                     {/* Name & title */}
@@ -112,14 +114,13 @@ export default function HeroSection() {
                             </span>
                         </h1>
                         <p className="text-base sm:text-lg md:text-xl font-light text-slate-400">
-                            <ShinyText text="Administrador de Sistemas · Desarrollador Web" speed={4} />
+                            <ShinyText text={t.hero.role} speed={4} />
                         </p>
                     </div>
 
                     {/* Description */}
                     <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed border-l-2 border-cyan-500/40 pl-4">
-                        Titulado en ASIR, apasionado por la tecnología, la administración de sistemas y el desarrollo web.
-                        Siempre aprendiendo, siempre construyendo.
+                        {t.hero.description}
                     </p>
 
                     {/* CTA buttons */}
@@ -130,7 +131,7 @@ export default function HeroSection() {
                             strength={0.4}
                         >
                             <i aria-hidden="true" className="fas fa-code-branch text-xs sm:text-sm" />
-                            <span>Ver Proyectos</span>
+                            <span>{t.hero.ctaProjects}</span>
                         </MagneticButton>
                         <MagneticButton
                             href="#contact"
@@ -138,7 +139,7 @@ export default function HeroSection() {
                             strength={0.3}
                         >
                             <i aria-hidden="true" className="fas fa-paper-plane text-xs sm:text-sm" />
-                            <span>Contacto</span>
+                            <span>{t.hero.ctaContact}</span>
                         </MagneticButton>
                     </div>
 
@@ -146,7 +147,7 @@ export default function HeroSection() {
                     <div className="hidden sm:flex flex-wrap items-center gap-4 pt-1">
                         {[
                             { icon: 'fas fa-map-marker-alt', text: 'Barbate, Cádiz' },
-                            { icon: 'fas fa-graduation-cap', text: 'Técnico Superior en ASIR' },
+                            { icon: 'fas fa-graduation-cap', text: t.hero.quickEducation },
                             { icon: 'fab fa-github', text: 'Haplee', href: 'https://github.com/Haplee' },
                         ].map((item, i) => (
                             item.href ? (

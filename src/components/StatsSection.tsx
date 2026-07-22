@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import AnimatedCounter from './AnimatedCounter';
 import { useGitHubData } from '@/hooks/useGitHubData';
+import { useLang } from '@/i18n/LangProvider';
 
 function calcAge(): number {
     const birth = new Date('2003-07-17');
@@ -16,14 +17,15 @@ function calcYearsCoding(): number {
 }
 
 export default function StatsSection() {
+    const { t } = useLang();
     const { repos } = useGitHubData('Haplee');
     const totalStars = repos.reduce((acc, r) => acc + r.stargazers_count, 0);
 
     const stats = [
-        { value: calcAge(),         label: 'Años',              suffix: '',  icon: '♋', color: 'text-amber-400',  glow: 'shadow-amber-500/15',  bg: 'from-amber-500/10' },
-        { value: calcYearsCoding(), label: 'Años codeando',     suffix: '',  icon: '⌨️',  color: 'text-cyan-400',   glow: 'shadow-cyan-500/15',   bg: 'from-cyan-500/10' },
-        { value: repos.length,      label: 'Repositorios',      suffix: '',  icon: '📦', color: 'text-blue-400',   glow: 'shadow-blue-500/15',   bg: 'from-blue-500/10' },
-        { value: totalStars,        label: 'Estrellas GitHub',  suffix: '',  icon: '⭐', color: 'text-yellow-400', glow: 'shadow-yellow-500/15', bg: 'from-yellow-500/10' },
+        { value: calcAge(),         label: t.stats.years,  suffix: '',  icon: '♋', color: 'text-amber-400',  glow: 'shadow-amber-500/15',  bg: 'from-amber-500/10' },
+        { value: calcYearsCoding(), label: t.stats.coding, suffix: '',  icon: '⌨️',  color: 'text-cyan-400',   glow: 'shadow-cyan-500/15',   bg: 'from-cyan-500/10' },
+        { value: repos.length,      label: t.stats.repos,  suffix: '',  icon: '📦', color: 'text-blue-400',   glow: 'shadow-blue-500/15',   bg: 'from-blue-500/10' },
+        { value: totalStars,        label: t.stats.stars,  suffix: '',  icon: '⭐', color: 'text-yellow-400', glow: 'shadow-yellow-500/15', bg: 'from-yellow-500/10' },
     ];
 
     return (
@@ -38,10 +40,10 @@ export default function StatsSection() {
                     className="mb-12 text-center"
                 >
                     <span className="text-xs font-semibold text-cyan-500 uppercase tracking-[0.2em] mb-3 block">
-                        <i aria-hidden="true" className="fas fa-chart-line mr-2" />En números
+                        <i aria-hidden="true" className="fas fa-chart-line mr-2" />{t.stats.kicker}
                     </span>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-                        Datos curiosos
+                        {t.stats.title}
                     </h2>
                 </motion.div>
 
@@ -81,7 +83,7 @@ export default function StatsSection() {
                     className="mt-8 text-center"
                 >
                     <p className="text-xs text-slate-600 font-mono">
-                        Prueba: <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800/50 text-slate-500">↑↑↓↓←→←→BA</kbd>
+                        {t.stats.tryHint} <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800/50 text-slate-500">↑↑↓↓←→←→BA</kbd>
                     </p>
                 </motion.div>
             </div>
