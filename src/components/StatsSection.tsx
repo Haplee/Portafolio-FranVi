@@ -24,10 +24,6 @@ export default function StatsSection() {
         { value: calcYearsCoding(), label: 'Años codeando',     suffix: '',  icon: '⌨️',  color: 'text-cyan-400',   glow: 'shadow-cyan-500/15',   bg: 'from-cyan-500/10' },
         { value: repos.length,      label: 'Repositorios',      suffix: '',  icon: '📦', color: 'text-blue-400',   glow: 'shadow-blue-500/15',   bg: 'from-blue-500/10' },
         { value: totalStars,        label: 'Estrellas GitHub',  suffix: '',  icon: '⭐', color: 'text-yellow-400', glow: 'shadow-yellow-500/15', bg: 'from-yellow-500/10' },
-        { value: 8,                 label: 'Constelaciones',    suffix: '',  icon: '✨', color: 'text-purple-400', glow: 'shadow-purple-500/15', bg: 'from-purple-500/10' },
-        { value: 2,                 label: 'Idiomas',           suffix: '',  icon: '🌍', color: 'text-green-400',  glow: 'shadow-green-500/15',  bg: 'from-green-500/10' },
-        { value: 36,                label: 'Latitud Barbate',   suffix: '°N', icon: '📍', color: 'text-rose-400',   glow: 'shadow-rose-500/15',   bg: 'from-rose-500/10' },
-        { value: 3,                 label: 'AM nacimiento',     suffix: '',  icon: '🕒', color: 'text-indigo-400', glow: 'shadow-indigo-500/15', bg: 'from-indigo-500/10' },
     ];
 
     return (
