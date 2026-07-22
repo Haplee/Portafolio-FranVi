@@ -8,7 +8,22 @@
       "Bash(npx tsc *)",
       "Bash(npm run *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(git checkout *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'chore: eliminar codigo muerto y actualizar documentacion *)",
+      "Bash(git commit -q -m 'fix: compartir y cachear la peticion a la API de GitHub *)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter \"sed '/Co-Authored-By: Claude/d; /^$/N;/^\\\\n$/D'\" main..HEAD)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter \"grep -v 'Co-Authored-By: Claude'\" main..HEAD)",
+      "Bash(git stash *)",
+      "Bash(git commit -q -m 'feat: anadir robots.txt y sitemap.xml para SEO *)",
+      "Bash(perl -0pi -e 's/<i className=\\(\"\\(?:[^\"\\\\\\\\]|\\\\\\\\.\\)*\"\\)/<i aria-hidden=\"true\" className=$1/g' src/components/*.tsx src/components/ui/*.tsx)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(git commit -q -m 'a11y: ocultar iconos decorativos y mejorar semantica de navegacion *)",
+      "Bash(git commit -q -m 'a11y: respetar la preferencia de reducir movimiento *)",
+      "Bash(git commit -q -m 'perf: cargar Three.js y Leaflet de forma diferida \\(lazy\\) *)",
+      "Bash(git commit -q -m 'refactor: evitar setState sincrono en el efecto de useGitHubData *)"
     ]
   }
 }
