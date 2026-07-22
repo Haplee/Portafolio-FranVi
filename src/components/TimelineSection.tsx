@@ -60,7 +60,27 @@ const ITEMS = [
         border: 'border-cyan-500/40',
         dot:    'bg-cyan-400 ring-2 ring-cyan-400/30',
         text:   'text-cyan-400',
+    },
+    {
+        date:  '2026',
+        title: 'Titulado en ASIR',
+        desc:  'Obtengo el título de Técnico Superior en Administración de Sistemas Informáticos en Red. El B1 de inglés sigue en curso.',
+        icon:  '🎓',
+        accent: 'from-cyan-500/20 to-blue-500/10',
+        border: 'border-cyan-500/40',
+        dot:    'bg-cyan-400 ring-2 ring-cyan-400/30',
+        text:   'text-cyan-400',
         current: true,
+    },
+    {
+        date:  'Próximo',
+        title: 'Ejército de Tierra',
+        desc:  'Siguiente paso: alistamiento en el Ejército de Tierra español. Una nueva etapa de disciplina, servicio y crecimiento.',
+        icon:  '🎖️',
+        accent: 'from-green-500/15 to-green-500/5',
+        border: 'border-green-500/25',
+        dot:    'bg-green-400',
+        text:   'text-green-400',
     },
 ] as const;
 

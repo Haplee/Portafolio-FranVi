@@ -100,7 +100,7 @@ export default function HeroSection() {
 
                     {/* Description */}
                     <p className="text-sm sm:text-base text-slate-400 max-w-lg leading-relaxed border-l-2 border-cyan-500/40 pl-4">
-                        Estudiante de ASIR apasionado por la tecnología, la administración de sistemas y el desarrollo web.
+                        Titulado en ASIR, apasionado por la tecnología, la administración de sistemas y el desarrollo web.
                         Siempre aprendiendo, siempre construyendo.
                     </p>
 
@@ -128,7 +128,7 @@ export default function HeroSection() {
                     <div className="hidden sm:flex flex-wrap items-center gap-4 pt-1">
                         {[
                             { icon: 'fas fa-map-marker-alt', text: 'Barbate, Cádiz' },
-                            { icon: 'fas fa-graduation-cap', text: 'ASIR 2º Curso' },
+                            { icon: 'fas fa-graduation-cap', text: 'ASIR Titulado' },
                             { icon: 'fab fa-github', text: 'Haplee', href: 'https://github.com/Haplee' },
                         ].map((item, i) => (
                             item.href ? (

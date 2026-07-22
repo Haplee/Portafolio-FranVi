@@ -19,12 +19,12 @@ const ACHIEVEMENTS: Achievement[] = [
         description: 'Sistemas operativos, redes, hardware, scripting básico.',
     },
     {
-        title: 'ASIR 2º Curso',
+        title: 'Titulado en ASIR',
         issuer: 'Formación Profesional',
-        date: '2025',
+        date: '2026',
         icon: 'fas fa-user-graduate',
-        status: 'in-progress',
-        description: 'Active Directory, virtualización, seguridad, servidores web.',
+        status: 'completed',
+        description: 'Título de Técnico Superior en Administración de Sistemas Informáticos en Red obtenido.',
     },
     {
         title: 'Primer repositorio público',
@@ -45,18 +45,18 @@ const ACHIEVEMENTS: Achievement[] = [
     {
         title: 'Inglés B1',
         issuer: 'Competencia lingüística',
-        date: '2024',
+        date: '2026',
         icon: 'fas fa-language',
-        status: 'completed',
-        description: 'Lectura técnica y comunicación profesional en inglés.',
+        status: 'in-progress',
+        description: 'Certificación B1 en curso: lectura técnica y comunicación profesional en inglés.',
     },
     {
-        title: 'Primer empleo',
-        issuer: 'Sysadmin / Web Dev',
-        date: '2025-2026',
-        icon: 'fas fa-briefcase',
+        title: 'Ejército de Tierra',
+        issuer: 'Ejército de Tierra español',
+        date: '2026',
+        icon: 'fas fa-shield-halved',
         status: 'planned',
-        description: 'Próximo objetivo: integrarme en un equipo profesional.',
+        description: 'Siguiente paso: alistamiento en el Ejército de Tierra español.',
     },
 ];
 

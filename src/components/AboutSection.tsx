@@ -51,12 +51,13 @@ export default function AboutSection() {
                             </div>
 
                             <p className="text-base text-slate-300 leading-relaxed mb-4">
-                                Soy <strong className="text-cyan-400 glow-text-cyan">Fran Vidal</strong>, estudiante de 2º curso del Grado Superior de
-                                Administración de Sistemas Informáticos en Red (ASIR).
+                                Soy <strong className="text-cyan-400 glow-text-cyan">Fran Vidal</strong>, Técnico Superior en
+                                Administración de Sistemas Informáticos en Red (ASIR), titulado.
                             </p>
                             <p className="text-base text-slate-400 leading-relaxed mb-8">
                                 Me apasiona la tecnología, la administración de sistemas y el desarrollo web.
-                                Busco oportunidades donde pueda seguir aprendiendo y aportar valor con mis conocimientos.
+                                Con la titulación en el bolsillo y el B1 de inglés en curso, mi siguiente paso
+                                es alistarme en el Ejército de Tierra español.
                             </p>
 
                             <div className="flex flex-wrap gap-3">
@@ -100,7 +101,7 @@ export default function AboutSection() {
                         <SpotlightCard className="p-5" spotlightColor="rgba(34,211,238,0.10)">
                             <InfoCard
                                 label="Formación"
-                                value="ASIR — 2º Curso"
+                                value="ASIR — Titulado"
                                 emoji="🎓"
                             />
                         </SpotlightCard>
@@ -115,7 +116,7 @@ export default function AboutSection() {
                         <SpotlightCard className="p-5" spotlightColor="rgba(168,85,247,0.10)">
                             <InfoCard
                                 label="Idiomas"
-                                value="ES • EN (B1)"
+                                value="ES • EN (B1 en curso)"
                                 emoji="🌐"
                             />
                         </SpotlightCard>
