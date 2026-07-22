@@ -1,19 +1,36 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useKonami } from '@/hooks/useKonami';
 
+const EFFECT_MS = 4000;
+
 export default function KonamiEffect() {
     const [active, setActive] = useState(false);
+    const activeRef = useRef(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    useKonami(() => {
-        // Scroll to hero
+    const trigger = useCallback(() => {
+        // Ignora reactivaciones mientras el efecto ya está en marcha.
+        if (activeRef.current) return;
+        activeRef.current = true;
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Trigger meteor shower in constellation
         window.dispatchEvent(new CustomEvent('konami-burst'));
-        // Show golden flash overlay
         setActive(true);
-        setTimeout(() => setActive(false), 4000);
-    });
+
+        timerRef.current = setTimeout(() => {
+            setActive(false);
+            activeRef.current = false;
+            timerRef.current = null;
+        }, EFFECT_MS);
+    }, []);
+
+    // Limpia el temporizador si el componente se desmonta durante el efecto.
+    useEffect(() => () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+    }, []);
+
+    useKonami(trigger);
 
     return (
         <AnimatePresence>
