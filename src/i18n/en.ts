@@ -1,281 +1,191 @@
 import type { Dict } from './es';
 
-// English dictionary. Proper nouns (technologies, "Higher Technician in ASIR",
-// place names, hardware models) are kept as-is in the components.
+// English dictionary. Must implement `Dict` in full — `es.ts` is the source of
+// truth for the shape. Proper nouns (technologies, place names, the ASIR
+// qualification) are kept as they are.
 export const en: Dict = {
     nav: {
-        about: 'About',
-        timeline: 'Journey',
-        now: 'Now',
+        work: 'Project',
         skills: 'Skills',
-        stack: 'Systems',
-        projects: 'Repos',
-        achievements: 'Awards',
+        path: 'Background',
         contact: 'Contact',
         switchTo: 'Cambiar a español',
+        skipToContent: 'Skip to content',
     },
+
     hero: {
-        available: 'Available for work',
-        role: 'Systems Administrator · Web Developer',
-        description:
-            'Qualified in ASIR, passionate about technology, systems administration and web development. Always learning, always building.',
-        ctaProjects: 'View Projects',
-        ctaContact: 'Contact',
-        quickEducation: 'Higher Technician in ASIR',
+        location: 'Barbate, Cádiz · available across the province and remotely',
+        role: 'Systems and network administrator',
+        lead:
+            'Qualified in ASIR, the Spanish higher vocational degree in network systems administration. For my final project I built a full-cycle IT support platform on my own VPS, and during my placement I wired, configured and maintained real client networks.',
+        ctaWork: 'See the project',
+        ctaContact: 'Get in touch',
+        creds: ['Higher Technician in ASIR', 'English B1 in progress'],
+        portraitAlt: 'Portrait of Fran Vidal',
     },
-    about: {
-        kicker: 'Who I am',
-        title: 'About me',
-        subtitle: 'A technology enthusiast, always learning.',
-        bioTitle: 'Biography',
-        bioSubtitle: 'Get to know my story',
-        bioPre: "I'm",
-        bioPost:
-            ', a qualified Higher Technician in Computer Systems and Network Administration (ASIR).',
-        bio2:
-            'I love technology, systems administration and web development. With the qualification in hand and my English B1 in progress, my next step is to enlist in the Spanish Army.',
-        cvBtn: 'View CV',
-        cards: {
-            location: 'Location',
-            education: 'Education',
-            educationValue: 'ASIR — Qualified',
-            status: 'Status',
-            statusValue: 'Available for work',
-            languages: 'Languages',
-            languagesValue: 'ES • EN (B1 in progress)',
-        },
-    },
-    stats: {
-        kicker: 'By the numbers',
-        title: 'Fun facts',
-        years: 'Years',
-        coding: 'Years coding',
-        repos: 'Repositories',
-        stars: 'GitHub stars',
-        tryHint: 'Try:',
-    },
-    timeline: {
-        kicker: 'Story',
-        title: 'My Journey',
-        subtitle: 'From the skies of Barbate to code. Each year, a chapter.',
-        now: 'now',
-        next: 'Next',
-        items: [
+
+    work: {
+        label: 'Final degree project',
+        title: 'ResolveCore',
+        oneLiner:
+            'A platform where a user asks for help and a technician fixes it without leaving the system.',
+        problem:
+            'In a small company, IT support lives across email, the phone and whoever remembers fixing it last time. Nothing is logged, nobody knows how long anything takes, and the same fault gets solved three times from scratch. ResolveCore closes that loop: every incident comes in through one door, gets a technician assigned, is diagnosed on the user’s own machine, and ends in a report that stays on file.',
+
+        flowLabel: 'The loop',
+        flow: [
+            { step: 'Request', desc: 'The user describes the problem in the portal. No emails going missing.' },
+            { step: 'Ticket', desc: 'The request enters the issue tracker with a priority and an assigned technician.' },
+            { step: 'Remote session', desc: 'The technician connects to the user’s machine straight from the ticket.' },
+            { step: 'Diagnostics', desc: 'Scripts collect system, network, disk and service state.' },
+            { step: 'Report', desc: 'Findings and fix are attached to the ticket and searchable later.' },
+        ],
+
+        infraLabel: 'Infrastructure',
+        infra: [
+            { k: 'Server', v: 'IONOS VPS · Debian' },
+            { k: 'Web', v: 'Nginx + PHP-FPM' },
+            { k: 'Data', v: 'MariaDB' },
+            { k: 'Deployment', v: 'Docker · docker-compose' },
+            { k: 'Ticketing', v: 'MantisBT' },
+            { k: 'Remote', v: 'AnyDesk' },
+            { k: 'Diagnostics', v: 'PowerShell · Bash · Python' },
+        ],
+
+        decisionsLabel: 'Three decisions',
+        decisions: [
             {
-                title: 'First spark ♋',
-                desc: 'Born under the sign of Cancer in Barbate, Cádiz. That night the sky showed the Summer Triangle over the Atlantic. The same constellation you see in this portfolio.',
+                title: 'Integrating MantisBT rather than writing my own ticket system',
+                body:
+                    'Reimplementing an issue tracker would have cost me weeks to end up with something worse than what already exists and is battle-tested. Integrating it forced me to read its data model and its API, which is a lot closer to the actual job: wiring together tools that are already there instead of rewriting them.',
             },
             {
-                title: 'ASIR begins',
-                desc: 'Start of Computer Systems and Network Administration. Linux, networks, Active Directory, servers — the beginning of the technical career.',
+                title: 'Docker on the VPS, not a direct install',
+                body:
+                    'Installing Nginx, PHP and MariaDB by hand on the server works right up until something breaks and there is no way to tell what changed. With containers I can rebuild the whole environment from scratch in minutes, and the one running on my laptop is identical to production.',
             },
             {
-                title: 'First projects',
-                desc: 'HTML, CSS, JavaScript. The first pages, the first bugs, the first wins. Bash and Python to automate systems.',
-            },
-            {
-                title: 'GitHub: Haplee',
-                desc: 'First public repository. Docker, Python, React — every commit a step forward. The open source community as a continuous school.',
-            },
-            {
-                title: 'Sysadmin + Dev stack',
-                desc: 'HP Victus 16, RTX 3050 Ti, WSL2 + Ubuntu, Zsh + Oh My Posh. The definitive setup to administer systems and develop in parallel.',
-            },
-            {
-                title: 'This portfolio',
-                desc: 'React · TypeScript · Three.js. The constellation of July 17, 2003, 3:00 AM, rendered in 3D. Available for work.',
-            },
-            {
-                title: 'Internship at Ingenia Market',
-                desc: 'Work placement in Chiclana: Cat6 structured cabling, switches and WiFi with MikroTik and Cisco, Hikvision CCTV with remote access, alarm systems and on-site incident support.',
-            },
-            {
-                title: 'Qualified in ASIR',
-                desc: 'I earn the Higher Technician degree in Computer Systems and Network Administration. My English B1 is still in progress.',
-            },
-            {
-                title: 'Spanish Army',
-                desc: 'Next step: enlisting in the Spanish Army. A new stage of discipline, service and growth.',
+                title: 'Three diagnostic languages instead of one',
+                body:
+                    'PowerShell for Windows clients, Bash for Linux, and Python for whatever had to run on both. Unifying everything into a single language would have meant installing a runtime on user machines — exactly what you do not want to touch when you are there to fix something.',
             },
         ],
-    },
-    now: {
-        kicker: 'Right now',
-        title: 'What am I doing?',
-        subtitle: 'A snapshot of my present. What I learn, build and look for — updated regularly.',
-        columns: [
+
+        repoCta: 'View the repository',
+
+        alsoLabel: 'Also on GitHub',
+        also: [
             {
-                category: 'Learning',
-                items: [
-                    { name: 'React + TypeScript', detail: 'Going deeper into advanced hooks and composition patterns' },
-                    { name: 'Docker + Kubernetes', detail: 'Containers and orchestration for modern sysadmin' },
-                    { name: 'English B1', detail: 'Certification in progress: technical reading and professional communication' },
-                ],
+                name: 'GymLog',
+                stack: 'TypeScript · React · Supabase',
+                desc: 'Workout tracker as an installable PWA: routines, sets and progress.',
             },
             {
-                category: 'Building',
-                items: [
-                    { name: 'This portfolio', detail: 'React 19, TypeScript, Three.js, GSAP — open source' },
-                    { name: 'Automation scripts', detail: 'Bash + Python to manage Linux servers' },
-                    { name: 'ASIR projects', detail: 'Active Directory, networks, virtualization' },
-                ],
-            },
-            {
-                category: 'Looking for',
-                items: [
-                    { name: 'Spanish Army', detail: 'Next step: enlisting in the Spanish Army' },
-                    { name: 'First opportunity', detail: 'Junior sysadmin or junior web developer — full-time or internship' },
-                    { name: 'Small teams', detail: 'Where I can learn from seniors and contribute from day 1' },
-                    { name: 'Modern stack', detail: 'TypeScript, React, Linux, Docker — companies betting on the future' },
-                ],
+                name: 'routine-optimizer',
+                stack: 'TypeScript',
+                desc: 'Planner for students who also train: fits study and gym hours together without clashes.',
             },
         ],
+        profileCta: 'Full profile on GitHub',
+        newTab: '(opens in a new tab)',
     },
+
     skills: {
-        kicker: 'Tech stack',
-        title: 'Skills',
-        subtitle: 'Technologies and tools I work with every day.',
-        levels: ['', 'Basic', 'Basic', 'Intermediate', 'Advanced', 'Expert'],
+        label: 'Skills',
+        title: 'What I can do, and where I have done it',
+        intro:
+            'Every tool comes with the place I used it. Anything I have only met in a syllabus is not on this list.',
         groups: [
             {
-                category: 'Systems',
-                descriptions: [
-                    'My daily system on WSL2. Ubuntu, Bash scripting, systemd service management.',
-                    'Active Directory, GPOs, DNS, DHCP, IIS. Core of the ASIR syllabus.',
-                    'MySQL, PostgreSQL. CRUD, joins, indexes, normalization.',
-                    'Containers, docker-compose, Dockerfiles. Modern deployment stack.',
+                category: 'Systems and servers',
+                items: [
+                    { name: 'Linux (Debian, Ubuntu)', where: 'ResolveCore server and daily environment on WSL2' },
+                    { name: 'Windows Server', where: 'Active Directory, GPO, DNS, DHCP and IIS in the ASIR lab' },
+                    { name: 'Nginx · PHP-FPM', where: 'Web server behind ResolveCore' },
+                    { name: 'MariaDB · MySQL · PostgreSQL', where: 'ResolveCore database and ASIR coursework' },
+                    { name: 'Docker', where: 'Deploying ResolveCore to the VPS' },
+                    { name: 'VirtualBox', where: 'Network and server labs throughout ASIR' },
                 ],
             },
             {
-                category: 'Networks & Scripting',
-                descriptions: [
-                    'TCP/IP, subnetting, VLANs, routing. MikroTik and Cisco in a real environment during my placement.',
-                    'Automation scripts for sysadmin. Zsh + Oh My Posh as my daily shell.',
-                    'Automation and diagnostics on Windows. Used in the ResolveCore final project.',
-                    'Scripting, automation, parsing. REST APIs with requests.',
+                category: 'Networks and installation',
+                items: [
+                    { name: 'MikroTik · Cisco', where: 'Switches and WiFi on client sites during my placement' },
+                    { name: 'TCP/IP, VLAN, DNS, DHCP', where: 'Network configuration on client sites and in the lab' },
+                    { name: 'Cat6 structured cabling', where: 'Full installations on client sites during my placement' },
+                    { name: 'Hikvision CCTV', where: 'Cameras with remote access, installed and configured on site' },
+                    { name: 'Alarm systems', where: 'Installation and maintenance during my placement' },
                 ],
             },
             {
-                category: 'Development & Tools',
-                descriptions: [
-                    'Branches, merges, rebases, conflict resolution. Professional workflow with GitHub.',
-                    'Hooks, context, Motion. This portfolio is built with React 19.',
-                    'Static typing in strict mode. The base of this portfolio and of GymLog.',
-                    'Utility-first. All the styling of this site.',
+                category: 'Automation and development',
+                items: [
+                    { name: 'Bash', where: 'ResolveCore diagnostics and server scripting' },
+                    { name: 'PowerShell', where: 'Diagnostics on Windows clients in ResolveCore' },
+                    { name: 'Python', where: 'Cross-platform scripts and REST API work' },
+                    { name: 'Git', where: 'Every project; branches, merges and conflict resolution' },
+                    { name: 'React · TypeScript', where: 'This site and GymLog' },
                 ],
             },
         ],
     },
-    stack: {
-        kicker: 'Systems profile',
-        title: 'Technical coverage',
-        subtitle:
-            'Systems administration, networking, servers and IT support skills — the core of my ASIR profile.',
-        categories: [
-            'Systems',
-            'Servers & Databases',
-            'Networks',
-            'Security & telecom',
-            'Cloud & containers',
-            'Scripting & tools',
-        ],
-    },
-    projects: {
-        kicker: 'Open Source',
-        title: 'Projects',
-        subtitle: 'Public repositories on GitHub — updated automatically.',
-        repos: 'Repos',
-        stars: 'Stars',
-        forks: 'Forks',
-        profile: 'View Profile',
-        fallbackNote: 'Hand-picked featured projects.',
-        noDesc: 'No description',
-    },
-    achievements: {
-        kicker: 'Achievements',
-        title: 'Milestones & education',
-        subtitle: 'Each one represents hours of study, fixed mistakes and small wins.',
-        status: {
-            completed: '✓ Completed',
-            inProgress: '◐ In progress',
-            planned: '○ Next',
-        },
+
+    path: {
+        label: 'Background',
+        title: 'Where I come from',
         items: [
-            { title: 'ASIR Year 1', issuer: 'Vocational Training', description: 'Operating systems, networks, hardware, basic scripting.' },
-            { title: 'Qualified in ASIR', issuer: 'Vocational Training', description: 'Higher Technician degree in Computer Systems and Network Administration obtained.' },
-            { title: 'First public repository', issuer: 'GitHub @Haplee', description: 'Start of the open source journey. Commits, issues, pull requests.' },
-            { title: 'Professional portfolio', issuer: 'Self-developed', description: 'React 19 + TypeScript + Three.js. This site you are viewing.' },
-            { title: 'English B1', issuer: 'Language skills', description: 'B1 certification in progress: technical reading and professional communication in English.' },
-            { title: 'Spanish Army', issuer: 'Spanish Army', description: 'Next step: enlisting in the Spanish Army.' },
+            {
+                date: '2026',
+                title: 'Placement at Ingenia Market · Chiclana',
+                role: 'Support and installations',
+                body:
+                    'Three months on client sites. Cat6 structured cabling end to end, switch and WiFi configuration with MikroTik and Cisco, Hikvision CCTV with remote access, and alarm systems. Plus first-line support on site, which is where you learn to explain a technical problem to someone who just wants their computer working again.',
+            },
+            {
+                date: '2026',
+                title: 'ResolveCore',
+                role: 'Final degree project',
+                body: 'Full-cycle IT support platform on my own VPS. Covered in detail above.',
+            },
+            {
+                date: '2026',
+                title: 'Higher Technician in ASIR',
+                role: 'Vocational training — qualified',
+                body:
+                    'Network Systems Administration. Operating systems, networking, servers, databases, virtualisation and security.',
+            },
+            {
+                date: 'Now',
+                title: 'Looking for a first role',
+                role: 'Systems, networks or IT support',
+                body:
+                    'Available across Cádiz province and remotely. English B1 in progress. Still building things in the meantime.',
+            },
         ],
     },
-    setup: {
-        kicker: 'Hardware & Software',
-        title: 'My Setup',
-        subtitle: 'The gear and tools I work with every day.',
-        laptopSub: 'Gaming Laptop',
-        periphTitle: 'Peripherals',
-        periphSub: 'Work equipment',
-        softwareTitle: 'Software',
-        labels: {
-            display: 'Display',
-            keyboard: 'Keyboard',
-            mouse: 'Mouse',
-            headphones: 'Headphones',
-            mousepad: 'Mousepad',
-            os: 'OS',
-            editor: 'Editor',
-            terminal: 'Terminal',
-            shell: 'Shell',
-        },
-    },
+
     contact: {
-        kicker: "Let's connect",
-        title: 'Contact',
+        label: 'Contact',
+        title: 'Let’s talk',
         intro:
-            'A job offer, a project or a collaboration? The fastest channel is LinkedIn or email. I reply within 24h.',
-        cvName: 'Résumé',
-        cvSub: 'View full CV',
-        cvAria: "View Fran Vidal's résumé (opens in a new tab)",
-        availTitle: 'Available for work',
-        availText:
-            'Looking for my first opportunity in systems, networking or IT support. Available in the province of Cádiz and remotely. I reply fast.',
-        newTab: '(opens in a new tab)',
+            'If you are looking for someone for systems, networks or support, message me on LinkedIn or by email. I reply within 24 hours.',
+        cvName: 'CV',
+        cvNote: 'Full version, one page',
         emailAria: 'Send an email to Fran Vidal',
-        profileAria: (name: string) => `Fran Vidal's ${name} profile (opens in a new tab)`,
-    },
-    footer: {
-        role: 'Web Developer · Sysadmin',
-        rights: (year: number) => `© ${year} Fran Vidal. All rights reserved.`,
-        madeWith: 'Made with',
-        using: 'using',
-    },
-    barbate: {
-        headerTitle: 'Barbate, Cádiz · Spain',
-        availLabel: 'Barbate, Cádiz · Available in the province and remotely',
+        profileAria: (name: string) => `Fran Vidal’s ${name} profile (opens in a new tab)`,
+        newTab: '(opens in a new tab)',
+
+        whereLabel: 'Where I am',
+        base: 'Barbate, Cádiz',
+        radiusNote: 'I travel across Cádiz province — the circle marks roughly 60 km from Barbate.',
+        remoteNote: 'For remote work, no limit.',
+        mapAria: 'Map of Cádiz province showing Barbate and the travel radius',
         osmAria: 'View Barbate on OpenStreetMap (opens in a new tab)',
-        bottomTitle: 'Costa de la Luz · Atlantic',
-        bottomSub: 'Where I was born on 17.07.2003 at 3:00 AM ♋',
     },
-    overlay: {
-        stars: 'Stars',
-        forks: 'Forks',
-        updated: 'Updated:',
-        viewGithub: 'View on GitHub',
-        demo: 'Demo',
-        noDesc: 'No description available.',
-        close: 'Close',
-    },
-    contrib: {
-        title: 'Contributions last year',
-        loading: 'Loading…',
-        commitsOn: 'commits on GitHub',
-        less: 'less',
-        more: 'more',
-        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        days: ['', 'Mon', '', 'Wed', '', 'Fri', ''],
-        noCommits: 'No commits',
-        dayAria: (count: number, date: string) => `${count} contributions on ${date}`,
-        commitCount: (n: number) => `${n} commit${n !== 1 ? 's' : ''}`,
+
+    footer: {
+        rights: (year: number) => `© ${year} Fran Vidal`,
+        colophon: 'Built with React, TypeScript and Three.js. The sky in the header is the one over Barbate.',
+        source: 'Source code',
     },
 };

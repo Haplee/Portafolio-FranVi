@@ -1,120 +1,118 @@
-import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useLang, type Lang } from '@/i18n/LangProvider';
 import { cn } from '@/lib/utils';
 
-interface NavItem {
-    id: 'about' | 'timeline' | 'now' | 'skills' | 'stack' | 'projects' | 'achievements' | 'contact';
-    icon: string;
-}
+// Cuatro entradas, una por sección. Antes el nav enlazaba 8 de 11 secciones y
+// tres eran inalcanzables; ahora la lista de secciones y la lista del nav son
+// literalmente la misma, así que ese desajuste no puede volver.
+const SECTIONS = ['work', 'skills', 'path', 'contact'] as const;
 
-const navItems: NavItem[] = [
-    { id: 'about',        icon: 'fas fa-user' },
-    { id: 'timeline',     icon: 'fas fa-star' },
-    { id: 'now',          icon: 'fas fa-circle-dot' },
-    { id: 'skills',       icon: 'fas fa-microchip' },
-    { id: 'stack',        icon: 'fas fa-server' },
-    { id: 'projects',     icon: 'fas fa-code-branch' },
-    { id: 'achievements', icon: 'fas fa-trophy' },
-    { id: 'contact',      icon: 'fas fa-paper-plane' },
-];
+// Referencia estable: `useScrollSpy` la usa como dependencia de su efecto, y
+// un array nuevo en cada render volvería a montar el listener de scroll en
+// cada evento de scroll.
+const SECTION_IDS: string[] = [...SECTIONS];
 
 const LANGS: Lang[] = ['es', 'en'];
 
 export default function Navbar() {
     const isMobile = useIsMobile();
     const { t, lang, setLang } = useLang();
-    const activeSection = useScrollSpy(navItems.map((item) => item.id));
+    const active = useScrollSpy(SECTION_IDS);
+    const [scrolled, setScrolled] = useState(false);
+
+    // El nav es transparente sobre la apertura (el cielo se ve entero) y se
+    // asienta sobre fondo sólido en cuanto empieza el documento.
+    useEffect(() => {
+        if (isMobile) return;
+        const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [isMobile]);
+
+    const langToggle = (
+        <div className="flex items-center gap-2" role="group" aria-label={t.nav.switchTo}>
+            {LANGS.map((l, i) => (
+                <span key={l} className="flex items-center gap-2">
+                    {i > 0 && <span aria-hidden="true" className="text-fg-mute/40">/</span>}
+                    <button
+                        type="button"
+                        onClick={() => setLang(l)}
+                        aria-pressed={lang === l}
+                        className={cn(
+                            'font-mono text-fine uppercase tracking-widest transition-colors',
+                            lang === l ? 'text-accent' : 'text-fg-mute hover:text-fg'
+                        )}
+                    >
+                        {l}
+                    </button>
+                </span>
+            ))}
+        </div>
+    );
+
+    const links = SECTIONS.map((id) => (
+        <a
+            key={id}
+            href={`#${id}`}
+            aria-current={active === id ? 'true' : undefined}
+            className={cn(
+                'font-mono text-fine tracking-wide transition-colors border-b',
+                active === id
+                    ? 'text-accent border-accent'
+                    : 'text-fg-dim border-transparent hover:text-fg'
+            )}
+        >
+            {t.nav[id]}
+        </a>
+    ));
+
+    // En móvil la barra vive abajo, al alcance del pulgar, y no compite con el
+    // titular de la apertura.
+    if (isMobile) {
+        return (
+            <>
+                <a href="#main" className="skip-link font-mono text-fine">{t.nav.skipToContent}</a>
+                <header className="fixed bottom-0 inset-x-0 z-50 bg-ink-900/95 border-t border-line backdrop-blur-none">
+                    <nav className="flex items-center justify-between px-5 py-3">
+                        <div className="flex items-center gap-4">{links}</div>
+                        {langToggle}
+                    </nav>
+                </header>
+            </>
+        );
+    }
 
     return (
         <>
-            {/* Selector de idioma */}
-            <div className="fixed top-4 right-4 z-50">
-                <div
-                    className="flex items-center gap-0.5 p-0.5 rounded-full bg-slate-900/80 border border-white/10 backdrop-blur-xl shadow-lg"
-                    role="group"
-                    aria-label={t.nav.switchTo}
-                >
-                    {LANGS.map((l) => (
-                        <button
-                            key={l}
-                            type="button"
-                            onClick={() => setLang(l)}
-                            aria-pressed={lang === l}
-                            className={cn(
-                                'px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase transition-colors',
-                                lang === l ? 'bg-cyan-500/20 text-cyan-300' : 'text-slate-500 hover:text-slate-300'
-                            )}
-                        >
-                            {l}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            <motion.header
-                initial={{ y: isMobile ? 100 : -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
+            <a href="#main" className="skip-link font-mono text-fine">{t.nav.skipToContent}</a>
+            <header
                 className={cn(
-                    'fixed z-50 transition-all duration-300',
-                    isMobile
-                        ? 'bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm'
-                        : 'top-5 left-1/2 -translate-x-1/2 w-fit'
+                    'fixed top-0 inset-x-0 z-50 transition-colors duration-300',
+                    scrolled ? 'bg-ink-900/92 border-b border-line' : 'bg-transparent border-b border-transparent'
                 )}
             >
-                <nav
-                    className={cn(
-                        'flex items-center px-2 py-2',
-                        'bg-slate-900/75 backdrop-blur-xl',
-                        'border border-white/8 shadow-2xl shadow-black/40',
-                        isMobile ? 'rounded-2xl' : 'rounded-full px-4'
-                    )}
-                    style={{
-                        background: 'rgba(15,23,42,0.80)',
-                        backdropFilter: 'blur(20px)',
-                        WebkitBackdropFilter: 'blur(20px)',
-                        borderColor: 'rgba(255,255,255,0.06)',
-                        boxShadow: '0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
-                    }}
-                >
-                    <ul className="flex items-center justify-between w-full gap-1 md:gap-2 list-none m-0 p-0" role="list">
-                        {navItems.map((item) => {
-                            const isActive = activeSection === item.id;
-                            return (
-                                <li key={item.id} className="relative">
-                                    <a
-                                        href={`#${item.id}`}
-                                        aria-current={isActive ? 'true' : undefined}
-                                        className={cn(
-                                            'relative flex flex-col md:flex-row items-center gap-1 px-3 py-2 transition-all duration-300 rounded-xl text-sm',
-                                            isActive
-                                                ? 'text-cyan-300'
-                                                : 'text-slate-500 hover:text-slate-200'
-                                        )}
-                                    >
-                                        {isActive && (
-                                            <motion.div
-                                                layoutId="active-pill"
-                                                className="absolute inset-0 rounded-xl -z-10"
-                                                style={{
-                                                    background: 'linear-gradient(135deg, rgba(34,211,238,0.12), rgba(99,102,241,0.08))',
-                                                    border: '1px solid rgba(34,211,238,0.18)',
-                                                    boxShadow: '0 0 20px rgba(34,211,238,0.08)',
-                                                }}
-                                                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                                            />
-                                        )}
-                                        <i aria-hidden="true" className={cn(item.icon, 'text-lg md:text-[13px]')} />
-                                        <span className="text-[10px] md:text-[13px] font-medium">{t.nav[item.id]}</span>
-                                    </a>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between gap-8">
+                    {/* El nombre solo aparece cuando el titular de la apertura
+                        ya no está en pantalla: mientras se ve, repetirlo sobra. */}
+                    <a
+                        href="#top"
+                        className={cn(
+                            'font-mono text-fine text-fg transition-opacity duration-300',
+                            scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                        )}
+                    >
+                        Fran Vidal
+                    </a>
+                    <div className="flex items-center gap-7">
+                        {links}
+                        <span aria-hidden="true" className="w-px h-3.5 bg-line-strong" />
+                        {langToggle}
+                    </div>
                 </nav>
-            </motion.header>
+            </header>
         </>
     );
 }

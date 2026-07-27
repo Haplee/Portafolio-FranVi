@@ -7,20 +7,23 @@ export type Lang = 'es' | 'en';
 const DICTS: Record<Lang, Dict> = { es, en };
 
 // Meta traducidas: se actualizan al vuelo al cambiar de idioma.
+// Describen lo que hay en la página —el proyecto y el puesto que se busca—
+// en lugar del stack con el que está hecho el portafolio: quien lee esto en
+// una vista previa de LinkedIn no está contratando a Three.js.
 const META: Record<Lang, { description: string; og: string; twitter: string }> = {
     es: {
         description:
-            'Fran Vidal — Administrador de Sistemas y Desarrollador Web junior desde Barbate, Cádiz. Titulado en ASIR. Disponible para trabajar. React, TypeScript, Linux, Docker, Three.js.',
+            'Fran Vidal — Administrador de sistemas y redes desde Barbate, Cádiz. Titulado en ASIR. ResolveCore: plataforma de soporte IT de ciclo completo sobre VPS propio. Disponible en la provincia y en remoto.',
         og:
-            'Titulado en ASIR desde Barbate, Cádiz. Portfolio con React, TypeScript y Three.js. Constelación del 17 Julio 2003 visible en el hero. Disponible para trabajar.',
-        twitter: 'Titulado en ASIR · Disponible para trabajar · React + TypeScript + Three.js',
+            'Administrador de sistemas y redes. Titulado en ASIR. Monté ResolveCore, una plataforma de soporte IT de ciclo completo, y cablé y configuré redes de clientes reales durante las prácticas.',
+        twitter: 'Sistemas y redes · Titulado en ASIR · Barbate, Cádiz · Disponible',
     },
     en: {
         description:
-            'Fran Vidal — Junior Systems Administrator and Web Developer from Barbate, Cádiz. Qualified in ASIR. Available for work. React, TypeScript, Linux, Docker, Three.js.',
+            'Fran Vidal — Systems and network administrator from Barbate, Cádiz. Qualified in ASIR. ResolveCore: a full-cycle IT support platform on my own VPS. Available across the province and remotely.',
         og:
-            'Qualified in ASIR from Barbate, Cádiz. Portfolio with React, TypeScript and Three.js. The constellation of 17 July 2003 visible in the hero. Available for work.',
-        twitter: 'Qualified in ASIR · Available for work · React + TypeScript + Three.js',
+            'Systems and network administrator. Qualified in ASIR. Built ResolveCore, a full-cycle IT support platform, and wired and configured real client networks during my placement.',
+        twitter: 'Systems and networks · Qualified in ASIR · Barbate, Cádiz · Available',
     },
 };
 
