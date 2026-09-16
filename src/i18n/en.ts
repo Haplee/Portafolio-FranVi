@@ -1,11 +1,10 @@
 import type { Dict } from './es';
 
 // English dictionary. Must implement `Dict` in full — `es.ts` is the source of
-// truth for the shape. Proper nouns (technologies, place names, the ASIR
-// qualification) are kept as they are.
+// truth for the shape. Proper nouns, tech names and locations are preserved.
 export const en: Dict = {
     nav: {
-        work: 'Project',
+        work: 'Projects',
         skills: 'Skills',
         path: 'Background',
         contact: 'Contact',
@@ -17,114 +16,249 @@ export const en: Dict = {
         location: 'Barbate, Cádiz · available across the province and remotely',
         role: 'Systems and network administrator',
         lead:
-            'Qualified in ASIR, the Spanish higher vocational degree in network systems administration. For my final project I built a full-cycle IT support platform on my own VPS, and during my placement I wired, configured and maintained real client networks.',
-        ctaWork: 'See the project',
+            'Qualified Higher Technician in ASIR (Network Systems Administration). I engineered and deployed ResolveCore —a full-cycle IT support platform on my own Debian VPS— and actively maintain systems utilities, offline-first PWAs, and production automation scripts.',
+        ctaWork: 'View projects',
         ctaContact: 'Get in touch',
         creds: ['Higher Technician in ASIR', 'English B1 in progress'],
         portraitAlt: 'Portrait of Fran Vidal',
+        specs: [
+            { k: 'Profile', v: 'Systems, networking and IT support' },
+            { k: 'Degree', v: 'Higher Technician in ASIR (2026)' },
+            { k: 'Availability', v: 'Cádiz province & remote' },
+            { k: 'Status', v: 'Immediate availability' },
+        ],
     },
 
     work: {
-        label: 'Final degree project',
+        sectionLabel: 'Projects and systems',
+        sectionTitle: 'What I have built, and with what criteria',
+        sectionIntro:
+            'A unified view of my engineering work: from the design and deployment of the central case study (ResolveCore) to production utilities, offline-first web apps, and virtualized network labs.',
+
+        // Featured Case Study #01: ResolveCore
+        featuredBadge: 'Featured project · ASIR final degree',
         title: 'ResolveCore',
         oneLiner:
-            'A platform where a user asks for help and a technician fixes it without leaving the system.',
+            'An end-to-end platform where a user requests assistance and a technician diagnoses and resolves the incident without leaving the system.',
         problem:
-            'In a small company, IT support lives across email, the phone and whoever remembers fixing it last time. Nothing is logged, nobody knows how long anything takes, and the same fault gets solved three times from scratch. ResolveCore closes that loop: every incident comes in through one door, gets a technician assigned, is diagnosed on the user’s own machine, and ends in a report that stays on file.',
+            'In a small organisation, technical support often scatters across calls, emails, and the memory of whoever fixed it last time. Without traceability, time is lost and identical faults are investigated from scratch repeatedly. ResolveCore closes that loop: every incident enters through a unified portal, gets prioritised and assigned to a technician, is diagnosed on the user’s machine, and concludes with a structured report archived for future reference.',
 
-        flowLabel: 'The loop',
+        flowLabel: 'The interactive support loop',
+        flowInstruction: 'Select a phase to inspect its technical implementation:',
         flow: [
-            { step: 'Request', desc: 'The user describes the problem in the portal. No emails going missing.' },
-            { step: 'Ticket', desc: 'The request enters the issue tracker with a priority and an assigned technician.' },
-            { step: 'Remote session', desc: 'The technician connects to the user’s machine straight from the ticket.' },
-            { step: 'Diagnostics', desc: 'Scripts collect system, network, disk and service state.' },
-            { step: 'Report', desc: 'Findings and fix are attached to the ticket and searchable later.' },
+            {
+                step: 'Request',
+                summary: 'Structured intake',
+                desc: 'The user logs the fault via the web portal. No emails going missing or unrecorded calls.',
+                detail: 'The user submits a structured intake form capturing endpoint context automatically (OS version, browser, user-declared severity).',
+            },
+            {
+                step: 'Ticket',
+                summary: 'Prioritised dispatch',
+                desc: 'The incident enters MantisBT with assigned technician, priority, category, and service level.',
+                detail: 'The MantisBT REST integration creates the record, establishes SLA clocks, and notifies the responsible technician.',
+            },
+            {
+                step: 'Remote session',
+                summary: 'Assisted remote session',
+                desc: 'Assisted remote connection into the user’s workstation launched directly from the ticket.',
+                detail: 'Technicians initialize remote sessions (AnyDesk / RDP) with a single click right from the ticket dashboard.',
+            },
+            {
+                step: 'Diagnostics',
+                summary: 'Automated auditing',
+                desc: 'Automated scripts auditing hardware, services, networking, and CVE vulnerabilities in seconds.',
+                detail: 'Non-intrusive execution of PowerShell (Windows), Bash (Linux), or Python routines gathering disk health, memory stats, event logs, and CVE matches.',
+            },
+            {
+                step: 'Report',
+                summary: 'Audit trail and closure',
+                desc: 'Diagnostic output and resolution stay attached and searchable in the system archive.',
+                detail: 'Output logs and applied fixes are committed directly into the ticket record, enabling rapid resolution for recurring faults.',
+            },
         ],
 
-        infraLabel: 'Infrastructure',
+        infraLabel: 'Infrastructure specification',
         infra: [
-            { k: 'Server', v: 'IONOS VPS · Debian' },
+            { k: 'Server', v: 'IONOS VPS · Debian Linux' },
             { k: 'Web', v: 'Nginx + PHP-FPM' },
-            { k: 'Data', v: 'MariaDB' },
+            { k: 'Data', v: 'Relational MariaDB' },
             { k: 'Deployment', v: 'Docker · docker-compose' },
-            { k: 'Ticketing', v: 'MantisBT' },
-            { k: 'Remote', v: 'AnyDesk' },
+            { k: 'Ticketing', v: 'MantisBT (API integration)' },
+            { k: 'Remote', v: 'AnyDesk / RDP' },
             { k: 'Diagnostics', v: 'PowerShell · Bash · Python' },
         ],
 
-        decisionsLabel: 'Three decisions',
+        decisionsLabel: 'Architectural decisions',
         decisions: [
             {
-                title: 'Integrating MantisBT rather than writing my own ticket system',
+                title: 'Integrating MantisBT rather than writing a ticketing system from scratch',
                 body:
-                    'Reimplementing an issue tracker would have cost me weeks to end up with something worse than what already exists and is battle-tested. Integrating it forced me to read its data model and its API, which is a lot closer to the actual job: wiring together tools that are already there instead of rewriting them.',
+                    'Rebuilding an issue tracker would have consumed weeks only to yield something inferior to battle-tested tools. Integrating MantisBT required studying its relational database schema and REST API, closely mirroring real-world systems work: connecting and hardening existing infrastructure.',
             },
             {
-                title: 'Docker on the VPS, not a direct install',
+                title: 'Containerised deployment with Docker on VPS',
                 body:
-                    'Installing Nginx, PHP and MariaDB by hand on the server works right up until something breaks and there is no way to tell what changed. With containers I can rebuild the whole environment from scratch in minutes, and the one running on my laptop is identical to production.',
+                    'Installing services manually on the host OS is brittle and prone to drift. Using docker-compose, the entire Nginx, PHP-FPM, and MariaDB stack spins up reproducibly in minutes, ensuring strict parity between local development and production.',
             },
             {
-                title: 'Three diagnostic languages instead of one',
+                title: 'Three diagnostic languages matched to the target environment',
                 body:
-                    'PowerShell for Windows clients, Bash for Linux, and Python for whatever had to run on both. Unifying everything into a single language would have meant installing a runtime on user machines — exactly what you do not want to touch when you are there to fix something.',
+                    'Native PowerShell for Windows endpoints, Bash for Linux servers, and Python for shared analytical routines. This separation avoids requiring heavy runtime installations on user workstations when the goal is to resolve an issue promptly.',
             },
         ],
 
-        repoCta: 'View the repository',
-
-        alsoLabel: 'Also on GitHub',
-        also: [
-            {
-                name: 'GymLog',
-                stack: 'TypeScript · React · Supabase',
-                desc: 'Workout tracker as an installable PWA: routines, sets and progress.',
-            },
-            {
-                name: 'routine-optimizer',
-                stack: 'TypeScript',
-                desc: 'Planner for students who also train: fits study and gym hours together without clashes.',
-            },
-        ],
-        profileCta: 'Full profile on GitHub',
+        repoCta: 'View ResolveCore code',
         newTab: '(opens in a new tab)',
+
+        // Other completed engineering projects
+        catalogueLabel: 'Engineering catalogue',
+        catalogueTitle: 'Other finished systems utilities and applications',
+        catalogueIntro:
+            'Production tools, memory daemons, and administrative utilities that I have designed, implemented, and verified in real environments.',
+        filters: {
+            all: 'All',
+            systems: 'Systems & Scripts',
+            web: 'Web & PWA',
+            infra: 'Networks & Labs',
+        },
+        viewRepo: 'GitHub repository',
+        viewLive: 'View live deployment',
+        otherItems: [
+            {
+                id: 'gymlog',
+                name: 'GymLog',
+                category: 'web',
+                categoryBadge: 'Offline-First PWA',
+                tagline: 'Native progressive web app for workout logging and biomechanical analysis with full offline persistence.',
+                desc: 'Progressive web app built for strength training. Features an offline-first architecture with reactive sync, 1RM calculation via the Brzycki formula, volume analytics broken down by muscle group, and biometric authentication.',
+                stack: ['TypeScript', 'React 19', 'Supabase', 'Dexie / IndexedDB', 'PWA'],
+                highlights: ['Offline-First with Dexie.js', 'Brzycki 1RM calculator', 'Biometric authentication', 'Live in production'],
+                liveUrl: 'https://gymlog.dpdns.org',
+                repoUrl: 'https://github.com/Haplee/gymlog',
+            },
+            {
+                id: 'omniroute',
+                name: 'OmniRoute-Installer',
+                category: 'systems',
+                categoryBadge: 'Systems & AI',
+                tagline: 'Universal local language model router and installer with automatic hardware-aware selection.',
+                desc: 'Automates deployment and configuration of local AI inference environments for developer machines. Detects GPU/CPU compute capability, routes queries across multiple backends, and configures environment profiles for CLI developer workflows.',
+                stack: ['PowerShell', 'REST APIs', 'CLI Windows/Linux', 'Local LLMs'],
+                highlights: ['GPU/VRAM detection', 'Multi-provider routing', 'Smart developer profiles', 'Unattended installation'],
+                liveUrl: 'https://haplee.github.io/OmniRoute-Installer/',
+                repoUrl: 'https://github.com/Haplee/OmniRoute-Installer',
+            },
+            {
+                id: 'aceleramac',
+                name: 'AceleraMac',
+                category: 'systems',
+                categoryBadge: 'Systems & Shell',
+                tagline: 'Memory pressure monitor and automated RAM purge utility for macOS.',
+                desc: 'Lightweight daemon monitoring memory pressure states in macOS. Triggers proactive flushing of inactive buffers whenever memory constraints exceed critical thresholds. Written in native POSIX Shell without third-party dependencies or root privileges.',
+                stack: ['POSIX Shell', 'macOS vm_stat', 'memory_pressure', 'Launchd'],
+                highlights: ['Zero external dependencies', 'No root/sudo needed', 'Negligible CPU overhead', 'Documentation on GitHub Pages'],
+                liveUrl: 'https://haplee.github.io/AceleraMac/',
+                repoUrl: 'https://github.com/Haplee/AceleraMac',
+            },
+            {
+                id: 'bot-recordatorio',
+                name: 'Bot-Recordatorio',
+                category: 'web',
+                categoryBadge: 'Web & Backend',
+                tagline: 'Automated alert and recurring reminder system via Telegram Bot and transactional email.',
+                desc: 'Full-stack application built with Next.js and relational storage to schedule and trigger periodic reminders for bill payments, server renewal dates, and deadlines, delivering real-time push alerts through Telegram.',
+                stack: ['Next.js 16', 'TypeScript', 'Prisma ORM', 'PostgreSQL', 'Telegram API'],
+                highlights: ['Multi-channel delivery (Telegram + Email)', 'Data schema with Prisma', 'Deployed on Vercel', 'Automated cron schedules'],
+                liveUrl: 'https://bot-recordatorio.vercel.app',
+                repoUrl: 'https://github.com/Haplee/Bot-Recordatorio',
+            },
+            {
+                id: 'autodriver',
+                name: 'AutoDriver-Updater',
+                category: 'systems',
+                categoryBadge: 'Windows Systems',
+                tagline: 'Unattended hardware audit and driver updater for Windows environments.',
+                desc: 'PowerShell administration utility that inventories physical devices, checks versions against vendor catalogues, and performs silent driver updates, eliminating the need for bloated third-party software containing telemetry or adware.',
+                stack: ['PowerShell', 'Windows PnP API', 'WMI / CIM', 'Windows Update'],
+                highlights: ['No commercial third-party bloat', 'Precise PnP device auditing', 'Silent unattended execution', 'Audit trail log output'],
+                liveUrl: 'https://haplee.github.io/AutoDriver-Updater/',
+                repoUrl: 'https://github.com/Haplee/AutoDriver-Updater',
+            },
+            {
+                id: 'scan-repair',
+                name: 'Windows Scan & Repair',
+                category: 'systems',
+                categoryBadge: 'Systems Maintenance',
+                tagline: 'Automated system file integrity verification and image restoration suite for Windows 10 & 11.',
+                desc: 'Technical support script chaining filesystem check (chkdsk), protected system file verification (SFC), and Component Store health restoration (DISM) into a single deterministic maintenance sequence.',
+                stack: ['Batch', 'DISM', 'SFC', 'chkdsk', 'PowerShell'],
+                highlights: ['Deep DISM image repair', 'Sequential single-click execution', 'Detailed output reporting', 'Proven in IT support tasks'],
+                liveUrl: 'https://haplee.github.io/Windows_Scan-Repair/',
+                repoUrl: 'https://github.com/Haplee/Windows_Scan-Repair',
+            },
+            {
+                id: 'proxychains-setup',
+                name: 'Ubuntu VBox Proxychains Setup',
+                category: 'infra',
+                categoryBadge: 'Networking & Virtualization',
+                tagline: 'Automated setup for secure virtualised lab environments in VirtualBox with Proxychains.',
+                desc: 'Automation scripts to deploy Ubuntu VirtualBox instances with isolated network adapters and chained proxy routing for traffic analysis, privacy auditing, and penetration testing lab workflows.',
+                stack: ['Shell Scripting', 'VirtualBox CLI', 'Proxychains', 'Tor / SOCKS5'],
+                highlights: ['One-step network configuration', 'Anonymous proxy chaining', 'Isolated lab topology', 'Reproducible provisioning'],
+                liveUrl: null,
+                repoUrl: 'https://github.com/Haplee/ubuntu-vbox-proxychains-setup',
+            },
+            {
+                id: 'kali-setup',
+                name: 'Kali Linux Setup & Hardening',
+                category: 'infra',
+                categoryBadge: 'Security & Pentesting',
+                tagline: 'Rapid onboarding and technical customization script for Kali Linux workstations.',
+                desc: 'Bootstrap script configuring a fresh Kali Linux installation with updated repositories, essential networking and reconnaissance tools, shell ergonomic tweaks, and pre-compiled testing dependencies.',
+                stack: ['Bash / Shell', 'Kali Linux', 'APT Package Management', 'Networking tools'],
+                highlights: ['Curated security toolchain', 'Customised terminal environment', 'Dependency optimisation', 'Immediate lab readiness'],
+                liveUrl: null,
+                repoUrl: 'https://github.com/Haplee/kali-setup',
+            },
+        ],
     },
 
     skills: {
-        label: 'Skills',
-        title: 'What I can do, and where I have done it',
+        label: 'Demonstrated competencies',
+        title: 'What I can do, and where I have applied it',
         intro:
-            'Every tool comes with the place I used it. Anything I have only met in a syllabus is not on this list.',
+            'Every tool is anchored to the real-world environment or project where it was put to work. Anything not verified in production or an authentic lab does not appear on this list.',
         groups: [
             {
                 category: 'Systems and servers',
                 items: [
-                    { name: 'Linux (Debian, Ubuntu)', where: 'ResolveCore server and daily environment on WSL2' },
-                    { name: 'Windows Server', where: 'Active Directory, GPO, DNS, DHCP and IIS in the ASIR lab' },
-                    { name: 'Nginx · PHP-FPM', where: 'Web server behind ResolveCore' },
-                    { name: 'MariaDB · MySQL · PostgreSQL', where: 'ResolveCore database and ASIR coursework' },
-                    { name: 'Docker', where: 'Deploying ResolveCore to the VPS' },
-                    { name: 'VirtualBox', where: 'Network and server labs throughout ASIR' },
+                    { name: 'Linux (Debian, Ubuntu, Kali)', where: 'ResolveCore VPS server, security audit environments, and daily WSL2' },
+                    { name: 'Windows Server & Windows 11', where: 'Active Directory, GPO, DNS, DHCP, and IIS in ASIR labs; support scripts' },
+                    { name: 'Nginx · PHP-FPM', where: 'Production web server and reverse proxy setup for ResolveCore' },
+                    { name: 'MariaDB · PostgreSQL · MySQL', where: 'Databases behind ResolveCore, Bot-Recordatorio, and ASIR coursework' },
+                    { name: 'Docker & docker-compose', where: 'Containerised and reproducible VPS deployment on Debian' },
+                    { name: 'VirtualBox & Virtualization', where: 'Network topology labs and test virtual machines throughout ASIR' },
                 ],
             },
             {
-                category: 'Networks and installation',
+                category: 'Networks and physical infrastructure',
                 items: [
-                    { name: 'MikroTik · Cisco', where: 'Switches and WiFi on client sites during my placement' },
-                    { name: 'TCP/IP, VLAN, DNS, DHCP', where: 'Network configuration on client sites and in the lab' },
-                    { name: 'Cat6 structured cabling', where: 'Full installations on client sites during my placement' },
-                    { name: 'Hikvision CCTV', where: 'Cameras with remote access, installed and configured on site' },
-                    { name: 'Alarm systems', where: 'Installation and maintenance during my placement' },
+                    { name: 'MikroTik · Cisco', where: 'Switches and WiFi access points on live client sites during placement' },
+                    { name: 'TCP/IP, VLAN, DNS, DHCP', where: 'Subnetting and routing configuration in client sites and lab environments' },
+                    { name: 'Cat6 structured cabling', where: 'Full physical cabling runs and patch panel termination during placement' },
+                    { name: 'Hikvision CCTV', where: 'Remote-accessible IP cameras and NVR units installed on client sites' },
+                    { name: 'Alarm systems', where: 'Installation, wiring, and routine maintenance during placement at Ingenia Market' },
                 ],
             },
             {
                 category: 'Automation and development',
                 items: [
-                    { name: 'Bash', where: 'ResolveCore diagnostics and server scripting' },
-                    { name: 'PowerShell', where: 'Diagnostics on Windows clients in ResolveCore' },
-                    { name: 'Python', where: 'Cross-platform scripts and REST API work' },
-                    { name: 'Git', where: 'Every project; branches, merges and conflict resolution' },
-                    { name: 'React · TypeScript', where: 'This site and GymLog' },
+                    { name: 'Bash / POSIX Shell', where: 'ResolveCore diagnostics, AceleraMac daemon, and server maintenance scripts' },
+                    { name: 'PowerShell', where: 'OmniRoute-Installer, AutoDriver-Updater, and Windows diagnostic tooling' },
+                    { name: 'Python', where: 'ResolveCore analytics routines, cross-platform scripts, and REST API consumers' },
+                    { name: 'TypeScript · React 19', where: 'GymLog (offline-first PWA), Bot-Recordatorio, and this portfolio' },
+                    { name: 'Git & GitHub', where: 'Version control, branch workflows, and CI/CD pipelines across all projects' },
                 ],
             },
         ],
@@ -137,29 +271,30 @@ export const en: Dict = {
             {
                 date: '2026',
                 title: 'Placement at Ingenia Market · Chiclana',
-                role: 'Support and installations',
+                role: 'Support and network installations',
                 body:
-                    'Three months on client sites. Cat6 structured cabling end to end, switch and WiFi configuration with MikroTik and Cisco, Hikvision CCTV with remote access, and alarm systems. Plus first-line support on site, which is where you learn to explain a technical problem to someone who just wants their computer working again.',
+                    'Three months working on client premises. Cat6 structured cabling end to end, switch and WiFi configuration with MikroTik and Cisco, Hikvision CCTV with remote access, and security alarm systems. Also handled in-person incident resolution directly alongside end users.',
             },
             {
                 date: '2026',
                 title: 'ResolveCore',
-                role: 'Final degree project',
-                body: 'Full-cycle IT support platform on my own VPS. Covered in detail above.',
+                role: 'Final degree project · ASIR',
+                body:
+                    'Comprehensive full-cycle IT support platform on an IONOS Debian VPS, featuring cross-platform automated diagnostics, MantisBT integration, and multi-feed CVE scanning.',
             },
             {
                 date: '2026',
                 title: 'Higher Technician in ASIR',
-                role: 'Vocational training — qualified',
+                role: 'Vocational training — Qualified',
                 body:
-                    'Network Systems Administration. Operating systems, networking, servers, databases, virtualisation and security.',
+                    'Network Systems Administration. Operating systems, network engineering, servers, relational databases, virtualisation, and cybersecurity.',
             },
             {
                 date: 'Now',
-                title: 'Looking for a first role',
-                role: 'Systems, networks or IT support',
+                title: 'Seeking professional opportunities',
+                role: 'Systems, networking, or IT support',
                 body:
-                    'Available across Cádiz province and remotely. English B1 in progress. Still building things in the meantime.',
+                    'Immediately available across Cádiz province and remotely. English B1 in progress. Actively engineering and shipping production tools.',
             },
         ],
     },
@@ -168,24 +303,24 @@ export const en: Dict = {
         label: 'Contact',
         title: 'Let’s talk',
         intro:
-            'If you are looking for someone for systems, networks or support, message me on LinkedIn or by email. I reply within 24 hours.',
-        cvName: 'CV',
-        cvNote: 'Full version, one page',
+            'If you are seeking a professional for systems administration, networking, infrastructure, or IT support, reach out via LinkedIn or email. I respond promptly.',
+        cvName: 'Curriculum Vitae',
+        cvNote: 'Full version on one page',
         emailAria: 'Send an email to Fran Vidal',
         profileAria: (name: string) => `Fran Vidal’s ${name} profile (opens in a new tab)`,
         newTab: '(opens in a new tab)',
 
-        whereLabel: 'Where I am',
+        whereLabel: 'Availability & location',
         base: 'Barbate, Cádiz',
-        radiusNote: 'I travel across Cádiz province — the circle marks roughly 60 km from Barbate.',
-        remoteNote: 'For remote work, no limit.',
-        mapAria: 'Map of Cádiz province showing Barbate and the travel radius',
+        radiusNote: 'On-site travel across Cádiz province (the circle marks ~60 km radius from Barbate).',
+        remoteNote: 'For remote roles, full availability with no geographic restrictions.',
+        mapAria: 'Map of Cádiz province showing Barbate and travel radius',
         osmAria: 'View Barbate on OpenStreetMap (opens in a new tab)',
     },
 
     footer: {
         rights: (year: number) => `© ${year} Fran Vidal`,
-        colophon: 'Built with React, TypeScript and Three.js. The sky in the header is the one over Barbate.',
-        source: 'Source code',
+        colophon: 'Built with React 19, TypeScript and Three.js. The header sky renders the celestial dome over Barbate.',
+        source: 'Source code on GitHub',
     },
 };

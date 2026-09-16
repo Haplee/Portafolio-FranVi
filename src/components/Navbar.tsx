@@ -4,14 +4,10 @@ import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useLang, type Lang } from '@/i18n/LangProvider';
 import { cn } from '@/lib/utils';
 
-// Cuatro entradas, una por sección. Antes el nav enlazaba 8 de 11 secciones y
-// tres eran inalcanzables; ahora la lista de secciones y la lista del nav son
-// literalmente la misma, así que ese desajuste no puede volver.
+// Cuatro entradas principales, una por cada sección de la página.
+// Lista canónica compartida entre navegación y scrollspy.
 const SECTIONS = ['work', 'skills', 'path', 'contact'] as const;
 
-// Referencia estable: `useScrollSpy` la usa como dependencia de su efecto, y
-// un array nuevo en cada render volvería a montar el listener de scroll en
-// cada evento de scroll.
 const SECTION_IDS: string[] = [...SECTIONS];
 
 const LANGS: Lang[] = ['es', 'en'];
@@ -42,7 +38,7 @@ export default function Navbar() {
                         onClick={() => setLang(l)}
                         aria-pressed={lang === l}
                         className={cn(
-                            'font-mono text-fine uppercase tracking-widest transition-colors',
+                            'font-mono text-fine uppercase tracking-widest transition-colors cursor-pointer',
                             lang === l ? 'text-accent' : 'text-fg-mute hover:text-fg'
                         )}
                     >
@@ -59,7 +55,7 @@ export default function Navbar() {
             href={`#${id}`}
             aria-current={active === id ? 'true' : undefined}
             className={cn(
-                'font-mono text-fine tracking-wide transition-colors border-b',
+                'font-mono text-fine tracking-wide transition-colors border-b py-0.5 whitespace-nowrap',
                 active === id
                     ? 'text-accent border-accent'
                     : 'text-fg-dim border-transparent hover:text-fg'
@@ -69,16 +65,15 @@ export default function Navbar() {
         </a>
     ));
 
-    // En móvil la barra vive abajo, al alcance del pulgar, y no compite con el
-    // titular de la apertura.
+    // En móvil la barra vive abajo, al alcance del pulgar, con scroll horizontal si es necesario
     if (isMobile) {
         return (
             <>
                 <a href="#main" className="skip-link font-mono text-fine">{t.nav.skipToContent}</a>
-                <header className="fixed bottom-0 inset-x-0 z-50 bg-ink-900/95 border-t border-line backdrop-blur-none">
-                    <nav className="flex items-center justify-between px-5 py-3">
-                        <div className="flex items-center gap-4">{links}</div>
-                        {langToggle}
+                <header className="fixed bottom-0 inset-x-0 z-50 bg-ink-900 border-t border-line">
+                    <nav className="flex items-center justify-between px-4 py-2.5 gap-3 overflow-x-auto">
+                        <div className="flex items-center gap-3 shrink-0">{links}</div>
+                        <div className="shrink-0">{langToggle}</div>
                     </nav>
                 </header>
             </>
@@ -91,12 +86,12 @@ export default function Navbar() {
             <header
                 className={cn(
                     'fixed top-0 inset-x-0 z-50 transition-colors duration-300',
-                    scrolled ? 'bg-ink-900/92 border-b border-line' : 'bg-transparent border-b border-transparent'
+                    scrolled ? 'bg-ink-900/95 border-b border-line' : 'bg-transparent border-b border-transparent'
                 )}
             >
                 <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between gap-8">
                     {/* El nombre solo aparece cuando el titular de la apertura
-                        ya no está en pantalla: mientras se ve, repetirlo sobra. */}
+                        ya no está en pantalla */}
                     <a
                         href="#top"
                         className={cn(
@@ -106,7 +101,7 @@ export default function Navbar() {
                     >
                         Fran Vidal
                     </a>
-                    <div className="flex items-center gap-7">
+                    <div className="flex items-center gap-6">
                         {links}
                         <span aria-hidden="true" className="w-px h-3.5 bg-line-strong" />
                         {langToggle}
