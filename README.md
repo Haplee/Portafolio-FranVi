@@ -2,7 +2,7 @@
 
 Portafolio de una sola página construido con **React 19 + Vite + Tailwind CSS 4**.
 
-Sitio en producción: <https://haplee.github.io/Portafolio-FranVi/>
+Sitio en producción: <https://franvi.runs-on.dev/>
 
 ## Cómo está pensado
 
