@@ -21,6 +21,7 @@ export const es = {
             'Técnico Superior en ASIR. Diseñé y desplegué ResolveCore —plataforma de soporte IT de ciclo completo sobre un VPS Debian propio— y mantengo utilidades de sistemas, aplicaciones PWA offline-first y scripts de automatización en producción.',
         ctaWork: 'Ver proyectos',
         ctaContact: 'Escribirme',
+        discipline: 'SYSADMIN · DEV',
         creds: ['Técnico Superior en ASIR', 'Inglés B1 en curso'],
         portraitAlt: 'Retrato de Fran Vidal',
         specs: [
@@ -112,6 +113,9 @@ export const es = {
 
         repoCta: 'Ver código de ResolveCore',
         newTab: '(abre en una pestaña nueva)',
+        projectCode: 'CASO 01 · CICLO COMPLETO DE SOPORTE',
+        projectsLabel: 'PROYECTOS',
+        stackLabel: 'Stack técnico',
 
         // Catálogo de otros proyectos profesionales completados
         catalogueLabel: 'Catálogo de ingeniería',
@@ -269,6 +273,7 @@ export const es = {
     path: {
         label: 'Trayectoria',
         title: 'De dónde vengo',
+        currentStatus: 'Estado actual: Abierto a oportunidades en sistemas, redes y soporte IT',
         items: [
             {
                 date: '2026',
@@ -308,6 +313,7 @@ export const es = {
             'Si buscas un profesional para administración de sistemas, redes, infraestructuras o soporte IT, contáctame por LinkedIn o correo electrónico. Respondo con prontitud.',
         cvName: 'Currículum Vitae',
         cvNote: 'Versión completa en una página',
+        cvLabel: 'Currículum',
         emailAria: 'Enviar un correo a Fran Vidal',
         profileAria: (name: string) => `Perfil de ${name} de Fran Vidal (abre en una pestaña nueva)`,
         newTab: '(abre en una pestaña nueva)',
@@ -318,11 +324,33 @@ export const es = {
         remoteNote: 'Para trabajo en remoto, disponibilidad completa sin límite geográfico.',
         mapAria: 'Mapa de la provincia de Cádiz con Barbate y el radio de desplazamiento',
         osmAria: 'Ver Barbate en OpenStreetMap (abre en una pestaña nueva)',
+        mapLinkLabel: 'Ver en OpenStreetMap',
+
+        channelsLabel: 'Canales directos',
+        coordinatesLabel: 'Coordenadas',
+        radiusVisual: 'Radio de desplazamiento aprox. 60 km desde Barbate',
+        availabilityLabel: 'Disponibilidad',
+        emailLabel: 'Email',
+        linkedinLabel: 'LinkedIn',
+        githubLabel: 'GitHub',
+        cvFormat: 'HTML',
+        emailAddress: 'fvidalmateo@gmail.com',
+        availability: {
+            immediate: 'Incorporación inmediata',
+            local: 'Provincia de Cádiz (presencial)',
+            remote: 'Remoto (sin límite geográfico)',
+        },
+    },
+
+    closing: {
+        ctaTitle: '¿Hablamos?',
+        ctaBody: 'Si buscas a alguien para administración de sistemas, redes, infraestructura o soporte IT, escríbeme. Respondo con prontitud.',
+        ctaButton: 'Escribirme',
     },
 
     footer: {
         rights: (year: number) => `© ${year} Fran Vidal`,
-        colophon: 'Construido con React 19, TypeScript y Three.js. El cielo del encabezado reproduce la bóveda de Barbate.',
+        colophon: 'Construido con React 19, TypeScript y Motion. Fuentes autoalojadas: Sora + IBM Plex Mono.',
         source: 'Código fuente en GitHub',
     },
 };

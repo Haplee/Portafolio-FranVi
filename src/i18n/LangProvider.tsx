@@ -9,7 +9,7 @@ const DICTS: Record<Lang, Dict> = { es, en };
 // Meta traducidas: se actualizan al vuelo al cambiar de idioma.
 // Describen lo que hay en la página —el proyecto y el puesto que se busca—
 // en lugar del stack con el que está hecho el portafolio: quien lee esto en
-// una vista previa de LinkedIn no está contratando a Three.js.
+// una vista previa de LinkedIn no está contratando a Motion.
 const META: Record<Lang, { description: string; og: string; twitter: string }> = {
     es: {
         description:

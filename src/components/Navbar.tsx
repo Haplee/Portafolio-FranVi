@@ -4,12 +4,8 @@ import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useLang, type Lang } from '@/i18n/LangProvider';
 import { cn } from '@/lib/utils';
 
-// Cuatro entradas principales, una por cada sección de la página.
-// Lista canónica compartida entre navegación y scrollspy.
 const SECTIONS = ['work', 'skills', 'path', 'contact'] as const;
-
 const SECTION_IDS: string[] = [...SECTIONS];
-
 const LANGS: Lang[] = ['es', 'en'];
 
 export default function Navbar() {
@@ -18,11 +14,9 @@ export default function Navbar() {
     const active = useScrollSpy(SECTION_IDS);
     const [scrolled, setScrolled] = useState(false);
 
-    // El nav es transparente sobre la apertura (el cielo se ve entero) y se
-    // asienta sobre fondo sólido en cuanto empieza el documento.
     useEffect(() => {
         if (isMobile) return;
-        const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
+        const onScroll = () => setScrolled(window.scrollY > 24);
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
@@ -53,7 +47,7 @@ export default function Navbar() {
         <a
             key={id}
             href={`#${id}`}
-            aria-current={active === id ? 'true' : undefined}
+            aria-current={active === id ? 'location' : undefined}
             className={cn(
                 'font-mono text-fine tracking-wide transition-colors border-b py-0.5 whitespace-nowrap',
                 active === id
@@ -65,13 +59,12 @@ export default function Navbar() {
         </a>
     ));
 
-    // En móvil la barra vive abajo, al alcance del pulgar, con scroll horizontal si es necesario
     if (isMobile) {
         return (
             <>
                 <a href="#main" className="skip-link font-mono text-fine">{t.nav.skipToContent}</a>
                 <header className="fixed bottom-0 inset-x-0 z-50 bg-ink-900 border-t border-line">
-                    <nav className="flex items-center justify-between px-4 py-2.5 gap-3 overflow-x-auto">
+                    <nav className="flex items-center justify-between px-4 py-2.5 gap-3 overflow-x-auto" aria-label={t.nav.work}>
                         <div className="flex items-center gap-3 shrink-0">{links}</div>
                         <div className="shrink-0">{langToggle}</div>
                     </nav>
@@ -89,9 +82,7 @@ export default function Navbar() {
                     scrolled ? 'bg-ink-900/95 border-b border-line' : 'bg-transparent border-b border-transparent'
                 )}
             >
-                <nav className="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between gap-8">
-                    {/* El nombre solo aparece cuando el titular de la apertura
-                        ya no está en pantalla */}
+                <nav className="mx-auto max-w-6xl px-6 h-14 flex items-center justify-between gap-8" aria-label={t.nav.work}>
                     <a
                         href="#top"
                         className={cn(

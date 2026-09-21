@@ -1,20 +1,19 @@
 import type { Dict } from './es';
 
-// English dictionary. Must implement `Dict` in full — `es.ts` is the source of
-// truth for the shape. Proper nouns, tech names and locations are preserved.
 export const en: Dict = {
     nav: {
         work: 'Projects',
         skills: 'Skills',
         path: 'Background',
         contact: 'Contact',
-        switchTo: 'Cambiar a español',
+        switchTo: 'Switch to Spanish',
         skipToContent: 'Skip to content',
     },
 
     hero: {
         location: 'Barbate, Cádiz · available across the province and remotely',
         role: 'Systems and network administrator',
+        discipline: 'SYSADMIN · DEV',
         lead:
             'Qualified Higher Technician in ASIR (Network Systems Administration). I engineered and deployed ResolveCore —a full-cycle IT support platform on my own Debian VPS— and actively maintain systems utilities, offline-first PWAs, and production automation scripts.',
         ctaWork: 'View projects',
@@ -34,15 +33,12 @@ export const en: Dict = {
         sectionTitle: 'What I have built, and with what criteria',
         sectionIntro:
             'A unified view of my engineering work: from the design and deployment of the central case study (ResolveCore) to production utilities, offline-first web apps, and virtualized network labs.',
-
-        // Featured Case Study #01: ResolveCore
         featuredBadge: 'Featured project · ASIR final degree',
         title: 'ResolveCore',
         oneLiner:
             'An end-to-end platform where a user requests assistance and a technician diagnoses and resolves the incident without leaving the system.',
         problem:
-            'In a small organisation, technical support often scatters across calls, emails, and the memory of whoever fixed it last time. Without traceability, time is lost and identical faults are investigated from scratch repeatedly. ResolveCore closes that loop: every incident enters through a unified portal, gets prioritised and assigned to a technician, is diagnosed on the user’s machine, and concludes with a structured report archived for future reference.',
-
+            'In a small organisation, technical support often scatters across calls, emails, and the memory of whoever fixed it last time. Without traceability, time is lost and identical faults are investigated from scratch repeatedly. ResolveCore closes that loop: every incident enters through a unified portal, gets prioritised and assigned to a technician, is diagnosed on the user\'s machine, and concludes with a structured report archived for future reference.',
         flowLabel: 'The interactive support loop',
         flowInstruction: 'Select a phase to inspect its technical implementation:',
         flow: [
@@ -61,7 +57,7 @@ export const en: Dict = {
             {
                 step: 'Remote session',
                 summary: 'Assisted remote session',
-                desc: 'Assisted remote connection into the user’s workstation launched directly from the ticket.',
+                desc: 'Assisted remote connection into the user\'s workstation launched directly from the ticket.',
                 detail: 'Technicians initialize remote sessions (AnyDesk / RDP) with a single click right from the ticket dashboard.',
             },
             {
@@ -77,7 +73,6 @@ export const en: Dict = {
                 detail: 'Output logs and applied fixes are committed directly into the ticket record, enabling rapid resolution for recurring faults.',
             },
         ],
-
         infraLabel: 'Infrastructure specification',
         infra: [
             { k: 'Server', v: 'IONOS VPS · Debian Linux' },
@@ -88,7 +83,6 @@ export const en: Dict = {
             { k: 'Remote', v: 'AnyDesk / RDP' },
             { k: 'Diagnostics', v: 'PowerShell · Bash · Python' },
         ],
-
         decisionsLabel: 'Architectural decisions',
         decisions: [
             {
@@ -107,11 +101,10 @@ export const en: Dict = {
                     'Native PowerShell for Windows endpoints, Bash for Linux servers, and Python for shared analytical routines. This separation avoids requiring heavy runtime installations on user workstations when the goal is to resolve an issue promptly.',
             },
         ],
-
         repoCta: 'View ResolveCore code',
         newTab: '(opens in a new tab)',
-
-        // Other completed engineering projects
+        projectCode: 'CASE 01 · FULL SUPPORT LIFECYCLE',
+        projectsLabel: 'PROJECTS',
         catalogueLabel: 'Engineering catalogue',
         catalogueTitle: 'Other finished systems utilities and applications',
         catalogueIntro:
@@ -124,6 +117,7 @@ export const en: Dict = {
         },
         viewRepo: 'GitHub repository',
         viewLive: 'View live deployment',
+        stackLabel: 'Technical stack',
         otherItems: [
             {
                 id: 'gymlog',
@@ -267,6 +261,7 @@ export const en: Dict = {
     path: {
         label: 'Background',
         title: 'Where I come from',
+        currentStatus: 'Current status: open to opportunities in systems, networking, and IT support',
         items: [
             {
                 date: '2026',
@@ -301,26 +296,47 @@ export const en: Dict = {
 
     contact: {
         label: 'Contact',
-        title: 'Let’s talk',
+        title: 'Let\'s talk',
         intro:
             'If you are seeking a professional for systems administration, networking, infrastructure, or IT support, reach out via LinkedIn or email. I respond promptly.',
         cvName: 'Curriculum Vitae',
         cvNote: 'Full version on one page',
+        cvLabel: 'Curriculum Vitae',
         emailAria: 'Send an email to Fran Vidal',
-        profileAria: (name: string) => `Fran Vidal’s ${name} profile (opens in a new tab)`,
+        profileAria: (name: string) => `Fran Vidal's ${name} profile (opens in a new tab)`,
         newTab: '(opens in a new tab)',
-
         whereLabel: 'Availability & location',
         base: 'Barbate, Cádiz',
         radiusNote: 'On-site travel across Cádiz province (the circle marks ~60 km radius from Barbate).',
         remoteNote: 'For remote roles, full availability with no geographic restrictions.',
         mapAria: 'Map of Cádiz province showing Barbate and travel radius',
         osmAria: 'View Barbate on OpenStreetMap (opens in a new tab)',
+        mapLinkLabel: 'View on OpenStreetMap',
+        channelsLabel: 'Direct channels',
+        coordinatesLabel: 'Coordinates',
+        radiusVisual: 'Approx. 60 km travel radius from Barbate',
+        availabilityLabel: 'Availability',
+        emailLabel: 'Email',
+        linkedinLabel: 'LinkedIn',
+        githubLabel: 'GitHub',
+        cvFormat: 'HTML',
+        emailAddress: 'fvidalmateo@gmail.com',
+        availability: {
+            immediate: 'Immediate availability',
+            local: 'Cádiz province (on-site)',
+            remote: 'Remote (no geographic limit)',
+        },
+    },
+
+    closing: {
+        ctaTitle: 'Let\'s talk?',
+        ctaBody: 'If you need someone for systems administration, networking, infrastructure, or IT support, write to me. I respond promptly.',
+        ctaButton: 'Write to me',
     },
 
     footer: {
         rights: (year: number) => `© ${year} Fran Vidal`,
-        colophon: 'Built with React 19, TypeScript and Three.js. The header sky renders the celestial dome over Barbate.',
+        colophon: 'Built with React 19, TypeScript and Motion. Self-hosted fonts: Sora + IBM Plex Mono.',
         source: 'Source code on GitHub',
     },
 };
