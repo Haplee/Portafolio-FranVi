@@ -40,3 +40,16 @@
 - Barra de progreso de scroll visible
 - Botón "volver arriba" funcional
 - Dos constelaciones doradas en el hero (Scorpius + ♋ Cáncer)
+
+## [2026-09-29] — Mejora integral técnica y visual (Sysadmin / Cyber-Editorial)
+
+### Qué se hizo
+- **Terminal interactiva bash en el Hero** (`InteractiveTerminal.tsx`): consola completa interactiva con comandos reales (`neofetch`, `status`, `ping`, `skills`, `cat bio`, `contact`, `clear`), historial con flechas y botones de acceso rápido táctiles.
+- **Barra de telemetría en vivo** (`LiveTelemetry.tsx`): indicador de estado de servidores VPS Debian 12, disponibilidad y latencia ICMP dinámica.
+- **Flujo de arquitectura interactivo en ResolveCore**: selector interactivo y sincronizado de fases con visor de diagnóstico en tiempo real (`DiagnosticPreview.tsx`) con payloads JSON, scripts Bash, túneles AnyDesk/RDP y scripts PowerShell (`Invoke-SysDiagnostic.ps1`).
+- **Catálogo de proyectos con búsqueda y drawer técnico** (`ProjectCatalog.tsx`): buscador instantáneo en vivo, filtrado de categorías y desplegable de arquitectura con botón de copiado de comando `git clone`.
+- **Competencias con contexto real** (`Competencies.tsx`): etiquetas automáticas de entorno (`PRODUCCIÓN`, `FCT / CLIENTES`, `ASIR / LAB`, `DESARROLLO`) y filtrado por categoría.
+- **Contacto enriquecido** (`Contact.tsx`): botón de copiado de email con feedback visual inmediato y generador/descargador automático de vCard (`Fran_Vidal_ASIR.vcf`).
+- **ScrollProgressBar y BackToTop** con porcentaje dinámico de avance.
+- **Traducciones bilingües actualizadas al 100%** en `es.ts` y `en.ts`.
+

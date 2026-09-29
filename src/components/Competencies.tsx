@@ -1,39 +1,87 @@
+import { useState } from 'react';
 import { useLang } from '@/i18n/LangProvider';
-import SectionHeader from '@/components/ui/SectionHeader';
-
-interface SkillItem {
-    name: string;
-    where: string;
-}
+import { cn } from '@/lib/utils';
 
 export default function Competencies() {
     const { t } = useLang();
+    const [selectedGroup, setSelectedGroup] = useState<number | 'all'>('all');
+
+    const getContextBadge = (where: string) => {
+        const lower = where.toLowerCase();
+        if (lower.includes('vps') || lower.includes('producción') || lower.includes('production')) {
+            return { label: 'PRODUCCIÓN', color: 'badge-emerald' };
+        }
+        if (lower.includes('fct') || lower.includes('clientes') || lower.includes('ingenia')) {
+            return { label: 'FCT / CLIENTES', color: 'badge-amber' };
+        }
+        if (lower.includes('asir') || lower.includes('laboratorio')) {
+            return { label: 'ASIR / LAB', color: 'badge-cyan' };
+        }
+        return { label: 'DESARROLLO', color: 'badge-violet' };
+    };
+
+    const visibleGroups = t.skills.groups.filter((_, index) =>
+        selectedGroup === 'all' || selectedGroup === index
+    );
 
     return (
-        <section id="skills" className="section-normal" aria-labelledby="skills-title">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                <SectionHeader
-                    id="skills-title"
-                    label={t.skills.label}
-                    title={t.skills.title}
-                    subtitle={t.skills.intro}
-                />
-
-                <div className="mt-10 space-y-10">
-                    {t.skills.groups.map((g) => (
-                        <div key={g.category} className="border-t border-line pt-6">
-                            <h3 className="font-mono text-fine text-accent uppercase tracking-wider mb-4">
-                                {g.category}
-                            </h3>
-                            <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                                {g.items.map((item: SkillItem) => (
-                                    <div key={item.name} className="border border-line p-4 bg-ink-700/30 hover:border-line-strong transition-colors group">
-                                        <dt className="font-mono text-fine text-fg mb-2">{item.name}</dt>
-                                        <dd className="m-0 text-fine text-fg-dim leading-relaxed">{item.where}</dd>
-                                    </div>
-                                ))}
-                            </dl>
+        <section id="skills" className="skills-section" aria-labelledby="skills-title">
+            <div className="page-shell">
+                <div className="section-heading-row">
+                    <div>
+                        <div className="section-kicker">
+                            <span>03</span>
+                            <span>{t.skills.label}</span>
                         </div>
+                        <h2 id="skills-title" className="section-title">{t.skills.title}</h2>
+                    </div>
+                    <p>{t.skills.intro}</p>
+                </div>
+
+                <div className="skills-filter-tabs" role="group" aria-label="Filtrar competencias">
+                    <button
+                        type="button"
+                        onClick={() => setSelectedGroup('all')}
+                        className={cn('filter-button', selectedGroup === 'all' && 'is-active')}
+                    >
+                        Todas
+                    </button>
+                    {t.skills.groups.map((group, index) => (
+                        <button
+                            key={group.category}
+                            type="button"
+                            onClick={() => setSelectedGroup(index)}
+                            className={cn('filter-button', selectedGroup === index && 'is-active')}
+                        >
+                            {group.category}
+                        </button>
+                    ))}
+                </div>
+
+                <div className="skills-grid">
+                    {visibleGroups.map((group, index) => (
+                        <section className="skill-group" key={group.category}>
+                            <div className="skill-group-head">
+                                <span>{String(index + 1).padStart(2, '0')}</span>
+                                <h3>{group.category}</h3>
+                            </div>
+                            <div className="skill-list">
+                                {group.items.map((item) => {
+                                    const badge = getContextBadge(item.where);
+                                    return (
+                                        <div className="skill-row" key={item.name}>
+                                            <div className="skill-row-title">
+                                                <strong>{item.name}</strong>
+                                                <span className={cn('skill-context-badge', badge.color)}>
+                                                    {badge.label}
+                                                </span>
+                                            </div>
+                                            <span className="skill-row-where">{item.where}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </section>
                     ))}
                 </div>
             </div>

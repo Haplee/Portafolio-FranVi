@@ -13,6 +13,38 @@ export const es = {
         skipToContent: 'Saltar al contenido',
     },
 
+    telemetry: {
+        server: 'VPS IONOS · Debian 12',
+        status: 'Servicios en línea',
+        availability: 'Incorporación inmediata',
+        location: 'Barbate (Cádiz) & Remoto',
+        ping: '22ms',
+    },
+
+    terminal: {
+        tabTerminal: 'Terminal interactiva',
+        tabProfile: 'Ficha técnica',
+        welcome: 'Fran Vidal [Debian GNU/Linux 12 (bookworm) x86_64]',
+        helpHint: 'Escribe un comando o pulsa un acceso rápido:',
+        quickRun: 'Comandos rápidos:',
+        bioText: 'Técnico Superior en ASIR. Administrador de sistemas, redes y soporte IT con experiencia real en cableado estructurado Cat6, MikroTik, Cisco, Docker, Linux Debian y despliegue en VPS.',
+        commands: {
+            help: 'Muestra los comandos disponibles',
+            neofetch: 'Información del sistema y especificaciones técnicas',
+            status: 'Comprobación de estado de servicios y disponibilidad',
+            ping: 'Simula un test de latencia ICMP a ResolveCore',
+            skills: 'Lista de competencias clave de sistemas y redes',
+            bio: 'Perfil y visión profesional resumida',
+            contact: 'Enlaces directos de contacto',
+            clear: 'Limpia la pantalla',
+        },
+    },
+
+    ui: {
+        backToTop: 'Volver arriba',
+        scrollProgress: 'Progreso de lectura',
+    },
+
     hero: {
         location: 'Barbate, Cádiz · disponible en la provincia y en remoto',
         role: 'Administrador de sistemas y redes',
@@ -128,6 +160,14 @@ export const es = {
             web: 'Web y PWA',
             infra: 'Redes y Laboratorios',
         },
+        searchPlaceholder: 'Buscar por tecnología o nombre (ej: docker, powershell, react, debian)...',
+        searchEmpty: 'No se encontraron proyectos con ese criterio.',
+        clearSearch: 'Limpiar búsqueda',
+        inspectDiagnostics: 'Traza técnica y diagnósticos en tiempo real',
+        expandDetails: 'Ver arquitectura y detalles',
+        collapseDetails: 'Ocultar detalles',
+        cloneCmd: 'Copiar comando git clone',
+        copied: '¡Copiado!',
         viewRepo: 'Repositorio en GitHub',
         viewLive: 'Ver despliegue en vivo',
         otherItems: [
@@ -335,6 +375,9 @@ export const es = {
         githubLabel: 'GitHub',
         cvFormat: 'HTML',
         emailAddress: 'fvidalmateo@gmail.com',
+        copyEmail: 'Copiar email',
+        emailCopied: '¡Email copiado al portapapeles!',
+        downloadVCard: 'Descargar contacto vCard (.vcf)',
         availability: {
             immediate: 'Incorporación inmediata',
             local: 'Provincia de Cádiz (presencial)',

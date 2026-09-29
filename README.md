@@ -4,6 +4,10 @@ Portafolio de una sola página construido con **React 19 + Vite + Tailwind CSS 4
 
 Sitio en producción: <https://franvi.runs-on.dev/>
 
+## Dirección visual
+
+El portfolio usa una estética editorial oscura con acento rojo/coral. La portada prioriza identidad y claridad; ResolveCore funciona como caso de estudio; el resto de proyectos se presenta como un índice técnico editorial. No se utilizan grids de tarjetas repetitivas, mapas interactivos ni animaciones continuas.
+
 ## Cómo está pensado
 
 La página no sigue la plantilla habitual de portafolio (hero → skills → rejilla de

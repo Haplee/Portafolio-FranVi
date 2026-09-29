@@ -10,6 +10,38 @@ export const en: Dict = {
         skipToContent: 'Skip to content',
     },
 
+    telemetry: {
+        server: 'IONOS VPS · Debian 12',
+        status: 'All Systems Nominal',
+        availability: 'Immediate Availability',
+        location: 'Barbate (Cádiz) & Remote',
+        ping: '22ms',
+    },
+
+    terminal: {
+        tabTerminal: 'Interactive Terminal',
+        tabProfile: 'System Sheet',
+        welcome: 'Fran Vidal [Debian GNU/Linux 12 (bookworm) x86_64]',
+        helpHint: 'Type a command or click a quick action:',
+        quickRun: 'Quick commands:',
+        bioText: 'Higher Technician in ASIR. Systems and network administrator with hands-on experience in Cat6 structured cabling, MikroTik, Cisco, Docker, Linux Debian, and VPS deployment.',
+        commands: {
+            help: 'Show available commands',
+            neofetch: 'System specs and environment overview',
+            status: 'Service health check and availability',
+            ping: 'Simulate ICMP latency test to ResolveCore',
+            skills: 'List core systems & networking competencies',
+            bio: 'Concise background and professional focus',
+            contact: 'Direct contact links',
+            clear: 'Clear terminal screen',
+        },
+    },
+
+    ui: {
+        backToTop: 'Back to top',
+        scrollProgress: 'Reading progress',
+    },
+
     hero: {
         location: 'Barbate, Cádiz · available across the province and remotely',
         role: 'Systems and network administrator',
@@ -115,6 +147,14 @@ export const en: Dict = {
             web: 'Web & PWA',
             infra: 'Networks & Labs',
         },
+        searchPlaceholder: 'Filter by technology or name (e.g. docker, powershell, react, debian)...',
+        searchEmpty: 'No projects match your search.',
+        clearSearch: 'Clear filter',
+        inspectDiagnostics: 'Live technical diagnostics and trace logs',
+        expandDetails: 'View architecture & details',
+        collapseDetails: 'Hide details',
+        cloneCmd: 'Copy git clone command',
+        copied: 'Copied!',
         viewRepo: 'GitHub repository',
         viewLive: 'View live deployment',
         stackLabel: 'Technical stack',
@@ -321,6 +361,9 @@ export const en: Dict = {
         githubLabel: 'GitHub',
         cvFormat: 'HTML',
         emailAddress: 'fvidalmateo@gmail.com',
+        copyEmail: 'Copy email',
+        emailCopied: 'Email copied to clipboard!',
+        downloadVCard: 'Save contact vCard (.vcf)',
         availability: {
             immediate: 'Immediate availability',
             local: 'Cádiz province (on-site)',

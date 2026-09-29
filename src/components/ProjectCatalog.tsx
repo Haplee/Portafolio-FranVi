@@ -1,234 +1,250 @@
-import { useState, useRef, useEffect, type MouseEvent } from 'react';
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useLang } from '@/i18n/LangProvider';
-import SectionHeader from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 
 type ProjectCategory = 'all' | 'systems' | 'web' | 'infra';
 
 const n = (i: number) => String(i + 1).padStart(2, '0');
 
-function useReducedMotion(): boolean {
-    const [reduced, setReduced] = useState(() => {
-        if (typeof window === 'undefined') return false;
-        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    });
-    useEffect(() => {
-        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const handler = (event: MediaQueryListEvent) => setReduced(event.matches);
-        mediaQuery.addEventListener('change', handler);
-        return () => mediaQuery.removeEventListener('change', handler);
-    }, []);
-    return reduced;
-}
-
-interface TiltCardProps {
-    children: React.ReactNode;
-    className?: string;
-}
-
-function TiltCard({ children, className, ...props }: TiltCardProps) {
-    const ref = useRef<HTMLDivElement>(null);
-    const [rotateX, setRotateX] = useState(0);
-    const [rotateY, setRotateY] = useState(0);
-    const prefersReducedMotion = useReducedMotion();
-
-    function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
-        if (prefersReducedMotion || !ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const deltaX = (event.clientX - centerX) / (rect.width / 2);
-        const deltaY = (event.clientY - centerY) / (rect.height / 2);
-        setRotateY(deltaX * 3);
-        setRotateX(-deltaY * 3);
-    }
-
-    function handleMouseLeave() {
-        if (prefersReducedMotion) return;
-        setRotateX(0);
-        setRotateY(0);
-    }
-
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-                transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-                transformStyle: 'preserve-3d',
-                transition: 'transform 0.15s ease-out',
-            }}
-            className={cn('relative', className)}
-            {...props}
-        >
-            <div className="relative z-10" style={{ transform: 'translateZ(20px)' }}>
-                {children}
-            </div>
-        </motion.div>
-    );
-}
-
-interface MagneticButtonProps {
-    children: React.ReactNode;
-    className?: string;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    'aria-pressed'?: boolean | 'true' | 'false';
-    type?: 'button' | 'submit' | 'reset';
-}
-
-function MagneticButton({ children, className, onClick, 'aria-pressed': ariaPressed, type = 'button' }: MagneticButtonProps) {
-    const ref = useRef<HTMLButtonElement>(null);
-    const [translate, setTranslate] = useState({ x: 0, y: 0 });
-    const prefersReducedMotion = useReducedMotion();
-
-    function handleMouseMove(event: MouseEvent<HTMLButtonElement>) {
-        if (prefersReducedMotion || !ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const deltaX = (event.clientX - centerX) / 4;
-        const deltaY = (event.clientY - centerY) / 4;
-        setTranslate({ x: deltaX, y: deltaY });
-    }
-
-    function handleMouseLeave() {
-        if (prefersReducedMotion) return;
-        setTranslate({ x: 0, y: 0 });
-    }
-
-    return (
-        <motion.button
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
-            aria-pressed={ariaPressed}
-            type={type}
-            style={{
-                x: translate.x,
-                y: translate.y,
-            }}
-            className={cn('relative', className)}
-        >
-            <span className="relative z-10">{children}</span>
-        </motion.button>
-    );
-}
-
 export default function ProjectCatalog() {
     const { t } = useLang();
     const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
+    const [copiedProjectId, setCopiedProjectId] = useState<string | null>(null);
 
-    const filterKeys: { key: ProjectCategory; label: string }[] = [
+    const filters: { key: ProjectCategory; label: string }[] = [
         { key: 'all', label: t.work.filters.all },
         { key: 'systems', label: t.work.filters.systems },
         { key: 'web', label: t.work.filters.web },
         { key: 'infra', label: t.work.filters.infra },
     ];
 
-    const filteredProjects = t.work.otherItems.filter(
-        (item) => activeCategory === 'all' || item.category === activeCategory
-    );
+    const q = searchQuery.toLowerCase().trim();
+
+    const projects = t.work.otherItems.filter((item) => {
+        const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
+        if (!matchesCategory) return false;
+        if (!q) return true;
+        const matchesName = item.name.toLowerCase().includes(q);
+        const matchesDesc = item.desc.toLowerCase().includes(q) || item.tagline.toLowerCase().includes(q);
+        const matchesStack = item.stack.some((tech) => tech.toLowerCase().includes(q));
+        const matchesBadge = item.categoryBadge.toLowerCase().includes(q);
+        return matchesName || matchesDesc || matchesStack || matchesBadge;
+    });
+
+    const toggleExpand = (id: string) => {
+        setExpandedProjectId((prev) => (prev === id ? null : id));
+    };
+
+    const copyCloneCommand = (project: typeof t.work.otherItems[0]) => {
+        const cmd = `git clone ${project.repoUrl}.git`;
+        navigator.clipboard.writeText(cmd);
+        setCopiedProjectId(project.id);
+        setTimeout(() => setCopiedProjectId(null), 2200);
+    };
 
     return (
-        <section id="catalog" className="section-normal" aria-labelledby="catalog-title">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                <SectionHeader
-                    id="catalog-title"
-                    label={t.work.catalogueLabel}
-                    title={t.work.catalogueTitle}
-                    subtitle={t.work.catalogueIntro}
-                    badge={`${filteredProjects.length} ${t.work.projectsLabel}`}
-                />
+        <section id="catalog" className="projects-section" aria-labelledby="catalog-title">
+            <div className="page-shell">
+                <div className="section-heading-row">
+                    <div>
+                        <div className="section-kicker">
+                            <span>02</span>
+                            <span>{t.work.catalogueLabel}</span>
+                        </div>
+                        <h2 id="catalog-title" className="section-title">{t.work.catalogueTitle}</h2>
+                    </div>
+                    <p>{t.work.catalogueIntro}</p>
+                </div>
 
-                <div className="mt-5 flex flex-wrap items-center gap-2 border-b border-line pb-4" role="group" aria-label={t.work.catalogueLabel}>
-                    {filterKeys.map((f) => {
-                        const isActive = activeCategory === f.key;
-                        return (
-                            <MagneticButton
-                                key={f.key}
+                <div className="project-controls">
+                    <div className="project-filters" role="group" aria-label={t.work.catalogueLabel}>
+                        {filters.map((filter) => (
+                            <button
+                                key={filter.key}
                                 type="button"
-                                aria-pressed={isActive}
-                                onClick={() => setActiveCategory(f.key)}
-                                className={cn(
-                                    'font-mono text-fine uppercase tracking-wider px-3 py-1 border transition-colors cursor-pointer',
-                                    isActive
-                                        ? 'border-accent text-accent bg-ink-700'
-                                        : 'border-line text-fg-mute hover:text-fg hover:border-line-strong bg-transparent'
-                                )}
+                                aria-pressed={activeCategory === filter.key}
+                                onClick={() => setActiveCategory(filter.key)}
+                                className={cn('filter-button', activeCategory === filter.key && 'is-active')}
                             >
-                                {f.label}
-                            </MagneticButton>
-                        );
-                    })}
+                                {filter.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="project-search-wrap">
+                        <span className="search-icon" aria-hidden="true">⌕</span>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder={t.work.searchPlaceholder}
+                            className="project-search-input"
+                            aria-label={t.work.searchPlaceholder}
+                        />
+                        {searchQuery && (
+                            <button
+                                type="button"
+                                onClick={() => setSearchQuery('')}
+                                className="search-clear-btn"
+                                aria-label={t.work.clearSearch}
+                            >
+                                ✕
+                            </button>
+                        )}
+                    </div>
                 </div>
 
-                <div className="mt-6 space-y-8">
-                    {filteredProjects.map((p, idx) => (
-                        <TiltCard
-                            key={p.id}
-                            className="p-5 bg-ink-700/40 border border-line hover:border-line-strong transition-colors"
+                <div className="project-count-row">
+                    <span>
+                        {projects.length} {projects.length === 1 ? 'proyecto' : 'proyectos'}
+                        {searchQuery && ` filtrados por "${searchQuery}"`}
+                    </span>
+                    {searchQuery && (
+                        <button
+                            type="button"
+                            onClick={() => setSearchQuery('')}
+                            className="text-xs text-accent underline cursor-pointer"
                         >
-                            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 border-b border-line/60 pb-3">
-                                <div className="flex items-baseline gap-3">
-                                    <span className="label text-accent font-medium">
-                                        {p.categoryBadge}
-                                    </span>
-                                    <span className="font-mono text-fine text-fg-mute">
-                                        {n(idx + 1)}
-                                    </span>
-                                </div>
-                                <div className="flex items-center gap-4 text-fine font-mono sm:ml-auto">
-                                    <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="link">
-                                        {t.work.viewRepo}
-                                        <span className="sr-only"> {t.work.newTab}</span>
-                                    </a>
-                                    {p.liveUrl && (
-                                        <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="link">
-                                            {t.work.viewLive}
-                                            <span className="sr-only"> {t.work.newTab}</span>
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_280px]">
-                                <div>
-                                    <h3 className="text-s0 font-medium text-fg">{p.name}</h3>
-                                    <p className="mt-1 text-fine text-fg-dim font-light leading-relaxed">
-                                        {p.tagline}
-                                    </p>
-                                    <p className="mt-3 text-fine text-fg-mute leading-relaxed">{p.desc}</p>
-
-                                    <ul className="mt-3 space-y-1 list-none m-0 p-0 border-t border-line/40 pt-2">
-                                        {p.highlights.slice(0, 3).map((h) => (
-                                            <li key={h} className="font-mono text-fine text-fg-mute flex items-center gap-1.5">
-                                                <span className="text-accent select-none" aria-hidden="true">›</span>
-                                                <span>{h}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="border-l border-line/40 pl-4 sm:border-l-0 sm:border-t sm:border-line/40 sm:pt-4 sm:pl-0">
-                                    <p className="label mb-2">{t.work.stackLabel}</p>
-                                    <div className="flex flex-wrap gap-1.5 mb-3">
-                                        {p.stack.map((tech) => (
-                                            <span
-                                                key={tech}
-                                                className="font-mono text-fine px-2 py-0.5 bg-ink-800 text-fg-dim border border-line"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </TiltCard>
-                    ))}
+                            {t.work.clearSearch}
+                        </button>
+                    )}
                 </div>
+
+                {projects.length === 0 ? (
+                    <div className="project-empty-state">
+                        <p>{t.work.searchEmpty}</p>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setSearchQuery('');
+                                setActiveCategory('all');
+                            }}
+                            className="button button-quiet mt-4"
+                        >
+                            {t.work.clearSearch}
+                        </button>
+                    </div>
+                ) : (
+                    <div className="project-list">
+                        {projects.map((project, index) => {
+                            const isExpanded = expandedProjectId === project.id;
+                            const isCopied = copiedProjectId === project.id;
+
+                            return (
+                                <article className={cn('project-row', isExpanded && 'is-open')} key={project.id}>
+                                    <div className="project-index">{n(index)}</div>
+
+                                    <div className="project-identity">
+                                        <span className="project-category">{project.categoryBadge}</span>
+                                        <h3>{project.name}</h3>
+                                        <p>{project.tagline}</p>
+                                    </div>
+
+                                    <div className="project-details">
+                                        <p>{project.desc}</p>
+                                        <div className="project-stack">
+                                            {project.stack.map((tech) => (
+                                                <button
+                                                    key={tech}
+                                                    type="button"
+                                                    onClick={() => setSearchQuery(tech)}
+                                                    className="project-tech-tag"
+                                                    title={`Filtrar por ${tech}`}
+                                                >
+                                                    {tech}
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        <div className="project-highlights">
+                                            {project.highlights.slice(0, 3).map((highlight) => (
+                                                <span key={highlight}>↳ {highlight}</span>
+                                            ))}
+                                        </div>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleExpand(project.id)}
+                                            className="project-expand-btn"
+                                            aria-expanded={isExpanded}
+                                        >
+                                            <span>{isExpanded ? t.work.collapseDetails : t.work.expandDetails}</span>
+                                            <span aria-hidden="true" className={cn('expand-arrow', isExpanded && 'is-rotated')}>
+                                                ↓
+                                            </span>
+                                        </button>
+
+                                        <AnimatePresence>
+                                            {isExpanded && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.25 }}
+                                                    className="project-drawer"
+                                                >
+                                                    <div className="project-drawer-content">
+                                                        <div className="font-mono text-xs text-accent font-semibold mb-2">
+                                                            {project.categoryBadge} · Highlights técnicos:
+                                                        </div>
+                                                        <ul className="project-drawer-list">
+                                                            {project.highlights.map((h) => (
+                                                                <li key={h}>
+                                                                    <span className="text-emerald-400 mr-2">✓</span>
+                                                                    {h}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+
+                                                        <div className="project-clone-row">
+                                                            <div className="clone-code font-mono text-[11px] text-fg-dim">
+                                                                git clone {project.repoUrl}.git
+                                                            </div>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => copyCloneCommand(project)}
+                                                                className="clone-copy-btn"
+                                                            >
+                                                                {isCopied ? t.work.copied : t.work.cloneCmd}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+
+                                    <div className="project-links">
+                                        <a
+                                            href={project.repoUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="project-action-link"
+                                        >
+                                            <span>GitHub</span>
+                                            <span aria-hidden="true">↗</span>
+                                        </a>
+                                        {project.liveUrl && (
+                                            <a
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="project-action-link is-live"
+                                            >
+                                                <span className="live-dot" aria-hidden="true" />
+                                                <span>Live</span>
+                                                <span aria-hidden="true">↗</span>
+                                            </a>
+                                        )}
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </section>
     );

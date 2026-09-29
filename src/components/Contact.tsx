@@ -1,116 +1,130 @@
+import { useState } from 'react';
 import { useLang } from '@/i18n/LangProvider';
-import SectionHeader from '@/components/ui/SectionHeader';
 
 const LINKEDIN = 'https://linkedin.com/in/franciscovidal-mateo-2b8a4a238';
 const GITHUB = 'https://github.com/Haplee';
 
 export default function Contact() {
     const { t } = useLang();
+    const [copied, setCopied] = useState(false);
+
+    const cvUrl = `${import.meta.env.BASE_URL}assets/docs/CV-FranVidal.html`.replace(/\/\//g, '/');
+
+    const handleCopyEmail = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(t.contact.emailAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2400);
+    };
+
+    const handleDownloadVCard = () => {
+        const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:Vidal Mateo;Francisco;;;
+FN:Francisco Vidal Mateo (Fran Vidal)
+ORG:Administrador de Sistemas y Redes (ASIR)
+TITLE:Administrador de Sistemas y Redes / DevOps
+EMAIL;TYPE=INTERNET,PREF:${t.contact.emailAddress}
+URL:https://franvi.runs-on.dev/
+URL;TYPE=GitHub:${GITHUB}
+URL;TYPE=LinkedIn:${LINKEDIN}
+ADR;TYPE=HOME:;;Barbate;Cádiz;;Spain
+NOTE:Técnico Superior en ASIR. Especializado en Linux, Docker, MikroTik, Windows Server y soporte IT.
+END:VCARD`;
+
+        const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'Fran_Vidal_ASIR.vcf');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
 
     return (
-        <section id="contact" className="section-normal" aria-labelledby="contact-title">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                <SectionHeader
-                    id="contact-title"
-                    label={t.contact.whereLabel}
-                    title={t.contact.title}
-                    subtitle={t.contact.intro}
-                />
+        <section id="contact" className="contact-section" aria-labelledby="contact-title">
+            <div className="page-shell">
+                <div className="contact-kicker">
+                    <span>05</span>
+                    <span>{t.contact.label}</span>
+                </div>
 
-                <div className="mt-6 grid gap-8 lg:grid-cols-12">
-                    <div className="lg:col-span-7">
-                        <div className="space-y-6">
-                            <div>
-                                <p className="label mb-2">{t.contact.whereLabel}</p>
-                                <p className="text-s1 font-medium text-fg">{t.contact.base}</p>
-                                <p className="mt-2 text-fine text-fg-dim leading-relaxed">{t.contact.radiusNote}</p>
-                                <p className="mt-1 text-fine text-fg-mute font-mono">{t.contact.remoteNote}</p>
-                            </div>
+                <div className="contact-layout">
+                    <div>
+                        <p className="eyebrow accent">{t.contact.whereLabel}</p>
+                        <h2 id="contact-title" className="contact-title">{t.contact.title}</h2>
+                        <p className="contact-intro">{t.contact.intro}</p>
 
-                            <div className="border-t border-line pt-6">
-                                <p className="label mb-4">{t.contact.channelsLabel}</p>
-                                <dl className="space-y-3 font-mono text-fine">
-                                    <div className="flex items-center justify-between py-2 border-b border-line/60">
-                                        <dt className="text-fg-mute">{t.contact.emailLabel}</dt>
-                                        <dd className="m-0 text-right">
-                                            <a href={`mailto:${t.contact.emailAddress}`} aria-label={t.contact.emailAria} className="link text-fg hover:text-accent">
-                                                {t.contact.emailAddress}
-                                            </a>
-                                        </dd>
-                                    </div>
-                                    <div className="flex items-center justify-between py-2 border-b border-line/60">
-                                        <dt className="text-fg-mute">{t.contact.linkedinLabel}</dt>
-                                        <dd className="m-0 text-right">
-                                            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label={t.contact.profileAria(t.contact.linkedinLabel)} className="link text-fg hover:text-accent">
-                                                franciscovidal ↗
-                                            </a>
-                                        </dd>
-                                    </div>
-                                    <div className="flex items-center justify-between py-2 border-b border-line/60">
-                                        <dt className="text-fg-mute">{t.contact.githubLabel}</dt>
-                                        <dd className="m-0 text-right">
-                                            <a href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label={t.contact.profileAria(t.contact.githubLabel)} className="link text-fg hover:text-accent">
-                                                @Haplee ↗
-                                            </a>
-                                        </dd>
-                                    </div>
-                                </dl>
-                            </div>
-
-                            <div className="border-t border-line pt-6">
-                                <p className="label mb-4">{t.contact.cvLabel}</p>
-                                <a
-                                    href="/assets/docs/CV-FranVidal.html"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 font-mono text-fine text-fg hover:text-accent transition-colors border border-line px-4 py-2 hover:border-accent"
-                                >
-                                    <span>{t.contact.cvName}</span>
-                                    <span className="text-fg-mute">{t.contact.cvFormat} ↗</span>
-                                </a>
-                            </div>
+                        <div className="contact-vcard-wrap mt-8">
+                            <button
+                                type="button"
+                                onClick={handleDownloadVCard}
+                                className="button button-quiet"
+                            >
+                                <span className="text-accent" aria-hidden="true">📇</span>
+                                <span>{t.contact.downloadVCard}</span>
+                            </button>
                         </div>
                     </div>
 
-                    <div className="lg:col-span-5">
-                        <div className="p-5 bg-ink-800 border border-line sticky top-24">
-                            <div className="space-y-4 text-center sm:text-left">
-                                <p className="label">{t.contact.coordinatesLabel}</p>
-                                <p className="font-mono text-fine text-fg-mute">
-                                    36.19° N, 5.92° W
-                                </p>
-                                <p className="text-fine text-fg-dim">{t.contact.radiusVisual}</p>
+                    <div className="contact-direct">
+                        <div className="contact-email-row">
+                            <a
+                                href={`mailto:${t.contact.emailAddress}`}
+                                className="contact-email"
+                                aria-label={`Escribir a ${t.contact.emailAddress}`}
+                            >
+                                <span>{t.contact.emailAddress}</span>
+                                <span aria-hidden="true">↗</span>
+                            </a>
+                            <button
+                                type="button"
+                                onClick={handleCopyEmail}
+                                className="contact-copy-btn"
+                                title={t.contact.copyEmail}
+                                aria-label={t.contact.copyEmail}
+                            >
+                                {copied ? (
+                                    <span className="text-emerald-400 font-semibold">{t.contact.emailCopied}</span>
+                                ) : (
+                                    <span>{t.contact.copyEmail} 📋</span>
+                                )}
+                            </button>
+                        </div>
 
-                                <div className="border-t border-line pt-4 mt-4">
-                                    <p className="label mb-3">{t.contact.availabilityLabel}</p>
-                                    <ul className="space-y-2 text-fine text-fg-dim font-mono">
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-accent">●</span>
-                                            <span>{t.contact.availability.immediate}</span>
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-accent">●</span>
-                                            <span>{t.contact.availability.local}</span>
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="text-accent">●</span>
-                                            <span>{t.contact.availability.remote}</span>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div className="contact-links">
+                            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+                            <a href={GITHUB} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                            <a
+                                href={cvUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {t.contact.cvName} ↗
+                            </a>
+                        </div>
 
-                                <a
-                                    href="https://www.openstreetmap.org/?mlat=36.1903&mlon=-5.9215#map=10/36.1903/-5.9215"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={t.contact.osmAria}
-                                    className="mt-4 inline-flex items-center gap-2 font-mono text-fine text-fg-mute hover:text-accent transition-colors"
-                                >
-                                    <span aria-hidden="true">↗</span>
-                                    <span>{t.contact.mapLinkLabel}</span>
-                                </a>
+                        <div className="availability">
+                            <div>
+                                <span>{t.contact.base}</span>
+                                <span>{t.contact.radiusNote}</span>
+                            </div>
+                            <div>
+                                <span className="text-emerald-400 font-medium">{t.contact.availability.immediate}</span>
+                                <span>{t.contact.availability.remote}</span>
                             </div>
                         </div>
+
+                        <a
+                            href="https://www.openstreetmap.org/?mlat=36.1903&mlon=-5.9215#map=10/36.1903/-5.9215"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="contact-location-link"
+                        >
+                            {t.contact.mapLinkLabel} ↗
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,75 +1,124 @@
-import SectionHeader from '@/components/ui/SectionHeader';
-import SupportStepper from '@/components/ui/SupportStepper';
+import { useState } from 'react';
 import { useLang } from '@/i18n/LangProvider';
+import SupportStepper from '@/components/ui/SupportStepper';
+import { cn } from '@/lib/utils';
 
 const REPO_RESOLVECORE = 'https://github.com/Haplee/ResolvCore';
-const n = (i: number) => String(i + 1).padStart(2, '0');
+
+const FLOW_NODES = [
+    { label: 'REQUEST', index: 0 },
+    { label: 'TICKET', index: 1 },
+    { label: 'REMOTE', index: 2 },
+    { label: 'DIAGNOSTICS', index: 3 },
+    { label: 'REPORT', index: 4 },
+];
 
 export default function ResolveCore() {
     const { t } = useLang();
+    const [activeStep, setActiveStep] = useState(0);
 
     return (
-        <section id="work" className="section-major" aria-labelledby="work-title">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                <SectionHeader
-                    id="work-title"
-                    label={t.work.featuredBadge}
-                    title={t.work.title}
-                    subtitle={t.work.oneLiner}
-                    badge={t.work.projectCode}
-                />
+        <section id="work" className="feature-section" aria-labelledby="work-title">
+            <div className="page-shell">
+                <div className="section-kicker">
+                    <span>01</span>
+                    <span>{t.work.featuredBadge}</span>
+                    <span className="section-kicker-line" />
+                    <span>CASE STUDY</span>
+                </div>
 
-                <p className="mt-4 measure text-s1 text-fg-dim font-light">
-                    {t.work.problem}
-                </p>
+                <div className="feature-heading">
+                    <div>
+                        <p className="eyebrow accent">{t.work.projectCode}</p>
+                        <h2 id="work-title" className="feature-title">{t.work.title}</h2>
+                    </div>
+                    <p className="feature-summary">{t.work.oneLiner}</p>
+                </div>
 
-                <SupportStepper flow={t.work.flow} labels={{
-                    flowLabel: t.work.flowLabel,
-                    flowInstruction: t.work.flowInstruction
-                }} />
-
-                <div className="mt-8 grid gap-8 lg:grid-cols-12 border-t border-line pt-6">
-                    <div className="lg:col-span-7">
-                        <p className="label mb-4">{t.work.decisionsLabel}</p>
-                        <ol className="list-none m-0 p-0 space-y-6">
-                            {t.work.decisions.map((d, i) => (
-                                <li key={d.title} className="grid grid-cols-[2rem_1fr] gap-2">
-                                    <span className="font-mono text-fine text-accent pt-1">{n(i)}</span>
-                                    <div>
-                                        <h4 className="text-s0 font-medium text-fg">{d.title}</h4>
-                                        <p className="mt-1.5 text-fine text-fg-dim leading-relaxed">{d.body}</p>
+                <div className="feature-layout">
+                    <div className="feature-main">
+                        <div className="architecture-board" aria-label="Diagrama interactivo de flujo de soporte">
+                            <div className="architecture-label">
+                                <span>SUPPORT / SYSTEM FLOW</span>
+                                <span className="text-[10px] text-accent font-mono">Fase activa: {FLOW_NODES[activeStep]?.label}</span>
+                            </div>
+                            <div className="architecture-track">
+                                {FLOW_NODES.map((node, i) => (
+                                    <div key={node.label} className="flex items-center gap-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => setActiveStep(node.index)}
+                                            className={cn(
+                                                'arch-node-btn',
+                                                activeStep === node.index && 'is-active'
+                                            )}
+                                            aria-label={`Ver fase ${node.label}`}
+                                        >
+                                            <span className="arch-node-dot" />
+                                            {node.label}
+                                        </button>
+                                        {i < FLOW_NODES.length - 1 && (
+                                            <i className={cn('arch-node-connector', activeStep > i && 'is-passed')} />
+                                        )}
                                     </div>
-                                </li>
-                            ))}
-                        </ol>
-                    </div>
-
-                    <div className="lg:col-span-5">
-                        <p className="label mb-4">{t.work.infraLabel}</p>
-                        <dl className="m-0 border-t border-line">
-                            {t.work.infra.map((row) => (
-                                <div
-                                    key={row.k}
-                                    className="flex items-baseline justify-between gap-4 border-b border-line py-2"
-                                >
-                                    <dt className="font-mono text-fine text-fg-mute shrink-0">{row.k}</dt>
-                                    <dd className="m-0 font-mono text-fine text-fg text-right">{row.v}</dd>
-                                </div>
-                            ))}
-                        </dl>
-
-                        <div className="mt-5">
-                            <a
-                                href={REPO_RESOLVECORE}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="link text-fine font-mono inline-block"
-                            >
-                                {t.work.repoCta}
-                                <span className="sr-only"> {t.work.newTab}</span>
-                            </a>
+                                ))}
+                            </div>
+                            <div className="architecture-foot">
+                                <span>DEBIAN VPS</span>
+                                <span>DOCKER</span>
+                                <span>NGINX</span>
+                                <span>MARIADB</span>
+                            </div>
                         </div>
+
+                        <p className="feature-problem">{t.work.problem}</p>
+
+                        <SupportStepper
+                            flow={t.work.flow}
+                            activeStep={activeStep}
+                            onStepChange={setActiveStep}
+                            labels={{
+                                flowLabel: t.work.flowLabel,
+                                flowInstruction: t.work.flowInstruction,
+                            }}
+                        />
                     </div>
+
+                    <aside className="feature-aside">
+                        <div className="feature-aside-block">
+                            <span className="eyebrow">STACK</span>
+                            <dl>
+                                {t.work.infra.map((row) => (
+                                    <div key={row.k}>
+                                        <dt>{row.k}</dt>
+                                        <dd>{row.v}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+
+                        <div className="feature-aside-block">
+                            <span className="eyebrow">{t.work.decisionsLabel}</span>
+                            <ol>
+                                {t.work.decisions.map((decision) => (
+                                    <li key={decision.title}>
+                                        <strong>{decision.title}</strong>
+                                        <p>{decision.body}</p>
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+
+                        <a
+                            href={REPO_RESOLVECORE}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="feature-repo-link"
+                        >
+                            <span>{t.work.repoCta}</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </aside>
                 </div>
             </div>
         </section>
