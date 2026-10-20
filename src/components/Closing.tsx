@@ -8,10 +8,10 @@ export default function Closing() {
             <div className="page-shell">
                 <div className="closing-line">
                     <span>FRANVI</span>
-                    <span aria-hidden="true">—</span>
+                    <span aria-hidden="true">·</span>
                     <span>IT / SYSTEMS / WEB</span>
                 </div>
-                <h2 id="closing-title">{t.closing.ctaTitle}</h2>
+                <p id="closing-title" className="closing-title">{t.closing.ctaTitle}</p>
                 <a href={`mailto:${t.contact.emailAddress}`} className="closing-link">
                     {t.closing.ctaButton} ↗
                 </a>

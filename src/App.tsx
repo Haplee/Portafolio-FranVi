@@ -15,7 +15,7 @@ export default function App() {
     return (
         <MotionConfig reducedMotion="user">
             <ScrollProgressBar />
-            <div id="top" className="min-h-screen bg-ink-900 text-fg">
+            <div id="top" className="min-h-screen bg-canvas text-fg">
                 <Navbar />
                 <main id="main">
                     <Opening />
