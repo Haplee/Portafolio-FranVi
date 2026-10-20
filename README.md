@@ -21,21 +21,17 @@ secciones vacías, así que aquí la columna vertebral es **un proyecto contado 
 | 2 | ResolveCore | qué has construido, y con qué criterio |
 | 3 | Competencias | qué sabes hacer, anclado a dónde lo hiciste |
 | 4 | Trayectoria | de dónde vienes |
-| 5 | Contacto | cómo te escribo y hasta dónde te desplazas |
+| 5 | Catálogo | qué más has terminado, filtrable y buscable |
+| 6 | Cierre y contacto | cómo te escribo y hasta dónde te desplazas |
 
 Reglas del sistema visual, en `src/index.css`:
 
-- **Un solo acento** (oro `#d9a441`), reservado a elemento activo, dato clave y enlace.
-  Sale del color con el que el cielo 3D dibuja Cáncer.
-- **Dos voces tipográficas**: Outfit para leer, JetBrains Mono como *voz de contenido*
-  (stack, fechas, rutas) — no como adorno.
-- **Escala tipográfica de 6 pasos** (`text-fine`, `text-s0` … `text-s4`) y **escala de
-  espaciado vertical de 4** (`py-tight` … `py-major`): cada sección recibe el peso que
-  merece en lugar de que todas midan lo mismo.
+- **Un solo acento** (coral `#ff4d6d`), reservado a elemento activo, dato clave y enlace.
+- **Dos voces tipográficas**: Sora para leer, IBM Plex Mono como *voz de contenido*
+  (stack, fechas, rutas), no como adorno. Ambas se sirven desde `src/assets/fonts`.
 - **Superficies planas**: bordes de 1 px y contraste de fondo. Sin `backdrop-filter`,
   sin glass, sin glows, sin sombras de color.
-- **Nada de movimiento infinito.** Solo entrada (una vez, 12 px) y respuesta al foco o
-  al puntero. La única excepción es el cielo 3D de la apertura, que es ambiente.
+- **Movimiento medido.** Entradas cortas y respuesta al foco o al puntero, sin bucles.
   Todo se anula con `prefers-reduced-motion`.
 
 ## Stack
@@ -43,10 +39,8 @@ Reglas del sistema visual, en `src/index.css`:
 - **React 19** + **TypeScript** (modo `strict`)
 - **Vite 7** como bundler (build a `docs/` para GitHub Pages)
 - **Tailwind CSS 4** (vía `@tailwindcss/vite`, tokens en `@theme`)
-- **Three.js** — cielo de constelaciones de la apertura (WebGL, shaders propios).
-  Chunk diferido; en móvil no se carga y se usa el fondo CSS de `StaticSky`.
-- **Leaflet** — mapa del radio de desplazamiento (CartoDB Dark Matter). Chunk diferido.
-- **Motion** — animaciones de entrada, con `reducedMotion="user"`
+- **Motion** para las transiciones del catálogo, con `reducedMotion="user"`
+- Sin Three.js, sin Leaflet y sin mapas: la apertura es CSS puro.
 
 ## Desarrollo
 
@@ -62,12 +56,15 @@ npm run lint      # ESLint
 
 ```
 src/
-  components/          Una sección por archivo: Opening, CaseStudy,
-                       Competencies, Path, Contact, Footer, Navbar
-    ui/                Piezas visuales (cielo 3D, cielo estático, mapa, Reveal)
+  components/          Una sección por archivo: Opening, ResolveCore,
+                       Competencies, Timeline, ProjectCatalog, Contact,
+                       Closing, Footer, Navbar
+    ui/                Piezas compartidas (terminal, telemetría, diagramas,
+                       botón de volver arriba)
   hooks/               useIsMobile, useScrollSpy
   i18n/                es.ts (fuente de verdad), en.ts, LangProvider
   lib/                 Utilidades (cn)
+  assets/fonts/        Sora e IBM Plex Mono, servidas en local
   index.css            Tokens del sistema visual y utilidades globales
 ```
 
@@ -82,8 +79,7 @@ selecciona `Deploy from a branch`, rama `main` y carpeta `/docs`.
 
 ## Datos externos
 
-Ninguno en tiempo de ejecución. Las tarjetas de repositorio en vivo se retiraron: la
+Sin datos en tiempo de ejecución. Las tarjetas de repositorio en vivo se retiraron: la
 API pública de GitHub (60 peticiones/hora por IP) devolvía descripciones solo en
-español y contadores a 0, y el texto curado que hay ahora dice más. Las únicas
-peticiones a terceros son las fuentes de Google Fonts, el avatar de GitHub y las
-teselas del mapa.
+español y contadores a 0, y el texto curado que hay ahora dice más. La única petición externa es el avatar de
+GitHub; las fuentes se sirven desde el propio dominio.

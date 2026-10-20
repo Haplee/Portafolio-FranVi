@@ -45,13 +45,13 @@ export default function Opening() {
                                 <span>{t.hero.specs[1].v}</span>
                             </div>
                             <div>
-                                <span className="hero-meta-label">{t.hero.specs[3].k}</span>
-                                <span>{t.hero.specs[3].v}</span>
+                                <span className="hero-meta-label">{t.hero.specs[2].k}</span>
+                                <span>{t.hero.specs[2].v}</span>
                             </div>
                         </div>
                     </div>
 
-                    <aside className="hero-art" aria-label="Perfil de Fran Vidal">
+                    <aside className="hero-art" aria-label={t.hero.portraitAlt}>
                         <div className="hero-art-grid" aria-hidden="true" />
                         <div className="hero-art-top">
                             <span>01 — PROFILE</span>

@@ -58,7 +58,7 @@ export default function Navbar() {
                     isMobile && 'is-mobile'
                 )}
             >
-                <nav className="nav-inner" aria-label="Primary navigation">
+                <nav className="nav-inner" aria-label={t.nav.primaryNav}>
                     <a href="#top" className="brand-mark" aria-label="Fran Vidal, inicio">
                         <span className="brand-dot" aria-hidden="true" />
                         <span>FV</span>
